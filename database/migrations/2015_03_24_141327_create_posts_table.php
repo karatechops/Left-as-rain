@@ -19,6 +19,7 @@ class CreatePostsTable extends Migration {
             $table->text('description');
             $table->string('album');
             $table->string('song_path');
+            $table->string('soundcloud_url');
             $table->string('author');
             $table->string('cover');
             $table->string('slug');

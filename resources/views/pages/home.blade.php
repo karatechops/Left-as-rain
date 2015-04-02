@@ -16,7 +16,4 @@
             @endforeach
         </div>
     </div>
-    <!--<div class="side-bar">
-        Side bar
-    </div>-->
 @stop

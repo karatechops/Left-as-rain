@@ -9,7 +9,7 @@ class PostsTableSeeder extends Seeder {
 
     public function run()
     {
-        $data = PostOld::all();
+        $data = DB::table('playlist')->get();
         Eloquent::unguard();
         foreach($data as $dataSingle) {
             Post::create([

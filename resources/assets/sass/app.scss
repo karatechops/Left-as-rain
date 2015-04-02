@@ -3,7 +3,6 @@
 html { -webkit-font-smoothing: antialiased; }
 body { padding: 65px 0 50px 0; color: #eee; background-color: #000; font-family: $copy-font-stack; font-size:14px; letter-spacing: 0.2143rem;}
 h1 { font-size: 1.071rem; margin-bottom:0.3571rem}
-i { color: #181818; padding:5px;}
 
 nav {
   position: fixed;
@@ -94,7 +93,7 @@ article{
 #player {
   display: block;
   width: 100%;
-  height: 50px;
+  height: 70px;
   position: fixed;
   bottom: 0;
   left: 0;
@@ -102,6 +101,23 @@ article{
   vertical-align: middle;
   border-top: #262626 solid 1px;
   @include transition(background-color, 0.2s, ease-in-out);
+  margin-right:-320px;
+  .container {
+    .controls {
+      .title {
+        p {
+          margin-top: 20px;
+          font-size: 25px;
+        }
+      }
+      .next-btn {
+          i {
+            margin-top:20px;
+            color: $dark-grey;
+          }
+      }
+    }
+  }
 }
 
 #player:hover{

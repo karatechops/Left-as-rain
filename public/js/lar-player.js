@@ -66,7 +66,22 @@ function getLatest(amount, sendToPlayer)
  */
 function getSong(id, sendToPlayer)
 {
-    console.log('id: '+id);
+    $.ajax({
+        url: '/getsong/'+id,
+        dataType: 'json',
+        success: function(data) {
+            if (sendToPlayer) sendSongToPlayer(data, true);
+        },
+        error: function(xhr, textStatus, thrownError) {
+            alert('Something went to wrong.Please Try again later...');
+        }
+    }).done(function() {
+        //finished
+    });
+}
+
+function getNextSong()
+{
     $.ajax({
         url: '/getsong/'+id,
         dataType: 'json',
@@ -93,7 +108,13 @@ function sendSongToPlayer(song, playSongNow)
 
     Song.currSound = soundManager.createSound({
         id: 'track'+song.id,
-        url: 'http://leftasrain.com/musica/'+song.song_path+'.mp3'
+        url: 'http://leftasrain.com/musica/'+song.song_path+'.mp3',
+        onfinish: function()
+        {
+            console.log(
+                'finished'
+            )
+        }
     });
 
     Song.currPost = song;

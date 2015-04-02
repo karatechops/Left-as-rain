@@ -42,4 +42,15 @@ class SongController extends Controller {
         return ($songs);
     }
 
+    /**
+     * Next song in list.
+     *
+     * @param int $id
+     * @return Response
+     */
+    public function getNextSong($id) {
+        $song = Post::where('id', '>', $id)->first();
+        return($song);
+    }
+
 }

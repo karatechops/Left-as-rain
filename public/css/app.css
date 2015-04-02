@@ -19,10 +19,6 @@ h1 {
   font-size: 1.071rem;
   margin-bottom: 0.3571rem; }
 
-i {
-  color: #181818;
-  padding: 5px; }
-
 nav {
   position: fixed;
   z-index: 50;
@@ -90,14 +86,21 @@ article {
 #player {
   display: block;
   width: 100%;
-  height: 50px;
+  height: 70px;
   position: fixed;
   bottom: 0;
   left: 0;
   background-color: #121212;
   vertical-align: middle;
   border-top: #262626 solid 1px;
-  transition: background-color 0.2s ease-in-out; }
+  transition: background-color 0.2s ease-in-out;
+  margin-right: -320px; }
+  #player .container .controls .title p {
+    margin-top: 20px;
+    font-size: 25px; }
+  #player .container .controls .next-btn i {
+    margin-top: 20px;
+    color: #777; }
 
 #player:hover {
   background-color: #0ff; }
