@@ -9,7 +9,7 @@ soundManager.setup({
     onready: function()
     {
         addListeners();
-        //var firstSong = getLatest(1, true);
+        getLatest(1, false);
     }
 });
 
@@ -18,7 +18,7 @@ soundManager.setup({
  */
 function addListeners()
 {
-    $('#player').click(function()
+    $('.title').click(function()
     {
         if (Song.currSound.paused == false && Song.currSound.playState === 1)
         {
@@ -42,6 +42,11 @@ function addListeners()
             getSong(songId, true);
         }
     });
+
+    $('.next-btn').click(function()
+    {
+        getNextSong(Song.currPost.id, true);
+    });
 }
 
 /*
@@ -53,7 +58,7 @@ function getLatest(amount, sendToPlayer)
         url: '/getsong/latest/'+amount,
         dataType: 'json',
         success: function(data) {
-            if (sendToPlayer) sendSongToPlayer(data[0]);
+            sendToPlayer ? sendSongToPlayer(data[0], true) : sendSongToPlayer(data[0], false);
         },
         error: function(xhr, textStatus, thrownError) {
             alert('Something went to wrong.Please Try again later...');
@@ -80,10 +85,11 @@ function getSong(id, sendToPlayer)
     });
 }
 
-function getNextSong()
+function getNextSong(id, sendToPlayer)
 {
+    console.log('get next song');
     $.ajax({
-        url: '/getsong/'+id,
+        url: '/getnextsong/'+id,
         dataType: 'json',
         success: function(data) {
             if (sendToPlayer) sendSongToPlayer(data, true);
@@ -111,13 +117,12 @@ function sendSongToPlayer(song, playSongNow)
         url: 'http://leftasrain.com/musica/'+song.song_path+'.mp3',
         onfinish: function()
         {
-            console.log(
-                'finished'
-            )
+            getNextSong(song.id, true);
         }
     });
 
     Song.currPost = song;
+    setPlayerInfo(song.title, song.cover);
 
     if (playSongNow) playSong();
 }
@@ -141,4 +146,11 @@ function resumeSong()
 function highlight(id){
     if ('currPost' in PreviousSong) $('#'+PreviousSong.currPost.id).removeClass('currently-playing');
     $('#'+id).addClass('currently-playing');
+}
+
+function setPlayerInfo(title, cover){
+    $('#song-title').text(title);
+    $('.cover').css('background-image', 'url(http://www.leftasrain.com/img/covers/'+cover+')');
+    console.log(title);
+    console.log(cover);
 }

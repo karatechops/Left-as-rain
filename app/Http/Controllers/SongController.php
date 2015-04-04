@@ -38,7 +38,7 @@ class SongController extends Controller {
      */
     public function getLatest($amount)
     {
-        $songs = Post::orderBy('created_at', 'desc')->get()->take($amount);
+        $songs = Post::orderBy('title', 'desc')->get()->take($amount);
         return ($songs);
     }
 

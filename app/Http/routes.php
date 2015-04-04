@@ -15,6 +15,7 @@ Route::get('/', 'PageController@index');
 
 Route::get('/getsong/latest/{amount}', 'SongController@getLatest');
 Route::get('/getsong/{id}', 'SongController@getSong');
+Route::get('/getnextsong/{id}', 'SongController@getNextSong');
 
 Route::controllers([
 	'auth' => 'Auth\AuthController',

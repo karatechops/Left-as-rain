@@ -2195,12 +2195,28 @@ article {
   border-top: #262626 solid 1px;
   transition: background-color 0.2s ease-in-out;
   margin-right: -320px; }
-  #player .container .controls .title p {
-    margin-top: 20px;
-    font-size: 25px; }
-  #player .container .controls .next-btn i {
-    margin-top: 20px;
-    color: #777; }
+  #player .container .controls .cover {
+    display: block;
+    min-width: 20%;
+    background: top no-repeat;
+    height: 70px;
+    overflow: hidden;
+    background-size: auto 100%;
+    margin-right: 2%; }
+    #player .container .controls .cover img {
+      width: 100%;
+      height: auto; }
+  #player .container .controls .title {
+    width: 68%; }
+    #player .container .controls .title p {
+      margin-top: 20px;
+      font-size: 25px; }
+  #player .container .controls .next-btn {
+    width: 10%;
+    height: 100%; }
+    #player .container .controls .next-btn i {
+      margin-top: 20px;
+      color: #777; }
 
 #player:hover {
   background-color: #0ff; }
