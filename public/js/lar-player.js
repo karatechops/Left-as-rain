@@ -1,33 +1,12 @@
-var Song = {
-    currPost: [],
-    currSound: soundManager.createSound
-};
-var PreviousSong = {};
 Playlist = {
-    /**
-     * Set copy and image in player.
-     * @param title
-     * @param cover
-     */
-    setPlayerInfo: function(title, cover){
-        $('#song-title').text(title);
-        $('.cover').css('background-image', 'url(http://www.leftasrain.com/img/covers/'+escape(cover)+')');
-    },
-    /**
-     * Add highlight to selected track.
-     * @param id
-     */
+
+    currPost: [],
+
     highlight: function(id){
-        if (Player.playedSongs.length > 1) $('#'+Player.playedSongs[Player.playedSongs.length-1].id).removeClass('currently-playing');
+        if (Player.playedSongs.length > 1) $('#'+Player.getPreviousSong()).removeClass('currently-playing');
         $('#'+id).addClass('currently-playing');
     },
 
-    /**
-     * Get latest tracks in playlist.
-     *
-     * @param amount
-     * @param sendToPlayer
-     */
     getLatest: function(amount, sendToPlayer)
     {
         $.ajax({
@@ -41,64 +20,81 @@ Playlist = {
             }
         })
     }
+
 }
 
 Player = {
+
+    init: function() {
+        soundManager.setup({
+            url: '../swf/',
+            flashVersion: 9,
+            onready: function()
+            {
+                addListeners();
+                Playlist.getLatest(1, false);
+            }
+        });
+    },
+
     playedSongs:[],
+    currSound: soundManager.createSound,
+
+    /*Song: {
+        currPost: [],
+        currSound: soundManager.createSound
+    },*/
 
     playSong: function()
     {
-        Song.currSound.play();
-        Playlist.highlight(Song.currPost.id);
+        this.currSound.play();
+        Playlist.highlight(Playlist.currPost.id);
     },
 
     pauseSong: function()
     {
-        Song.currSound.pause();
+        this.currSound.pause();
     },
 
     resumeSong: function()
     {
-        Song.currSound.resume();
+        this.currSound.resume();
+    },
+
+    getPreviousSong: function()
+    {
+        var previousSong = Player.playedSongs[1].id;
+        return (previousSong);
+    },
+
+    setPlayerInfo: function(title, cover){
+        $('#song-title').text(title);
+        $('.cover').css('background-image', 'url(http://www.leftasrain.com/img/covers/'+escape(cover)+')');
     }
 }
 
-/**
- * Setup player
- */
-soundManager.setup({
-    url: '../swf/',
-    flashVersion: 9,
-    onready: function()
-    {
-        addListeners();
-        Playlist.getLatest(1, false);
-    }
-});
+Player.init();
 
-/*
- * Setup listeners
- */
 function addListeners()
-{
+    {
     $('.title').click(function()
     {
-        if (Song.currSound.paused == false && Song.currSound.playState === 1)
+        if (Player.currSound.paused == false && Player.currSound.playState === 1)
         {
             Player.pauseSong();
         }
-        else if (Song.currSound.paused == true && Song.currSound.playState === 1)
+        else if (Player.currSound.paused == true && Player.currSound.playState === 1)
         {
             Player.resumeSong();
         }
 
-        if (Song.currSound.playState == 0) Player.playSong();
+        if (Player.currSound.playState == 0) Player.playSong();
 
     });
 
     $('article').click(function()
     {
-        if (Song.currPost.id != $(this).attr('id') || Song.currSound.playState === 0) {
+        if (Playlist.currPost.id != $(this).attr('id') || Player.currSound.playState === 0) {
             var songId = $(this).attr('id');
             getSong(songId, true);
         }
@@ -106,21 +102,16 @@ function addListeners()
 
     $('.next-btn').click(function()
     {
-        getNextSong(Song.currPost.id, true);
+        getNextSong(Playlist.currPost.id, true);
     });
 
     $('.side-bar').click(function(){
-        console.log(Song.currSound.duration);
-        soundManager.setPosition(Song.currSound.id,Song.currSound.duration-2500);
+        console.log(Player.currSound.duration);
+        //soundManager.setPosition(Player.currSound.id,currSound.duration-2500);
     });
 }
 
-/**
- * Get song by ID, send to player to play now.
- *
- * @param id
- * @param sendToPlayer
- */
+
 function getSong(id, sendToPlayer)
 {
     $.ajax({
@@ -137,12 +128,6 @@ function getSong(id, sendToPlayer)
     });
 }
 
-/**
- * Get next song in playlist
- *
- * @param id
- * @param sendToPlayer
- */
 function getNextSong(id, sendToPlayer)
 {
     $.ajax({
@@ -160,20 +145,13 @@ function getNextSong(id, sendToPlayer)
 }
 
 
-/**
- * Send the requested song to the player.
- *
- * @param song
- * @param playSongNow
- */
 function sendSongToPlayer(song, playSongNow)
 {
     if (Player.playedSongs.length >= 1) {
-        soundManager.unload('track'+Song.currPost.id);
-        PreviousSong.currPost = Song.currPost;
+        soundManager.unload('track'+Playlist.currPost.id);
     }
 
-    Song.currSound = soundManager.createSound({
+    Player.currSound = soundManager.createSound({
         id: 'track'+song.id,
         url: 'http://leftasrain.com/musica/'+song.song_path+'.mp3',
         onfinish: function()
@@ -182,9 +160,9 @@ function sendSongToPlayer(song, playSongNow)
         }
     });
 
-    Song.currPost = song;
-    if (playSongNow) Player.playedSongs.unshift(Song.currPost);
+    Playlist.currPost = song;
+    if (playSongNow) Player.playedSongs.unshift(Playlist.currPost);
     Player.setPlayerInfo(song.title, song.cover);
 
-    if (playSongNow) playSong();
+    if (playSongNow) Player.playSong();
 }
