@@ -38,7 +38,7 @@ class SongController extends Controller {
      */
     public function getLatest($amount)
     {
-        $songs = Post::orderBy('title', 'desc')->get()->take($amount);
+        $songs = Post::orderBy('id', 'desc')->get()->take($amount);
         return ($songs);
     }
 
@@ -49,7 +49,7 @@ class SongController extends Controller {
      * @return Response
      */
     public function getNextSong($id) {
-        $song = Post::where('id', '>', $id)->first();
+        $song = Post::where('id', '<', $id)->max('id');
         return($song);
     }
 

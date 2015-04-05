@@ -1,15 +1,78 @@
-var PreviousSong = new Object();
-var Song = new Object();
-Song.currPost = [];
-Song.currSound = soundManager.createSound;
+var Song = {
+    currPost: [],
+    currSound: soundManager.createSound
+};
+var PreviousSong = {};
+Playlist = {
+    /**
+     * Set copy and image in player.
+     * @param title
+     * @param cover
+     */
+    setPlayerInfo: function(title, cover){
+        $('#song-title').text(title);
+        $('.cover').css('background-image', 'url(http://www.leftasrain.com/img/covers/'+escape(cover)+')');
+    },
+    /**
+     * Add highlight to selected track.
+     * @param id
+     */
+    highlight: function(id){
+        if (Player.playedSongs.length > 1) $('#'+Player.playedSongs[Player.playedSongs.length-1].id).removeClass('currently-playing');
+        $('#'+id).addClass('currently-playing');
+    },
 
+    /**
+     * Get latest tracks in playlist.
+     *
+     * @param amount
+     * @param sendToPlayer
+     */
+    getLatest: function(amount, sendToPlayer)
+    {
+        $.ajax({
+            url: '/getsong/latest/'+amount,
+            dataType: 'json',
+            success: function(data) {
+                sendToPlayer ? sendSongToPlayer(data[0], true) : sendSongToPlayer(data[0], false);
+            },
+            error: function(xhr, textStatus, thrownError) {
+                alert('Something went to wrong.Please Try again later...');
+            }
+        })
+    }
+}
+
+Player = {
+    playedSongs:[],
+
+    playSong: function()
+    {
+        Song.currSound.play();
+        Playlist.highlight(Song.currPost.id);
+    },
+
+    pauseSong: function()
+    {
+        Song.currSound.pause();
+    },
+
+    resumeSong: function()
+    {
+        Song.currSound.resume();
+    }
+}
+
+/**
+ * Setup player
+ */
 soundManager.setup({
     url: '../swf/',
     flashVersion: 9,
     onready: function()
     {
         addListeners();
-        getLatest(1, false);
+        Playlist.getLatest(1, false);
     }
 });
 
@@ -22,22 +85,20 @@ function addListeners()
     {
         if (Song.currSound.paused == false && Song.currSound.playState === 1)
         {
-            console.log('pausing song');
-            pauseSong();
+            Player.pauseSong();
         }
         else if (Song.currSound.paused == true && Song.currSound.playState === 1)
         {
-            console.log('playing song');
-            resumeSong();
+            Player.resumeSong();
         }
 
-        if (Song.currSound.playState == 0) playSong();
+        if (Song.currSound.playState == 0) Player.playSong();
 
     });
 
     $('article').click(function()
     {
-        if (Song.currPost.id != $(this).attr('id')) {
+        if (Song.currPost.id != $(this).attr('id') || Song.currSound.playState === 0) {
             var songId = $(this).attr('id');
             getSong(songId, true);
         }
@@ -47,27 +108,18 @@ function addListeners()
     {
         getNextSong(Song.currPost.id, true);
     });
+
+    $('.side-bar').click(function(){
+        console.log(Song.currSound.duration);
+        soundManager.setPosition(Song.currSound.id,Song.currSound.duration-2500);
+    });
 }
 
-/*
- * Gets latest songs
- */
-function getLatest(amount, sendToPlayer)
-{
-    $.ajax({
-        url: '/getsong/latest/'+amount,
-        dataType: 'json',
-        success: function(data) {
-            sendToPlayer ? sendSongToPlayer(data[0], true) : sendSongToPlayer(data[0], false);
-        },
-        error: function(xhr, textStatus, thrownError) {
-            alert('Something went to wrong.Please Try again later...');
-        }
-    })
-}
-
-/*
- * Gets a particular song by ID.
+/**
+ * Get song by ID, send to player to play now.
+ *
+ * @param id
+ * @param sendToPlayer
  */
 function getSong(id, sendToPlayer)
 {
@@ -85,14 +137,19 @@ function getSong(id, sendToPlayer)
     });
 }
 
+/**
+ * Get next song in playlist
+ *
+ * @param id
+ * @param sendToPlayer
+ */
 function getNextSong(id, sendToPlayer)
 {
-    console.log('get next song');
     $.ajax({
         url: '/getnextsong/'+id,
         dataType: 'json',
         success: function(data) {
-            if (sendToPlayer) sendSongToPlayer(data, true);
+            if (sendToPlayer) getSong(data, true);
         },
         error: function(xhr, textStatus, thrownError) {
             alert('Something went to wrong.Please Try again later...');
@@ -102,12 +159,16 @@ function getNextSong(id, sendToPlayer)
     });
 }
 
-/*
- * Sends a song to the player. Bool to play now.
+
+/**
+ * Send the requested song to the player.
+ *
+ * @param song
+ * @param playSongNow
  */
 function sendSongToPlayer(song, playSongNow)
 {
-    if (Song.currSound.playState === 1) {
+    if (Player.playedSongs.length >= 1) {
         soundManager.unload('track'+Song.currPost.id);
         PreviousSong.currPost = Song.currPost;
     }
@@ -122,35 +183,8 @@ function sendSongToPlayer(song, playSongNow)
     });
 
     Song.currPost = song;
-    setPlayerInfo(song.title, song.cover);
+    if (playSongNow) Player.playedSongs.unshift(Song.currPost);
+    Player.setPlayerInfo(song.title, song.cover);
 
     if (playSongNow) playSong();
-}
-
-function playSong()
-{
-    Song.currSound.play();
-    highlight(Song.currPost.id);
-}
-
-function pauseSong()
-{
-    Song.currSound.pause();
-}
-
-function resumeSong()
-{
-    Song.currSound.resume();
-}
-
-function highlight(id){
-    if ('currPost' in PreviousSong) $('#'+PreviousSong.currPost.id).removeClass('currently-playing');
-    $('#'+id).addClass('currently-playing');
-}
-
-function setPlayerInfo(title, cover){
-    $('#song-title').text(title);
-    $('.cover').css('background-image', 'url(http://www.leftasrain.com/img/covers/'+cover+')');
-    console.log(title);
-    console.log(cover);
 }

@@ -15,7 +15,7 @@ class PageController extends Controller {
 	 */
 	public function index()
 	{
-        $latestPosts = Post::orderBy('created_at', 'desc')->get()->take(10);
+        $latestPosts = Post::orderBy('id', 'desc')->get()->take(10);
         return view('pages.home', compact('latestPosts'));
 	}
 
