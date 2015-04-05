@@ -13,14 +13,35 @@ Playlist = {
             url: '/getsong/latest/'+amount,
             dataType: 'json',
             success: function(data) {
-                sendToPlayer ? sendSongToPlayer(data[0], true) : sendSongToPlayer(data[0], false);
+                sendToPlayer ? Playlist.sendSongToPlayer(data[0], true) : Playlist.sendSongToPlayer(data[0], false);
             },
             error: function(xhr, textStatus, thrownError) {
                 alert('Something went to wrong.Please Try again later...');
             }
         })
-    }
+    },
 
+    sendSongToPlayer: function(song, playSongNow)
+    {
+        if (Player.playedSongs.length >= 1) {
+            soundManager.unload('track'+Playlist.currPost.id);
+        }
+
+        Player.currSound = soundManager.createSound({
+            id: 'track'+song.id,
+            url: 'http://leftasrain.com/musica/'+song.song_path+'.mp3',
+            onfinish: function()
+            {
+                getNextSong(song.id, true);
+            }
+        });
+
+        Playlist.currPost = song;
+        if (playSongNow) Player.playedSongs.unshift(Playlist.currPost);
+        Player.setPlayerInfo(song.title, song.cover);
+
+        if (playSongNow) Player.playSong();
+    }
 }
 
 Player = {
@@ -118,7 +139,7 @@ function getSong(id, sendToPlayer)
         url: '/getsong/'+id,
         dataType: 'json',
         success: function(data) {
-            if (sendToPlayer) sendSongToPlayer(data, true);
+            if (sendToPlayer) Playlist.sendSongToPlayer(data, true);
         },
         error: function(xhr, textStatus, thrownError) {
             alert('Something went to wrong.Please Try again later...');
@@ -142,27 +163,4 @@ function getNextSong(id, sendToPlayer)
     }).done(function() {
         //finished
     });
-}
-
-
-function sendSongToPlayer(song, playSongNow)
-{
-    if (Player.playedSongs.length >= 1) {
-        soundManager.unload('track'+Playlist.currPost.id);
-    }
-
-    Player.currSound = soundManager.createSound({
-        id: 'track'+song.id,
-        url: 'http://leftasrain.com/musica/'+song.song_path+'.mp3',
-        onfinish: function()
-        {
-            getNextSong(song.id, true);
-        }
-    });
-
-    Playlist.currPost = song;
-    if (playSongNow) Player.playedSongs.unshift(Playlist.currPost);
-    Player.setPlayerInfo(song.title, song.cover);
-
-    if (playSongNow) Player.playSong();
 }
