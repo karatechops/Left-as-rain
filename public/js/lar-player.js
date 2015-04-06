@@ -32,7 +32,7 @@ Playlist = {
             url: 'http://leftasrain.com/musica/'+song.song_path+'.mp3',
             onfinish: function()
             {
-                getNextSong(song.id, true);
+                Player.getNextSong(song.id);
             }
         });
 
@@ -61,11 +61,6 @@ Player = {
     playedSongs:[],
     currSound: soundManager.createSound,
 
-    /*Song: {
-        currPost: [],
-        currSound: soundManager.createSound
-    },*/
-
     playSong: function()
     {
         this.currSound.play();
@@ -91,6 +86,38 @@ Player = {
     setPlayerInfo: function(title, cover){
         $('#song-title').text(title);
         $('.cover').css('background-image', 'url(http://www.leftasrain.com/img/covers/'+escape(cover)+')');
+    },
+
+    getSong: function(id)
+    {
+        $.ajax({
+            url: '/getsong/'+id,
+            dataType: 'json',
+            success: function(data) {
+                Playlist.sendSongToPlayer(data, true);
+            },
+            error: function(xhr, textStatus, thrownError) {
+                alert('Something went to wrong.Please Try again later...');
+            }
+        }).done(function() {
+            //finished
+        });
+    },
+
+    getNextSong: function(id)
+    {
+        $.ajax({
+            url: '/getnextsong/'+id,
+            dataType: 'json',
+            success: function(data) {
+                Player.getSong(data);
+            },
+            error: function(xhr, textStatus, thrownError) {
+                alert('Something went to wrong.Please Try again later...');
+            }
+        }).done(function() {
+            //finished
+        });
     }
 }
 
@@ -117,50 +144,17 @@ function addListeners()
     {
         if (Playlist.currPost.id != $(this).attr('id') || Player.currSound.playState === 0) {
             var songId = $(this).attr('id');
-            getSong(songId, true);
+            Player.getSong(songId);
         }
     });
 
     $('.next-btn').click(function()
     {
-        getNextSong(Playlist.currPost.id, true);
+        Player.getNextSong(Playlist.currPost.id, true);
     });
 
     $('.side-bar').click(function(){
         console.log(Player.currSound.duration);
-        //soundManager.setPosition(Player.currSound.id,currSound.duration-2500);
-    });
-}
-
-
-function getSong(id, sendToPlayer)
-{
-    $.ajax({
-        url: '/getsong/'+id,
-        dataType: 'json',
-        success: function(data) {
-            if (sendToPlayer) Playlist.sendSongToPlayer(data, true);
-        },
-        error: function(xhr, textStatus, thrownError) {
-            alert('Something went to wrong.Please Try again later...');
-        }
-    }).done(function() {
-        //finished
-    });
-}
-
-function getNextSong(id, sendToPlayer)
-{
-    $.ajax({
-        url: '/getnextsong/'+id,
-        dataType: 'json',
-        success: function(data) {
-            if (sendToPlayer) getSong(data, true);
-        },
-        error: function(xhr, textStatus, thrownError) {
-            alert('Something went to wrong.Please Try again later...');
-        }
-    }).done(function() {
-        //finished
+        soundManager.setPosition(Player.currSound.id,Player.currSound.duration-2500);
     });
 }
