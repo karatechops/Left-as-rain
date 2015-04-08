@@ -1,7 +1,10 @@
-Playlist = {
+function Playlist (playlistDiv)
+{
+    this.currPost = [];
+    this.playlistDiv = playlistDiv;
+}
 
-    currPost: [],
-
+Playlist.prototype = {
     highlight: function(id){
         if (Player.playedSongs.length > 1) $('#'+Player.getPreviousSong()).removeClass('currently-playing');
         $('#'+id).addClass('currently-playing');
@@ -13,7 +16,7 @@ Playlist = {
             url: '/getsong/latest/'+amount,
             dataType: 'json',
             success: function(data) {
-                sendToPlayer ? Playlist.sendSongToPlayer(data[0], true) : Playlist.sendSongToPlayer(data[0], false);
+                sendToPlayer ? Player.sendSongToPlayer(data[0], true) : Player.sendSongToPlayer(data[0], false);
             },
             error: function(xhr, textStatus, thrownError) {
                 alert('Something went to wrong.Please Try again later...');
@@ -21,50 +24,56 @@ Playlist = {
         })
     },
 
-    sendSongToPlayer: function(song, playSongNow)
+    getMorePosts: function(id, amountToGet)
     {
-        if (Player.playedSongs.length >= 1) {
-            soundManager.unload('track'+Playlist.currPost.id);
-        }
-
-        Player.currSound = soundManager.createSound({
-            id: 'track'+song.id,
-            url: 'http://leftasrain.com/musica/'+song.song_path+'.mp3',
-            onfinish: function()
-            {
-                Player.getNextSong(song.id);
+        $.ajax({
+            url: '/getmoresongs/'+id+'/'+amountToGet,
+            dataType: 'json',
+            success: function(data) {
+                Playlist.addPostsToPlaylist(data);
+            },
+            error: function(xhr, textStatus, thrownError) {
+                return('Something went to wrong.Please Try again later...');
             }
+        })
+    },
+
+    addPostsToPlaylist: function(posts)
+    {
+        var monthNames = ["January", "February", "March", "April", "May", "June",
+            "July", "August", "September", "October", "November", "December"
+        ];
+        jQuery.each(posts, function(i, post) {
+            var date = new Date(post.created_at);
+            Playlist.playlistDiv.append('<article id="'+post.id+'"><div class="article-inner"><h1>'+post.title+'</h1><p class="small-info">'+post.author+' on '+monthNames[date.getMonth()]+' '+date.getDay()+' '+date.getFullYear()+'</p><p class="copy">'+post.description+'</p></div></article>');
         });
-
-        Playlist.currPost = song;
-        if (playSongNow) Player.playedSongs.unshift(Playlist.currPost);
-        Player.setPlayerInfo(song.title, song.cover);
-
-        if (playSongNow) Player.playSong();
+        Waypoint.refreshAll();
     }
 }
 
-Player = {
+function Player()
+{
+    soundManager.setup({
+        url: '../swf/',
+        flashVersion: 9,
+        onready: function()
+        {
+            addListeners();
+        }
+    });
+    this.playedSongs = [];
+    this.currSound = soundManager.createSound;
+    this.visible = false;
+    this.events = new EventEmitter();
+}
 
-    init: function() {
-        soundManager.setup({
-            url: '../swf/',
-            flashVersion: 9,
-            onready: function()
-            {
-                addListeners();
-                Playlist.getLatest(1, false);
-            }
-        });
-    },
-
-    playedSongs:[],
-    currSound: soundManager.createSound,
+Player.prototype = {
 
     playSong: function()
     {
+        this.pullUpPlayer();
         this.currSound.play();
-        Playlist.highlight(Playlist.currPost.id);
+        if (!this.visible) Playlist.highlight(Playlist.currPost.id);
     },
 
     pauseSong: function()
@@ -94,7 +103,7 @@ Player = {
             url: '/getsong/'+id,
             dataType: 'json',
             success: function(data) {
-                Playlist.sendSongToPlayer(data, true);
+                Player.sendSongToPlayer(data, true);
             },
             error: function(xhr, textStatus, thrownError) {
                 alert('Something went to wrong.Please Try again later...');
@@ -118,14 +127,56 @@ Player = {
         }).done(function() {
             //finished
         });
+    },
+
+    sendSongToPlayer: function(song, playSongNow)
+    {
+        if (Player.playedSongs.length >= 1) {
+            soundManager.unload('track'+Playlist.currPost.id);
+        }
+
+        Player.currSound = soundManager.createSound({
+            id: 'track'+song.id,
+            url: 'http://leftasrain.com/musica/'+song.song_path+'.mp3',
+            onplay: function()
+            {
+                Player.events.emitEvent('playerEvent', ['play']);
+            },
+            onresume: function()
+            {
+                Player.events.emitEvent('playerEvent', ['resume']);
+            },
+            onpause: function()
+            {
+                Player.events.emitEvent('playerEvent', ['pause']);
+            },
+            onfinish: function()
+            {
+                Player.getNextSong(song.id);
+            }
+
+        });
+
+        Playlist.currPost = song;
+        if (playSongNow) Player.playedSongs.unshift(Playlist.currPost);
+        Player.setPlayerInfo(song.title, song.cover);
+
+        if (playSongNow) Player.playSong();
+    },
+
+    pullUpPlayer: function()
+    {
+        $('#player').css('bottom', '0');
+        $('body').css('padding-bottom', '80px')
     }
 }
 
-Player.init();
+var Playlist = new Playlist($('#playlist'));
+var Player = new Player();
 
 function addListeners()
-    {
-    $('.title').click(function()
+{
+    $('#play').click(function()
     {
         if (Player.currSound.paused == false && Player.currSound.playState === 1)
         {
@@ -148,13 +199,43 @@ function addListeners()
         }
     });
 
-    $('.next-btn').click(function()
+    $('#next').click(function()
     {
         Player.getNextSong(Playlist.currPost.id, true);
     });
 
-    $('.side-bar').click(function(){
+
+    Player.events.addListener('playerEvent', playerEventHandler);
+
+    /*$('.side-bar').click(function()
+    {
         console.log(Player.currSound.duration);
         soundManager.setPosition(Player.currSound.id,Player.currSound.duration-2500);
-    });
+    });*/
+
+    var waypoints = $('#playlist').waypoint(function(direction)
+    {
+        if (direction === 'down') {
+            console.log('WAY POINT TRIGGERED');
+            var lastId = $('#playlist article:last').attr('id');
+            Playlist.getMorePosts(lastId, 10);
+        }
+    }, {
+        offset: 'bottom-in-view'
+    })
+}
+
+function playerEventHandler(e)
+{
+    switch (e) {
+        case 'play':
+            console.log('PLAY EVENT');
+            break;
+        case 'pause':
+            console.log('PAUSE EVENT');
+            break;
+        case 'resume':
+            console.log('RESUME EVENT');
+            break;
+    }
 }

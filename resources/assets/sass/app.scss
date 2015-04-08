@@ -1,7 +1,7 @@
 @import 'mixins';
 
 html { -webkit-font-smoothing: antialiased; }
-body { padding: 65px 0 50px 0; color: #eee; background-color: #000; font-family: $copy-font-stack; font-size:14px; letter-spacing: 0.2143rem;}
+body { padding: 65px 0 0 0; color: #eee; background-color: #000; font-family: $copy-font-stack; font-size:14px; letter-spacing: 0.2143rem;}
 h1 { font-size: 1.071rem; margin-bottom:0.3571rem}
 
 nav {
@@ -10,10 +10,23 @@ nav {
   top: 0;
   left: 0;
   width: 100%;
-  padding:15px 0;
+  padding:2px 5px;
   background-color: #121212;
   vertical-align: middle;
   border-bottom: #262626 solid 1px;
+  .logo {
+    cursor:pointer;
+    opacity: .5;
+    @include transition(opacity, 0.5s, ease-in-out);
+    img {
+      width: 50px;
+      height: auto;
+      margin-top: 2px;
+    }
+    &:hover {
+      opacity:1;
+    }
+  }
 }
 
 article{
@@ -63,12 +76,18 @@ article{
             .copy {
               line-height: 1.571rem;
               margin-bottom:0;
+
+              img {
+                width:100%;
+                height:auto;
+                max-width:500px;
+              }
             }
 
         }
 
         &:hover{
-          border-left:#00ffff 1px solid;
+          border-left:$blue 1px solid;
         }
 
     }
@@ -93,57 +112,69 @@ article{
 #player {
   display: block;
   width: 100%;
-  height: 120px;
   position: fixed;
-  bottom: 0;
+  bottom: -100px;
   left: 0;
   background-color: #121212;
   vertical-align: middle;
   border-top: #262626 solid 1px;
-  @include transition(background-color, 0.2s, ease-in-out);
+  @include transition(all, 0.25s, ease-in-out);
   margin-right:-320px;
   .container {
-    .cover {
-      display:block;
-      width:60px;
-      background: top no-repeat;
-      height:60px;
-      overflow:hidden;
-      background-size: auto 100%;
-      margin-right:2%;
-      img {
-        width:100%;
-        height: auto;
-      }
-    }
     .title {
       display:block;
+      padding-left:30px;
       p {
-        margin-top: 20px;
-        font-size: 25px;
-      }
-    }
-    .controls {
-      clear: both;
-      width:100%;
-      display:block;
-      .player-btn {
-        width:33%;
-        height:50%;
-        float:left;
-        text-align: center;
-        margin: 0 auto;
-        border: 1px solid $dark-grey;
-          i {
-            color: $dark-grey;
-          }
+        margin: 15px 0;
+        font-size: 22px;
       }
     }
   }
 }
 
+.controls {
+  position: relative;
+  display:block;
+  clear: both;
+  bottom:0;
+  width:100%;
+  height:40px;
+  text-align:center;
+  .player-btn {
+    box-sizing:border-box;
+    -moz-box-sizing:border-box;
+    -webkit-box-sizing:border-box;
+    width:33.33%;
+    height: 100%;
+    float:left;
+    background: #242424;
+    border-right: 2px solid #121212;
+    cursor:pointer;
+    @include transition(all, 0.25s, ease-in-out);
+    i {
+      color: #333;
+      margin-top:15px;
+    }
+    &:hover {
+      background-color:$blue;
+    }
+  }
+}
+
+#loader {
+  margin-left:30px;
+}
+
 #player:hover{
-  background-color:#0ff;
+  //background-color:#0ff;
+}
+
+@media (min-width: 1780px) {
+  .content-row .content {margin-right:0;}
+}
+
+@media (min-width: 1470px) and (max-width:1779px) {
+  .content-row .content {margin-right:145px;}
 }
 
 @media (min-width: 1120px) {

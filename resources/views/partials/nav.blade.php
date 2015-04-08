@@ -1,5 +1,5 @@
 <nav>
-    <div class="container">
-        Left as rain
+    <div class="logo">
+        <img src="/img/leftasrain-logo.png">
     </div>
 </nav>

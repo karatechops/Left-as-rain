@@ -53,4 +53,9 @@ class SongController extends Controller {
         return($song);
     }
 
+    public function getMoreSongs($lastLoadedPostId, $amountToLoad) {
+        $posts = Post::where('id', '<', $lastLoadedPostId)->orderBy('id', 'desc')->get()->take($amountToLoad);
+        return($posts);
+    }
+
 }
