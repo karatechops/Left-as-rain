@@ -2,6 +2,7 @@ function Playlist (playlistDiv)
 {
     this.currPost = [];
     this.playlistDiv = playlistDiv;
+    this.events = new EventEmitter();
 }
 
 Playlist.prototype = {
@@ -30,6 +31,8 @@ Playlist.prototype = {
             url: '/getmoresongs/'+id+'/'+amountToGet,
             dataType: 'json',
             success: function(data) {
+                console.log('MORE POSTS INCOMING');
+                console.log(data);
                 Playlist.addPostsToPlaylist(data);
             },
             error: function(xhr, textStatus, thrownError) {
@@ -47,7 +50,7 @@ Playlist.prototype = {
             var date = new Date(post.created_at);
             Playlist.playlistDiv.append('<article id="'+post.id+'"><div class="article-inner"><h1>'+post.title+'</h1><p class="small-info">'+post.author+' on '+monthNames[date.getMonth()]+' '+date.getDay()+' '+date.getFullYear()+'</p><p class="copy">'+post.description+'</p></div></article>');
         });
-        Waypoint.refreshAll();
+        Playlist.events.emitEvent('playlistEvent', ['addedPosts']);
     }
 }
 
@@ -59,7 +62,8 @@ function Player()
         onready: function()
         {
             addListeners();
-        }
+        },
+        debugMode: false
     });
     this.playedSongs = [];
     this.currSound = soundManager.createSound;
@@ -191,6 +195,62 @@ function addListeners()
 
     });
 
+    $('#next').click(function()
+    {
+        Player.getNextSong(Playlist.currPost.id, true);
+    });
+
+    $('.title').click(function()
+    {
+
+        var articleElem = '#' + Playlist.currPost.id;
+        console.log('Article Element: '+articleElem);
+
+        $('html,body').animate({
+            scrollTop: $(articleElem).offset().top - 75
+        });
+    });
+
+    Player.events.addListener('playerEvent', playerEventHandler);
+    Playlist.events.addListener('playlistEvent', playlistEventHandler);
+
+    articleListeners();
+}
+
+function playerEventHandler(e)
+{
+    var playIcon = $('#play i');
+    switch (e) {
+        case 'play':
+            if (playIcon.hasClass( "fa-play" )) {
+                playIcon.removeClass('fa-play');
+                playIcon.addClass('fa-pause');
+            }
+            break;
+        case 'pause':
+            playIcon.removeClass('fa-pause');
+            playIcon.addClass('fa-play');
+            break;
+        case 'resume':
+            playIcon.removeClass('fa-play');
+            playIcon.addClass('fa-pause');
+            break;
+    }
+}
+
+function playlistEventHandler(e)
+{
+    switch (e) {
+        case 'addedPosts':
+            console.log('POSTS ADDED EVENT');
+            Waypoint.refreshAll();
+            articleListeners();
+            break;
+    }
+}
+
+function articleListeners(){
+    Waypoint.destroyAll();
     $('article').click(function()
     {
         if (Playlist.currPost.id != $(this).attr('id') || Player.currSound.playState === 0) {
@@ -198,22 +258,7 @@ function addListeners()
             Player.getSong(songId);
         }
     });
-
-    $('#next').click(function()
-    {
-        Player.getNextSong(Playlist.currPost.id, true);
-    });
-
-
-    Player.events.addListener('playerEvent', playerEventHandler);
-
-    /*$('.side-bar').click(function()
-    {
-        console.log(Player.currSound.duration);
-        soundManager.setPosition(Player.currSound.id,Player.currSound.duration-2500);
-    });*/
-
-    var waypoints = $('#playlist').waypoint(function(direction)
+    var waypoints = $('#playlist article:last').waypoint(function(direction)
     {
         if (direction === 'down') {
             console.log('WAY POINT TRIGGERED');
@@ -221,21 +266,7 @@ function addListeners()
             Playlist.getMorePosts(lastId, 10);
         }
     }, {
-        offset: 'bottom-in-view'
+        triggerOnce: true,
+        offset: '99%'
     })
-}
-
-function playerEventHandler(e)
-{
-    switch (e) {
-        case 'play':
-            console.log('PLAY EVENT');
-            break;
-        case 'pause':
-            console.log('PAUSE EVENT');
-            break;
-        case 'resume':
-            console.log('RESUME EVENT');
-            break;
-    }
 }

@@ -19,6 +19,13 @@ h1 {
   font-size: 1.071rem;
   margin-bottom: 0.3571rem; }
 
+a, a:focus {
+  color: #fff;
+  transition: all 0.25s ease-in-out; }
+
+a:hover {
+  color: #00ffff; }
+
 nav {
   position: fixed;
   z-index: 50;
@@ -114,6 +121,9 @@ article {
     #player .container .title p {
       margin: 15px 0;
       font-size: 22px; }
+  #player .container .title:hover p {
+    color: #ff0;
+    cursor: pointer; }
 
 .controls {
   position: relative;

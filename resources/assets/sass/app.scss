@@ -3,6 +3,8 @@
 html { -webkit-font-smoothing: antialiased; }
 body { padding: 65px 0 0 0; color: #eee; background-color: #000; font-family: $copy-font-stack; font-size:14px; letter-spacing: 0.2143rem;}
 h1 { font-size: 1.071rem; margin-bottom:0.3571rem}
+a, a:focus { color: #fff; @include transition(all, 0.25s, ease-in-out); }
+a:hover { color: $blue; }
 
 nav {
   position: fixed;
@@ -128,6 +130,10 @@ article{
         margin: 15px 0;
         font-size: 22px;
       }
+    }
+    .title:hover p{
+      color:$yellow;
+      cursor:pointer;
     }
   }
 }
