@@ -1,3 +1,9 @@
+$.ajaxSetup({
+    headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }
+});
+
 function Playlist (playlistDiv)
 {
     this.currPost = [];
@@ -31,8 +37,6 @@ Playlist.prototype = {
             url: '/getmoresongs/'+id+'/'+amountToGet,
             dataType: 'json',
             success: function(data) {
-                console.log('MORE POSTS INCOMING');
-                console.log(data);
                 Playlist.addPostsToPlaylist(data);
             },
             error: function(xhr, textStatus, thrownError) {
@@ -62,6 +66,8 @@ function Player()
         onready: function()
         {
             addListeners();
+            streamSong(1);
+
         },
         debugMode: false
     });
@@ -69,6 +75,23 @@ function Player()
     this.currSound = soundManager.createSound;
     this.visible = false;
     this.events = new EventEmitter();
+}
+
+function streamSong(id){
+    $.ajax({
+        type: 'get',
+        url: '/streamsong/1',
+        success: function(data) {
+            var streamUrl = '/streamsong/1/'+data;
+            var mySoundObject = soundManager.createSound({
+                url: streamUrl,
+                //autoPlay: true
+            });
+        },
+        error: function(xhr, textStatus, thrownError) {
+            console.log('Something went to wrong.Please Try again later...');
+        }
+    });
 }
 
 Player.prototype = {
@@ -104,6 +127,7 @@ Player.prototype = {
     getSong: function(id)
     {
         $.ajax({
+            type: 'GET',
             url: '/getsong/'+id,
             dataType: 'json',
             success: function(data) {
@@ -166,6 +190,25 @@ Player.prototype = {
         Player.setPlayerInfo(song.title, song.cover);
 
         if (playSongNow) Player.playSong();
+    },
+
+    streamSong: function()
+    {
+        $.ajax({
+            type: 'POST',
+            url: '/streamsong/1',
+            data: 1,
+            dataType: 'json',
+            success: function(data) {
+                console.log(data);
+                //Player.sendSongToPlayer(data, true);
+            },
+            error: function(xhr, textStatus, thrownError) {
+                alert('Something went to wrong.Please Try again later...');
+            }
+        }).done(function() {
+            //finished
+        });
     },
 
     pullUpPlayer: function()
@@ -242,7 +285,6 @@ function playlistEventHandler(e)
 {
     switch (e) {
         case 'addedPosts':
-            console.log('POSTS ADDED EVENT');
             Waypoint.refreshAll();
             articleListeners();
             break;
@@ -261,7 +303,6 @@ function articleListeners(){
     var waypoints = $('#playlist article:last').waypoint(function(direction)
     {
         if (direction === 'down') {
-            console.log('WAY POINT TRIGGERED');
             var lastId = $('#playlist article:last').attr('id');
             Playlist.getMorePosts(lastId, 10);
         }

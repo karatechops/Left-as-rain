@@ -17,6 +17,8 @@ Route::get('/getsong/latest/{amount}', 'SongController@getLatest');
 Route::get('/getsong/{id}', 'SongController@getSong');
 Route::get('/getnextsong/{id}', 'SongController@getNextSong');
 Route::get('/getmoresongs/{lastLoadedPostId}/{amountToLoad}', 'SongController@getMoreSongs');
+Route::get('/streamsong/{id}/{token?}', 'SongController@setupStream');
+//Route::get('/streamsong/{id}/{token?}', 'SongController@startStream');
 
 Route::controllers([
 	'auth' => 'Auth\AuthController',

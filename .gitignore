@@ -1,3 +1,4 @@
 /vendor
 /node_modules
+/storage/app/mp3
 .env
