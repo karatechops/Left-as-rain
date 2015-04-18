@@ -11,7 +11,10 @@
 |
 */
 
-Route::get('/', 'PageController@index');
+Route::get('/', 'PagesController@index');
+Route::get('/about', 'PagesController@about');
+Route::resource('/pages', 'PagesController');
+Route::get('/posts/{slug}', 'SongController@getSongsFrom');
 
 Route::get('/getsong/latest/{amount}', 'SongController@getLatest');
 Route::get('/getsong/{id}', 'SongController@getSong');

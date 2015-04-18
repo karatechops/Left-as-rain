@@ -8,8 +8,6 @@ class Post extends Model {
 
     ];
 
-    public function stream(){
 
-    }
 
 }

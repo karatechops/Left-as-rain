@@ -9,6 +9,9 @@ function Playlist (playlistDiv)
     this.currPost = [];
     this.playlistDiv = playlistDiv;
     this.events = new EventEmitter();
+    this.postsLoaded = 10;
+    this.latestPost;
+    this.getLatestPosts(function(posts) { this.latestPost = posts }, 1);
 }
 
 Playlist.prototype = {
@@ -17,13 +20,13 @@ Playlist.prototype = {
         $('#'+id).addClass('currently-playing');
     },
 
-    getLatest: function(amount, sendToPlayer)
+    getLatestPosts: function(callback, amount)
     {
         $.ajax({
             url: '/getsong/latest/'+amount,
             dataType: 'json',
             success: function(data) {
-                sendToPlayer ? Player.sendSongToPlayer(data[0], true) : Player.sendSongToPlayer(data[0], false);
+                if(typeof callback === "function") callback(data);
             },
             error: function(xhr, textStatus, thrownError) {
                 alert('Something went to wrong.Please Try again later...');
@@ -31,13 +34,18 @@ Playlist.prototype = {
         })
     },
 
-    getMorePosts: function(id, amountToGet)
+    getMorePosts: function(callback, amount)
     {
+        var posts;
+        var lastId = $('#playlist article:last').attr('id');
+        if (!lastId) lastId = this.latestPost;
+
         $.ajax({
-            url: '/getmoresongs/'+id+'/'+amountToGet,
+            url: '/getmoresongs/'+lastId+'/'+amount,
             dataType: 'json',
             success: function(data) {
-                Playlist.addPostsToPlaylist(data);
+                posts = data;
+                if(typeof callback === "function") callback(posts);
             },
             error: function(xhr, textStatus, thrownError) {
                 return('Something went to wrong.Please Try again later...');
@@ -47,14 +55,29 @@ Playlist.prototype = {
 
     addPostsToPlaylist: function(posts)
     {
-        var monthNames = ["January", "February", "March", "April", "May", "June",
-            "July", "August", "September", "October", "November", "December"
-        ];
+        var monthNames = ["January", "February", "March", "April", "May", "June","July", "August", "September", "October", "November", "December"];
+
         jQuery.each(posts, function(i, post) {
             var date = new Date(post.created_at);
-            Playlist.playlistDiv.append('<article id="'+post.id+'"><div class="article-inner"><h1>'+post.title+'</h1><p class="small-info">'+post.author+' on '+monthNames[date.getMonth()]+' '+date.getDay()+' '+date.getFullYear()+'</p><p class="copy">'+post.description+'</p></div></article>');
+            var postString = '<article id="'+post.id+'"><div class="article-inner"><h1>'+post.title+'</h1><p class="small-info">'+post.author+' on '+monthNames[date.getMonth()]+' '+date.getDay()+' '+date.getFullYear()+'</p><p class="copy">'+post.description+'</p></div></article>'
+            Playlist.playlistDiv.append(postString);
         });
+
+        this.postsLoaded = ($(".content > article").length)
+
         Playlist.events.emitEvent('playlistEvent', ['addedPosts']);
+    },
+
+    scrollToPost: function(id)
+    {
+        $('html,body').animate({
+         scrollTop: $('#'+id).offset().top - 75
+         });
+    },
+
+    clear: function()
+    {
+        this.playlistDiv.html('');
     }
 }
 
@@ -66,7 +89,6 @@ function Player()
         onready: function()
         {
             addListeners();
-            streamSong(1);
 
         },
         debugMode: false
@@ -76,7 +98,7 @@ function Player()
     this.visible = false;
     this.events = new EventEmitter();
 }
-
+/*
 function streamSong(id){
     $.ajax({
         type: 'get',
@@ -93,7 +115,7 @@ function streamSong(id){
         }
     });
 }
-
+*/
 Player.prototype = {
 
     playSong: function()
@@ -120,8 +142,8 @@ Player.prototype = {
     },
 
     setPlayerInfo: function(title, cover){
-        $('#song-title').text(title);
-        $('.cover').css('background-image', 'url(http://www.leftasrain.com/img/covers/'+escape(cover)+')');
+        $('#song-title').html(title);
+        //$('.cover').css('background-image', 'url(http://www.leftasrain.com/img/covers/'+escape(cover)+')');
     },
 
     getSong: function(id)
@@ -187,28 +209,9 @@ Player.prototype = {
 
         Playlist.currPost = song;
         if (playSongNow) Player.playedSongs.unshift(Playlist.currPost);
-        Player.setPlayerInfo(song.title, song.cover);
+        Player.setPlayerInfo(unescape(song.title), song.cover);
 
         if (playSongNow) Player.playSong();
-    },
-
-    streamSong: function()
-    {
-        $.ajax({
-            type: 'POST',
-            url: '/streamsong/1',
-            data: 1,
-            dataType: 'json',
-            success: function(data) {
-                console.log(data);
-                //Player.sendSongToPlayer(data, true);
-            },
-            error: function(xhr, textStatus, thrownError) {
-                alert('Something went to wrong.Please Try again later...');
-            }
-        }).done(function() {
-            //finished
-        });
     },
 
     pullUpPlayer: function()
@@ -241,17 +244,6 @@ function addListeners()
     $('#next').click(function()
     {
         Player.getNextSong(Playlist.currPost.id, true);
-    });
-
-    $('.title').click(function()
-    {
-
-        var articleElem = '#' + Playlist.currPost.id;
-        console.log('Article Element: '+articleElem);
-
-        $('html,body').animate({
-            scrollTop: $(articleElem).offset().top - 75
-        });
     });
 
     Player.events.addListener('playerEvent', playerEventHandler);
@@ -303,8 +295,9 @@ function articleListeners(){
     var waypoints = $('#playlist article:last').waypoint(function(direction)
     {
         if (direction === 'down') {
-            var lastId = $('#playlist article:last').attr('id');
-            Playlist.getMorePosts(lastId, 10);
+            var posts = Playlist.getMorePosts(function(posts) {
+                Playlist.addPostsToPlaylist(posts);
+            }, 10);
         }
     }, {
         triggerOnce: true,

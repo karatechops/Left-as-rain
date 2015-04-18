@@ -15,24 +15,80 @@ nav {
   padding:2px 5px;
   background-color: #121212;
   vertical-align: middle;
-  border-bottom: #262626 solid 1px;
+  border-bottom: $border solid 1px;
   .logo {
+    width:40px;
+    height:auto;
+    position:relative;
+    margin:0 auto;
+    text-align:center;
     cursor:pointer;
     opacity: .5;
     @include transition(opacity, 0.5s, ease-in-out);
     img {
-      width: 50px;
+      width: 40px;
       height: auto;
-      margin-top: 2px;
+      margin-top: 7px;
     }
     &:hover {
       opacity:1;
     }
   }
-}
+  .nav-button{
+    float:left;
+    cursor:pointer;
+    padding:11px 20px 9px 11px;
+    opacity:.5;
+    @include transition(opacity, 0.5s, ease-in-out);
+    &:hover{
+      opacity:1 !important;
+    }
+  }
+  .overlay-menu{
+    position: fixed;
+    top:56px;
+    left:-250px;
+    height:100%;
+    width:250px;
+    background-color: rgba(0, 0, 0, 0.9);
+    z-index:49;
+    color: #eee;
+    @include transition(left, 0.5s, ease-in-out);
 
-article{
-  margin-bottom:45px;
+    ul.nav-list {
+      list-style: none;
+      padding-left:0;
+      text-align:left;
+
+      li {
+        a {
+          display: block;
+          width: 100%;
+          margin: 0 0 15px 15px;
+          text-transform: uppercase;
+          font-size: 1.4rem;
+          padding-left: 15px;
+          border-left: #333 1px solid;
+          cursor: pointer;
+          text-decoration:none;
+          @include transition(all, 0.5s, ease-in-out);
+          &:hover {
+            border-left: $blue 1px solid;
+            color: #eee;
+          }
+        }
+      }
+
+      a.active {
+        border-left:$yellow 1px solid !important;
+        color: #eee !important;
+      }
+
+      li.last-child{
+        margin-right:0;
+      }
+    }
+  }
 }
 
 .clearfix {
@@ -60,6 +116,7 @@ article{
     margin-right:320px;
 
       article {
+        margin-bottom:45px;
         position:relative;
         padding-left:30px;
         border-left:#1b1b1b 1px solid;
@@ -100,11 +157,22 @@ article{
   border-left:#ff0 1px solid !important;
 }
 
+.copy {
+  line-height: 1.571rem;
+  margin-bottom:0;
+
+  img {
+    width:100%;
+    height:auto;
+    max-width:500px;
+  }
+}
+
 .side-bar {
   position:absolute;
   right: 0;
   width: 320px;
-  height:100%;
+  //height:100%;
   border-left:#1b1b1b 1px solid;
   .side-bar-content {
     margin:10px;
@@ -122,6 +190,7 @@ article{
   border-top: #262626 solid 1px;
   @include transition(all, 0.25s, ease-in-out);
   margin-right:-320px;
+  z-index:51;
   .container {
     .title {
       display:block;
@@ -171,8 +240,49 @@ article{
   margin-left:30px;
 }
 
+.loader-screen {
+  display:none;
+  position:fixed;
+  top:0;
+  left:0;
+  z-index:48;
+  width:100%;
+  height:100%;
+  background-color:rgba(0,0,0,.8);
+
+  .load-animation {
+    position:fixed;
+    height:100px;
+    width:100px;
+    top:50%;
+    left:50%;
+    margin-top:-50px;
+    margin-left:-70px;
+    text-align:center;
+  }
+}
+
+@-webkit-keyframes uil-default-anim { 0% { opacity: 1} 100% {opacity: 0} }@keyframes uil-default-anim { 0% { opacity: 1} 100% {opacity: 0} }.uil-default-css > div:nth-of-type(1){-webkit-animation: uil-default-anim 1s linear infinite;animation: uil-default-anim 1s linear infinite;-webkit-animation-delay: -0.5s;animation-delay: -0.5s;}.uil-default-css > div:nth-of-type(2){-webkit-animation: uil-default-anim 1s linear infinite;animation: uil-default-anim 1s linear infinite;-webkit-animation-delay: -0.375s;animation-delay: -0.375s;}.uil-default-css > div:nth-of-type(3){-webkit-animation: uil-default-anim 1s linear infinite;animation: uil-default-anim 1s linear infinite;-webkit-animation-delay: -0.25s;animation-delay: -0.25s;}.uil-default-css > div:nth-of-type(4){-webkit-animation: uil-default-anim 1s linear infinite;animation: uil-default-anim 1s linear infinite;-webkit-animation-delay: -0.125s;animation-delay: -0.125s;}.uil-default-css > div:nth-of-type(5){-webkit-animation: uil-default-anim 1s linear infinite;animation: uil-default-anim 1s linear infinite;-webkit-animation-delay: 0s;animation-delay: 0s;}.uil-default-css > div:nth-of-type(6){-webkit-animation: uil-default-anim 1s linear infinite;animation: uil-default-anim 1s linear infinite;-webkit-animation-delay: 0.125s;animation-delay: 0.125s;}.uil-default-css > div:nth-of-type(7){-webkit-animation: uil-default-anim 1s linear infinite;animation: uil-default-anim 1s linear infinite;-webkit-animation-delay: 0.25s;animation-delay: 0.25s;}.uil-default-css > div:nth-of-type(8){-webkit-animation: uil-default-anim 1s linear infinite;animation: uil-default-anim 1s linear infinite;-webkit-animation-delay: 0.375s;animation-delay: 0.375s;}
+
 #player:hover{
   //background-color:#0ff;
+}
+
+.shading {
+  position: fixed;
+  pointer-events: none;
+  bottom:0;
+  left:0;
+  height:30%;
+  width:100%;
+  background: rgba(0,0,0,0);
+  background: -moz-linear-gradient(top, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 100%);
+  background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(0,0,0,0)), color-stop(100%, rgba(0,0,0,1)));
+  background: -webkit-linear-gradient(top, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 100%);
+  background: -o-linear-gradient(top, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 100%);
+  background: -ms-linear-gradient(top, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 100%);
+  background: linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#000000', endColorstr='#000000', GradientType=0 );
 }
 
 @media (min-width: 1780px) {

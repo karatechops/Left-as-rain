@@ -63,10 +63,22 @@ class SongController extends Controller {
      * @param $amountToLoad
      * @return mixed
      */
-    public function getMoreSongs($lastLoadedPostId, $amountToLoad)
+    public function getMoreSongs($lastLoadedPostId, $amountToLoad = 10)
     {
         $posts = Post::where('id', '<', $lastLoadedPostId)->orderBy('id', 'desc')->get()->take($amountToLoad);
-        return($posts);
+        return ($posts);
+    }
+
+    /**
+     * @param $slug
+     * @param int $amountToLoad
+     * @return mixed
+     */
+    public function getSongsFrom($slug, $amountToLoad = 10)
+    {
+        $post = Post::where('slug', $slug)->get();
+        $posts = Post::where('id', '<=', $post[0]->id)->orderBy('id', 'desc')->get()->take($amountToLoad);
+        return ($posts);
     }
 
     public function setupStream($id, $token = null)
@@ -92,15 +104,6 @@ class SongController extends Controller {
             );
             return response()->download($pathToFile, $name, $headers);
         }
-
-        /*if (Request::ajax())
-        {
-            $validString = str_random(40);
-            Session::put('songToken', $validString);
-            return(Session::get('songToken', $validString));
-        } else {
-            return('nah');
-        }*/
     }
 
 }
