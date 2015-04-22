@@ -1,10 +1,10 @@
 @foreach($posts as $post)
-    <article id="{{ $post->id }}">
+    <article id="{{ $post->id }}" class="post">
         <div class="article-inner">
-            <h1>{{ $post->title}}</h1>
+            <h1>{!! $post->title !!} <a href="/posts/{{ $post->slug }}" class="post-link"><i class="fa fa-link"></i></a></h1>
             <p class="small-info">{{ $post->author }} on {{ date("F d Y",strtotime($post->created_at)) }}</p>
             <p class="copy">
-                {{ $post->description }}
+                {!! $post->description !!}
             </p>
         </div>
     </article>

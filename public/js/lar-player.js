@@ -22,9 +22,10 @@ Playlist.prototype = {
 
     getLatestPosts: function(callback, amount)
     {
+        console.log('getLatestPosts amount: '+amount);
         $.ajax({
             url: '/getsong/latest/'+amount,
-            dataType: 'json',
+            dataType: 'html',
             success: function(data) {
                 if(typeof callback === "function") callback(data);
             },
@@ -42,7 +43,7 @@ Playlist.prototype = {
 
         $.ajax({
             url: '/getmoresongs/'+lastId+'/'+amount,
-            dataType: 'json',
+            dataType: 'html',
             success: function(data) {
                 posts = data;
                 if(typeof callback === "function") callback(posts);
@@ -55,16 +56,9 @@ Playlist.prototype = {
 
     addPostsToPlaylist: function(posts)
     {
-        var monthNames = ["January", "February", "March", "April", "May", "June","July", "August", "September", "October", "November", "December"];
-
-        jQuery.each(posts, function(i, post) {
-            var date = new Date(post.created_at);
-            var postString = '<article id="'+post.id+'"><div class="article-inner"><h1>'+post.title+'</h1><p class="small-info">'+post.author+' on '+monthNames[date.getMonth()]+' '+date.getDay()+' '+date.getFullYear()+'</p><p class="copy">'+post.description+'</p></div></article>'
-            Playlist.playlistDiv.append(postString);
-        });
-
+        Playlist.playlistDiv.append(posts);
         this.postsLoaded = ($(".content > article").length)
-
+        console.log('Posts Loaded from addPostsToPlayList: '+this.postsLoaded);
         Playlist.events.emitEvent('playlistEvent', ['addedPosts']);
     },
 
@@ -78,6 +72,22 @@ Playlist.prototype = {
     clear: function()
     {
         this.playlistDiv.html('');
+    },
+
+    scrollToTop: function()
+    {
+        $("html, body").animate({ scrollTop: 0 });
+    },
+
+    home: function()
+    {
+        this.getLatestPosts(function(posts) {
+            console.log('Playlist home function');
+            Playlist.clear();
+            Playlist.addPostsToPlaylist(posts);
+            Playlist.highlight(Playlist.currPost.id);
+        }, 10);
+        this.scrollToTop;
     }
 }
 
@@ -277,30 +287,50 @@ function playlistEventHandler(e)
 {
     switch (e) {
         case 'addedPosts':
-            Waypoint.refreshAll();
+            console.log('addedPosts Event Handler');
             articleListeners();
+            Playlist.highlight(Playlist.currPost.id);
             break;
     }
 }
 
+/*
+$('#playlist').bind('DOMSubtreeModified', function() {
+    Waypoint.refreshAll();
+    articleListeners();
+});*/
+
 function articleListeners(){
-    Waypoint.destroyAll();
-    $('article').click(function()
-    {
-        if (Playlist.currPost.id != $(this).attr('id') || Player.currSound.playState === 0) {
-            var songId = $(this).attr('id');
-            Player.getSong(songId);
-        }
-    });
-    var waypoints = $('#playlist article:last').waypoint(function(direction)
-    {
-        if (direction === 'down') {
-            var posts = Playlist.getMorePosts(function(posts) {
-                Playlist.addPostsToPlaylist(posts);
-            }, 10);
-        }
-    }, {
-        triggerOnce: true,
-        offset: '99%'
-    })
+    if ($(".post").length) {
+        Waypoint.destroyAll();
+        $('article').click(function () {
+            if (Playlist.currPost.id != $(this).attr('id') || Player.currSound.playState === 0) {
+                var songId = $(this).attr('id');
+                Player.getSong(songId);
+            }
+        });
+
+        $('article a').click(function (e) {
+            e.stopPropagation();
+            if ($(this).attr('class') == 'post-link') {
+                console.log('Post link clicked');
+                e.preventDefault();
+                simulateAnchorClick($(this).attr('href'));
+            }
+        });
+
+        // Make sure links in articles open in new window.
+        $('article p a').attr('target', '_blank');
+
+        var waypoints = $('#playlist article:last').waypoint(function (direction) {
+            if (direction === 'down') {
+                var posts = Playlist.getMorePosts(function (posts) {
+                    Playlist.addPostsToPlaylist(posts);
+                }, 10);
+            }
+        }, {
+            triggerOnce: true,
+            offset: '99%'
+        });
+    }
 }

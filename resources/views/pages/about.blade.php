@@ -17,7 +17,6 @@
                     in the form of our daily antics, opinions, and occasionally a song review.
                 </p>
             </article>
-            <div id="loader"></div>
         </div>
     </div>
 @stop

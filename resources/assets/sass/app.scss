@@ -122,6 +122,13 @@ nav {
         border-left:#1b1b1b 1px solid;
         cursor: pointer;
         @include transition(border-left, 0.5s, ease-in-out);
+        h1 i {
+          font-size:12px;
+          color:#666;
+          &:hover {
+            color:$blue;
+          }
+        }
 
         .article-inner {
             .small-info {

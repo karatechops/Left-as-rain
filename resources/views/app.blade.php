@@ -12,7 +12,7 @@
 <body>
     @include('partials.nav')
     @include('partials.loader')
-    <div class="container">
+    <div class="container" id="main">
 	    @yield('content')
     </div>
     @include('partials.sidebar')

@@ -5,11 +5,6 @@ $('.nav-button').click(function()
     (!navOpen) ? openNav() : closeNav();
 });
 
-$('#about').click(function()
-{
-    getContent('about');
-});
-
 function openNav(){
     $('.nav-button').css('opacity', '1');
     $('.overlay-menu').css('left', '0');
@@ -25,6 +20,7 @@ function closeNav(){
 function getContent(section)
 {
     loaderFade('in');
+    console.log('Navigating to section: '+section);
     if (section != '/')
     {
         $.ajax({
@@ -35,32 +31,30 @@ function getContent(section)
                 swapContent(data);
             },
             error: function (xhr, textStatus, thrownError) {
-                alert('Something went to wrong.Please Try again later...');
+                console.log('Something went to wrong.Please Try again later...');
             }
         });
     }
 
     if (section == '/')
     {
-        goHome();
+        Playlist.home();
     }
 }
 
 function swapContent(content)
 {
+    console.log('Swapping content');
+    Waypoint.destroyAll();
     $('.content').html(content);
+    Playlist.events.emitEvent('playlistEvent', ['addedPosts']);
+    Playlist.scrollToTop();
     closeNav();
     loaderFade('out');
 }
 
-function goHome()
-{
-    Playlist.getLatestPosts(function(posts) {
-        Playlist.clear();
-        Playlist.addPostsToPlaylist(posts);
-        Playlist.highlight(Playlist.currPost.id);
-        closeNav();
-    }, Playlist.postsLoaded);
+function postLink(post){
+
 }
 
 function loaderFade(state)
@@ -75,7 +69,7 @@ function loaderFade(state)
     }
 }
 
-var popped = ('state' in window.history), initialURL = '/';
+var popped = ('state' in window.history), initialURL = location.href;
 
 $(window).bind('popstate', function(event) {
     var initialPop = !popped && location.href == initialURL;
@@ -87,27 +81,19 @@ $(window).bind('popstate', function(event) {
 });
 
 $(document).on("click", "a", function(e) {
-    e.preventDefault();
-    hrefURL = $(this).attr("href");
-    var url = hrefURL;
-    console.log(url);
-    history.pushState( null, null, this.href );
-    getContent(url);
+    if ($(this).attr("target") != "_blank") {
+        e.preventDefault();
+        var url = $(this).attr("href");
+        History.pushState(null, null, url);
+        getContent(url);
+    }
 });
 
-function simulateAnchorClick (id)
+function simulateAnchorClick (url)
 {
-    hrefURL = '/posts/'+id;
-    var url = hrefURL;
-    history.pushState( null, null, this.href );
+    history.pushState( null, null, url );
     getContent(url);
 }
-
-(function(window,undefined){
-    History.Adapter.bind(window,'statechange',function(){
-        var State = History.getState();
-    });
-})(window);
 
 $('#playlist').bind('DOMSubtreeModified', function() {
     loaderFade('out');
@@ -117,6 +103,8 @@ $('.title').click(function()
 {
     var articleId = Playlist.currPost.id;
     var article = $('#' + articleId);
+    console.log(Playlist.currPost);
 
-    (article.length) ? Playlist.scrollToPost(articleId) : simulateAnchorClick(articleId);
+    (article.length) ? Playlist.scrollToPost(articleId) : simulateAnchorClick(Playlist.currPost.slug);
 });
+

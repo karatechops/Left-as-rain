@@ -40,8 +40,8 @@ class SongController extends Controller {
      */
     public function getLatest($amount)
     {
-        $songs = Post::orderBy('id', 'desc')->get()->take($amount);
-        return ($songs);
+        $posts = Post::orderBy('id', 'desc')->get()->take($amount);
+        return view('partials.posts', compact('posts'));
     }
 
     /**
@@ -66,10 +66,12 @@ class SongController extends Controller {
     public function getMoreSongs($lastLoadedPostId, $amountToLoad = 10)
     {
         $posts = Post::where('id', '<', $lastLoadedPostId)->orderBy('id', 'desc')->get()->take($amountToLoad);
-        return ($posts);
+        return view('partials.posts', compact('posts'));
     }
 
     /**
+     * Used for linking to posts
+     *
      * @param $slug
      * @param int $amountToLoad
      * @return mixed
@@ -78,7 +80,7 @@ class SongController extends Controller {
     {
         $post = Post::where('slug', $slug)->get();
         $posts = Post::where('id', '<=', $post[0]->id)->orderBy('id', 'desc')->get()->take($amountToLoad);
-        return ($posts);
+        return (Request::ajax()) ? view('partials.posts', compact('posts')) : view('pages.home', compact('posts'));
     }
 
     public function setupStream($id, $token = null)
