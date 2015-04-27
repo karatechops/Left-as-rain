@@ -22,7 +22,6 @@ Playlist.prototype = {
 
     getLatestPosts: function(callback, amount)
     {
-        console.log('getLatestPosts amount: '+amount);
         $.ajax({
             url: '/posts/get/latest/'+amount,
             dataType: 'html',
@@ -58,7 +57,6 @@ Playlist.prototype = {
     {
         Playlist.playlistDiv.append(posts);
         this.postsLoaded = ($(".content > article").length)
-        console.log('Posts Loaded from addPostsToPlayList: '+this.postsLoaded);
         Playlist.events.emitEvent('playlistEvent', ['addedPosts']);
     },
 
@@ -287,7 +285,7 @@ function playlistEventHandler(e)
 {
     switch (e) {
         case 'addedPosts':
-            console.log('addedPosts Event Handler');
+            console.log('addedPosts Event Handler: Adding Listeners and highlighting');
             articleListeners();
             Playlist.highlight(Playlist.currPost.id);
             break;

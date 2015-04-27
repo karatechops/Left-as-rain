@@ -1,4 +1,5 @@
 var navOpen = false;
+var navigating = false;
 
 $('.nav-button').click(function()
 {
@@ -28,6 +29,7 @@ function getContent(section)
             url: section,
             datatype: 'html',
             success: function (data) {
+                console.log('section other than home')
                 swapContent(data);
             },
             error: function (xhr, textStatus, thrownError) {
@@ -36,10 +38,13 @@ function getContent(section)
         });
     }
 
-    if (section == '/')
+    if (section == '/' && navigating === false)
     {
+        console.log('navigating: '+navigating);
         Playlist.home();
     }
+
+    navigating = true;
 }
 
 function swapContent(content)
@@ -70,7 +75,7 @@ function loaderFade(state)
 }
 
 var popped = ('state' in window.history), initialURL = location.href;
-
+// ADDING DOUBLE CLICKS
 $(window).bind('popstate', function(event) {
     var initialPop = !popped && location.href == initialURL;
     popped = true;
@@ -85,6 +90,7 @@ $(document).on("click", "a", function(e) {
         e.preventDefault();
         var url = $(this).attr("href");
         History.pushState(null, null, url);
+        console.log("Link Clicked");
         getContent(url);
     }
 });
