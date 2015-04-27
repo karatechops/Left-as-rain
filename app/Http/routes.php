@@ -14,14 +14,14 @@
 Route::get('/', 'PagesController@index');
 Route::get('/about', 'PagesController@about');
 Route::resource('/pages', 'PagesController');
-Route::get('/posts/{slug}', 'SongController@getSongsFrom');
+Route::get('/posts/{slug}', 'PostController@getPostsFrom');
 
-Route::get('/getsong/latest/{amount}', 'SongController@getLatest');
-Route::get('/getsong/{id}', 'SongController@getSong');
-Route::get('/getnextsong/{id}', 'SongController@getNextSong');
-Route::get('/getmoresongs/{lastLoadedPostId}/{amountToLoad}', 'SongController@getMoreSongs');
-Route::get('/streamsong/{id}/{token?}', 'SongController@setupStream');
-//Route::get('/streamsong/{id}/{token?}', 'SongController@startStream');
+Route::get('/posts/get/latest/{amount?}', 'PostController@getLatest');
+Route::get('/posts/get/{id}', 'PostController@getPost');
+Route::get('/posts/get/{id}/next', 'PostController@getNextPost');
+Route::get('/posts/get/more/{lastLoadedPostId}/{amountToLoad?}', 'PostController@getMorePosts');
+
+Route::get('/streamsong/{id}/{token?}', 'StreamController@setupStream');
 
 Route::controllers([
 	'auth' => 'Auth\AuthController',

@@ -24,7 +24,7 @@ Playlist.prototype = {
     {
         console.log('getLatestPosts amount: '+amount);
         $.ajax({
-            url: '/getsong/latest/'+amount,
+            url: '/posts/get/latest/'+amount,
             dataType: 'html',
             success: function(data) {
                 if(typeof callback === "function") callback(data);
@@ -42,7 +42,7 @@ Playlist.prototype = {
         if (!lastId) lastId = this.latestPost;
 
         $.ajax({
-            url: '/getmoresongs/'+lastId+'/'+amount,
+            url: '/posts/get/more/'+lastId+'/'+amount,
             dataType: 'html',
             success: function(data) {
                 posts = data;
@@ -160,13 +160,13 @@ Player.prototype = {
     {
         $.ajax({
             type: 'GET',
-            url: '/getsong/'+id,
+            url: '/posts/get/'+id,
             dataType: 'json',
             success: function(data) {
                 Player.sendSongToPlayer(data, true);
             },
             error: function(xhr, textStatus, thrownError) {
-                alert('Something went to wrong.Please Try again later...');
+                alert('Something went to wrong with getSong');
             }
         }).done(function() {
             //finished
@@ -176,7 +176,7 @@ Player.prototype = {
     getNextSong: function(id)
     {
         $.ajax({
-            url: '/getnextsong/'+id,
+            url: '/posts/get/'+id+'/next',
             dataType: 'json',
             success: function(data) {
                 Player.getSong(data);
