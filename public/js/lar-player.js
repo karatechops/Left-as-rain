@@ -6,12 +6,16 @@ $.ajaxSetup({
 
 function Playlist (playlistDiv)
 {
-    this.currPost = [];
     this.playlistDiv = playlistDiv;
+    this.currPost = [];
+
     this.events = new EventEmitter();
     this.postsLoaded = 10;
+
     this.latestPost;
     this.getLatestPosts(function(posts) { this.latestPost = posts }, 1);
+
+    this.shuffle = this.checkShuffle();
 }
 
 Playlist.prototype = {
@@ -37,7 +41,7 @@ Playlist.prototype = {
     getMorePosts: function(callback, amount)
     {
         var posts;
-        var lastId = $('#playlist article:last').attr('id');
+        var lastId = $('.content article:last').attr('id');
         if (!lastId) lastId = this.latestPost;
 
         $.ajax({
@@ -60,6 +64,26 @@ Playlist.prototype = {
         Playlist.events.emitEvent('playlistEvent', ['addedPosts']);
     },
 
+    getNextPostId: function () {
+        return($('#'+this.currPost.id).next('article').attr('id'));
+    },
+
+    checkShuffle: function()
+    {
+        var string = 'playlists/shuffle';
+        console.log(window.location.toString().indexOf(string) > -1);
+        return(window.location.toString().indexOf(string) > -1);
+    },
+
+    /*postsToTracklist: function()
+    {
+        var list = [];
+        $('.content article').each(function(index){
+            list.push($(this).attr('id'));
+        });
+        return list;
+    },*/
+
     scrollToPost: function(id)
     {
         $('html,body').animate({
@@ -70,6 +94,7 @@ Playlist.prototype = {
     clear: function()
     {
         this.playlistDiv.html('');
+        this.scrollToTop();
     },
 
     scrollToTop: function()
@@ -86,7 +111,13 @@ Playlist.prototype = {
             Playlist.highlight(Playlist.currPost.id);
         }, 10);
         this.scrollToTop;
+    },
+
+    active: function()
+    {
+        if ($(".post").length) return true;
     }
+
 }
 
 function Player()
@@ -97,7 +128,6 @@ function Player()
         onready: function()
         {
             addListeners();
-
         },
         debugMode: false
     });
@@ -156,6 +186,7 @@ Player.prototype = {
 
     getSong: function(id)
     {
+        Playlist.shuffle =  Playlist.checkShuffle();
         $.ajax({
             type: 'GET',
             url: '/posts/get/'+id,
@@ -173,18 +204,30 @@ Player.prototype = {
 
     getNextSong: function(id)
     {
-        $.ajax({
-            url: '/posts/get/'+id+'/next',
-            dataType: 'json',
-            success: function(data) {
-                Player.getSong(data);
-            },
-            error: function(xhr, textStatus, thrownError) {
-                alert('Something went to wrong.Please Try again later...');
+        var currId = Playlist.currPost.id;
+
+
+        if (Playlist.active()) {
+            if($('#'+currId).next('article').length == 0) {
+                Playlist.getMorePosts(function (posts) {
+                    Playlist.addPostsToPlaylist(posts);
+                    Player.getSong(Playlist.getNextPostId());
+                }, 10);
             }
-        }).done(function() {
-            //finished
-        });
+            if (Playlist.active() && $('#'+currId).next('article').length > 0)  {
+                Player.getSong(Playlist.getNextPostId());
+            }
+        }
+
+        if (!Playlist.active() && !Playlist.shuffle) {
+            $.get( '/posts/get/'+id+'/next', function( id ) {
+                Player.getSong(id);
+            });
+        } else if (!Playlist.active() && Playlist.shuffle) {
+            $.get( 'posts/get/shuffle/1', function( post ) {
+                Player.getSong(post);
+            });
+        }
     },
 
     sendSongToPlayer: function(song, playSongNow)
@@ -210,7 +253,9 @@ Player.prototype = {
             },
             onfinish: function()
             {
-                Player.getNextSong(song.id);
+                Player.events.emitEvent('playerEvent', ['next']);
+                Player.getNextSong(Playlist.currPost.id, true);
+                //Player.getNextSong(song.id);
             }
 
         });
@@ -229,7 +274,7 @@ Player.prototype = {
     }
 }
 
-var Playlist = new Playlist($('#playlist'));
+var Playlist = new Playlist($('.content'));
 var Player = new Player();
 
 function addListeners()
@@ -278,6 +323,8 @@ function playerEventHandler(e)
             playIcon.removeClass('fa-play');
             playIcon.addClass('fa-pause');
             break;
+        case 'next':
+            break;
     }
 }
 
@@ -299,7 +346,7 @@ $('#playlist').bind('DOMSubtreeModified', function() {
 });*/
 
 function articleListeners(){
-    if ($(".post").length) {
+    if (Playlist.active()) {
         Waypoint.destroyAll();
         $('article').click(function () {
             if (Playlist.currPost.id != $(this).attr('id') || Player.currSound.playState === 0) {
@@ -320,11 +367,11 @@ function articleListeners(){
         // Make sure links in articles open in new window.
         $('article p a').attr('target', '_blank');
 
-        var waypoints = $('#playlist article:last').waypoint(function (direction) {
+        var waypoints = $('.content article:last').waypoint(function (direction) {
             if (direction === 'down') {
-                var posts = Playlist.getMorePosts(function (posts) {
+                /*var posts = Playlist.getMorePosts(function (posts) {
                     Playlist.addPostsToPlaylist(posts);
-                }, 10);
+                }, 10);*/
             }
         }, {
             triggerOnce: true,

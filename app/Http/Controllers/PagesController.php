@@ -30,11 +30,6 @@ class PagesController extends Controller {
         return (Request::ajax()) ? view('partials.about') : view('pages.about');
     }
 
-    public function aboutContent()
-    {
-        return view ('partials.about');
-    }
-
     public function show($url)
     {
         $page = Page::where('title', '=', $url)->firstOrFail();
@@ -44,6 +39,12 @@ class PagesController extends Controller {
     public function store($data)
     {
 
+    }
+
+    public function get($url)
+    {
+        $page = Page::where('title', '=', $url)->firstOrFail();
+        return view('partials.page', compact('page'));
     }
 
 }

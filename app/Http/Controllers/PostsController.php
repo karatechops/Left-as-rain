@@ -8,7 +8,7 @@ use Request;
 use Session;
 use App\Stream;
 
-class PostController extends Controller {
+class PostsController extends Controller {
 
 	/**
 	 * Display a listing of the resource.
@@ -73,14 +73,30 @@ class PostController extends Controller {
      * Used for linking to posts
      *
      * @param $slug
-     * @param int $amountToLoad
+     * @param int $amount
      * @return mixed
      */
-    public function getPostsFrom($slug, $amountToLoad = 10)
+    public function getPostsFrom($slug, $amount = 10)
     {
         $post = Post::where('slug', $slug)->get();
-        $posts = Post::where('id', '<=', $post[0]->id)->orderBy('id', 'desc')->get()->take($amountToLoad);
+        $posts = Post::where('id', '<=', $post[0]->id)->orderBy('id', 'desc')->get()->take($amount);
         return (Request::ajax()) ? view('partials.posts', compact('posts')) : view('pages.home', compact('posts'));
+    }
+
+    /**
+     * @param int $amount
+     * @return \Illuminate\View\View
+     */
+    public function shuffle($amount = 10)
+    {
+        $posts = Post::orderBy(\DB::raw('RAND()'))->take($amount)->get();
+        return view('pages.home', compact('posts'));
+    }
+
+    public function getRandomPosts($amount = 10)
+    {
+        $posts = Post::orderBy(\DB::raw('RAND()'))->take($amount)->get();
+        return view('partials.posts', compact('posts'));
     }
 
 }

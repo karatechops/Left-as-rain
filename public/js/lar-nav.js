@@ -1,5 +1,4 @@
 var navOpen = false;
-var navigating = false;
 
 $('.nav-button').click(function()
 {
@@ -24,12 +23,17 @@ function getContent(section)
     console.log('Navigating to section: '+section);
     if (section != '/')
     {
+        if(~section.indexOf('/pages/')){
+            var page = (section.substr(section.lastIndexOf('/') + 1));
+            section = '/pages/get/'+page;
+            console.log('Section for API: '+section);
+        }
+
         $.ajax({
             type: 'get',
             url: section,
             datatype: 'html',
             success: function (data) {
-                console.log('section other than home')
                 swapContent(data);
             },
             error: function (xhr, textStatus, thrownError) {
@@ -38,13 +42,12 @@ function getContent(section)
         });
     }
 
-    if (section == '/' && navigating === false)
+    if (section == '/')
     {
-        console.log('navigating: '+navigating);
         Playlist.home();
+        closeNav();
     }
 
-    navigating = true;
 }
 
 function swapContent(content)
@@ -56,10 +59,6 @@ function swapContent(content)
     Playlist.scrollToTop();
     closeNav();
     loaderFade('out');
-}
-
-function postLink(post){
-
 }
 
 function loaderFade(state)
@@ -74,24 +73,20 @@ function loaderFade(state)
     }
 }
 
-var popped = ('state' in window.history), initialURL = location.href;
-// ADDING DOUBLE CLICKS
-$(window).bind('popstate', function(event) {
-    var initialPop = !popped && location.href == initialURL;
-    popped = true;
-    if ( initialPop ) return;
-
-    var returnLocation = history.location || document.location;
-    getContent(returnLocation.pathname);
+window.addEventListener("popstate", function(e) {
+    // Get State value using e.state
+    getContent(location.pathname);
 });
 
 $(document).on("click", "a", function(e) {
     if ($(this).attr("target") != "_blank") {
         e.preventDefault();
         var url = $(this).attr("href");
-        History.pushState(null, null, url);
-        console.log("Link Clicked");
         getContent(url);
+        history.pushState(null, null, url);
+        console.log("Pushing State: "+url);
+        //History.pushState(null, null, "?state=4");
+        //getContent(url);
     }
 });
 
@@ -109,8 +104,6 @@ $('.title').click(function()
 {
     var articleId = Playlist.currPost.id;
     var article = $('#' + articleId);
-    console.log(Playlist.currPost);
-
     (article.length) ? Playlist.scrollToPost(articleId) : simulateAnchorClick(Playlist.currPost.slug);
 });
 

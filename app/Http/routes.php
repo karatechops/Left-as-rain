@@ -13,13 +13,17 @@
 
 Route::get('/', 'PagesController@index');
 Route::get('/about', 'PagesController@about');
+Route::get('/pages/get/{url}/', 'PagesController@get');
 Route::resource('/pages', 'PagesController');
-Route::get('/posts/{slug}', 'PostController@getPostsFrom');
 
-Route::get('/posts/get/latest/{amount?}', 'PostController@getLatest');
-Route::get('/posts/get/{id}', 'PostController@getPost');
-Route::get('/posts/get/{id}/next', 'PostController@getNextPost');
-Route::get('/posts/get/more/{lastLoadedPostId}/{amountToLoad?}', 'PostController@getMorePosts');
+Route::get('/playlists/shuffle/{amount?}', 'PostsController@shuffle');
+
+Route::get('/posts/{slug}', 'PostsController@getPostsFrom');
+Route::get('/posts/get/latest/{amount?}', 'PostsController@getLatest');
+Route::get('/posts/get/{id}', 'PostsController@getPost');
+Route::get('/posts/get/{id}/next', 'PostsController@getNextPost');
+Route::get('/posts/get/more/{lastLoadedPostId}/{amount?}', 'PostsController@getMorePosts');
+Route::get('posts/get/shuffle/{amount?}', 'PostsController@getRandomPosts');
 
 Route::get('/streamsong/{id}/{token?}', 'StreamController@setupStream');
 
