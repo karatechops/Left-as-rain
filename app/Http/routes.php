@@ -24,6 +24,7 @@ Route::get('/posts/get/{id}', 'PostsController@getPost');
 Route::get('/posts/get/{id}/next', 'PostsController@getNextPost');
 Route::get('/posts/get/more/{lastLoadedPostId}/{amount?}', 'PostsController@getMorePosts');
 Route::get('posts/get/shuffle/{amount?}', 'PostsController@getRandomPosts');
+Route::get('partials/get/shuffle/{amount?}', 'PostsController@getRandomPostsPartial');
 
 Route::get('/streamsong/{id}/{token?}', 'StreamController@setupStream');
 

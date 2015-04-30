@@ -93,10 +93,26 @@ class PostsController extends Controller {
         return view('pages.home', compact('posts'));
     }
 
-    public function getRandomPosts($amount = 10)
+    /**
+     * @param int $amount
+     * @return \Illuminate\View\View
+     */
+    public function getRandomPostsPartial($amount = 10)
     {
         $posts = Post::orderBy(\DB::raw('RAND()'))->take($amount)->get();
         return view('partials.posts', compact('posts'));
     }
+
+    /**
+     * @param int $amount
+     * @return \Illuminate\View\View
+     */
+    public function getRandomPosts($amount = 10)
+    {
+        $posts = Post::orderBy(\DB::raw('RAND()'))->take($amount)->get();
+        return ($posts);
+    }
+
+
 
 }

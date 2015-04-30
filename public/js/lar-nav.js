@@ -29,6 +29,11 @@ function getContent(section)
             console.log('Section for API: '+section);
         }
 
+        if(~section.indexOf('/playlists/')){
+            section = '/partials/get/shuffle/10';
+            console.log('Section for API: '+section);
+        }
+
         $.ajax({
             type: 'get',
             url: section,
@@ -37,7 +42,7 @@ function getContent(section)
                 swapContent(data);
             },
             error: function (xhr, textStatus, thrownError) {
-                console.log('Something went to wrong.Please Try again later...');
+                console.log('Something went to wrong in getContent.');
             }
         });
     }
@@ -104,6 +109,6 @@ $('.title').click(function()
 {
     var articleId = Playlist.currPost.id;
     var article = $('#' + articleId);
-    (article.length) ? Playlist.scrollToPost(articleId) : simulateAnchorClick(Playlist.currPost.slug);
+    (article.length) ? Playlist.scrollToPost(articleId) : simulateAnchorClick('/posts/'+Playlist.currPost.slug);
 });
 

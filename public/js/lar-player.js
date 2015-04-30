@@ -65,13 +65,14 @@ Playlist.prototype = {
     },
 
     getNextPostId: function () {
-        return($('#'+this.currPost.id).next('article').attr('id'));
+        var currPostElem = $('#'+this.currPost.id);
+        var nextPostId = currPostElem.next('article').attr('id');
+        return nextPostId;
     },
 
     checkShuffle: function()
     {
         var string = 'playlists/shuffle';
-        console.log(window.location.toString().indexOf(string) > -1);
         return(window.location.toString().indexOf(string) > -1);
     },
 
@@ -115,7 +116,8 @@ Playlist.prototype = {
 
     active: function()
     {
-        if ($(".post").length) return true;
+        //if (this.currPost.id) console.log();
+        if ($(".post").length ) return true;
     }
 
 }
@@ -206,16 +208,23 @@ Player.prototype = {
     {
         var currId = Playlist.currPost.id;
 
-
         if (Playlist.active()) {
+
+            // extend playlist if there's no track to play.
             if($('#'+currId).next('article').length == 0) {
                 Playlist.getMorePosts(function (posts) {
                     Playlist.addPostsToPlaylist(posts);
                     Player.getSong(Playlist.getNextPostId());
                 }, 10);
             }
-            if (Playlist.active() && $('#'+currId).next('article').length > 0)  {
+
+            // check for played track in current list, check if there's a track to play.
+            if ($('#'+Playlist.currPost.id).length && $('#'+currId).next('article').length > 0)  {
                 Player.getSong(Playlist.getNextPostId());
+            } else {
+                $.get( '/posts/get/'+id+'/next', function( id ) {
+                    Player.getSong(id);
+                })
             }
         }
 
@@ -224,8 +233,8 @@ Player.prototype = {
                 Player.getSong(id);
             });
         } else if (!Playlist.active() && Playlist.shuffle) {
-            $.get( 'posts/get/shuffle/1', function( post ) {
-                Player.getSong(post);
+            $.get( '/posts/get/shuffle/1', function( post ) {
+                Player.getSong(post[0].id);
             });
         }
     },
@@ -369,9 +378,9 @@ function articleListeners(){
 
         var waypoints = $('.content article:last').waypoint(function (direction) {
             if (direction === 'down') {
-                /*var posts = Playlist.getMorePosts(function (posts) {
+                var posts = Playlist.getMorePosts(function (posts) {
                     Playlist.addPostsToPlaylist(posts);
-                }, 10);*/
+                }, 10);
             }
         }, {
             triggerOnce: true,
