@@ -8,6 +8,7 @@ function Playlist (playlistDiv)
 {
     this.playlistDiv = playlistDiv;
     this.currPost = [];
+    this.prevPost = 0;
 
     this.events = new EventEmitter();
     this.postsLoaded = 10;
@@ -20,7 +21,10 @@ function Playlist (playlistDiv)
 
 Playlist.prototype = {
     highlight: function(id){
-        if (Player.playedSongs.length > 1) $('#'+Player.getPreviousSong()).removeClass('currently-playing');
+        if ( $(".currently-playing").length > 0) {
+            var prevElem = $("#playlist").find(".currently-playing");
+            prevElem.removeClass('currently-playing');
+        }
         $('#'+id).addClass('currently-playing');
     },
 
@@ -116,7 +120,6 @@ Playlist.prototype = {
 
     active: function()
     {
-        //if (this.currPost.id) console.log();
         if ($(".post").length ) return true;
     }
 
@@ -181,6 +184,18 @@ Player.prototype = {
         return (previousSong);
     },
 
+    playPreviousSong: function()
+    {
+        if (Player.playedSongs.length > 1){
+            var getString = '/posts/get/'+Player.playedSongs[1].id;
+            $.get( getString, function( post ) {
+                Player.sendSongToPlayer(post, true, true);
+            });
+            Player.playedSongs.splice(1,1);
+        }
+        console.table(Player.playedSongs);
+    },
+
     setPlayerInfo: function(title, cover){
         $('#song-title').html(title);
         //$('.cover').css('background-image', 'url(http://www.leftasrain.com/img/covers/'+escape(cover)+')');
@@ -189,19 +204,20 @@ Player.prototype = {
     getSong: function(id)
     {
         Playlist.shuffle =  Playlist.checkShuffle();
-        $.ajax({
-            type: 'GET',
-            url: '/posts/get/'+id,
-            dataType: 'json',
-            success: function(data) {
-                Player.sendSongToPlayer(data, true);
-            },
-            error: function(xhr, textStatus, thrownError) {
-                alert('Something went to wrong with getSong');
-            }
-        }).done(function() {
-            //finished
-        });
+            $.ajax({
+                type: 'GET',
+                url: '/posts/get/' + id,
+                success: function (data) {
+                    Player.sendSongToPlayer(data, true);
+                },
+                error: function (xhr, textStatus, thrownError) {
+                    console.log('xhr:' + xhr.error);
+                    console.log('textStatus:' + textStatus);
+                    console.log('thrownError:' + thrownError);
+                }
+            }).done(function () {
+                //finished
+            });
     },
 
     getNextSong: function(id)
@@ -209,9 +225,8 @@ Player.prototype = {
         var currId = Playlist.currPost.id;
 
         if (Playlist.active()) {
-
             // extend playlist if there's no track to play.
-            if($('#'+currId).next('article').length == 0) {
+            if($('#'+currId).next('article').length == 0 && $('#'+currId).length == 1) {
                 Playlist.getMorePosts(function (posts) {
                     Playlist.addPostsToPlaylist(posts);
                     Player.getSong(Playlist.getNextPostId());
@@ -222,7 +237,7 @@ Player.prototype = {
             if ($('#'+Playlist.currPost.id).length && $('#'+currId).next('article').length > 0)  {
                 Player.getSong(Playlist.getNextPostId());
             } else {
-                $.get( '/posts/get/'+id+'/next', function( id ) {
+                $.get( '/posts/get/'+currId+'/next', function( id ) {
                     Player.getSong(id);
                 })
             }
@@ -239,7 +254,7 @@ Player.prototype = {
         }
     },
 
-    sendSongToPlayer: function(song, playSongNow)
+    sendSongToPlayer: function(song, playSongNow, previousSong)
     {
         if (Player.playedSongs.length >= 1) {
             soundManager.unload('track'+Playlist.currPost.id);
@@ -264,13 +279,12 @@ Player.prototype = {
             {
                 Player.events.emitEvent('playerEvent', ['next']);
                 Player.getNextSong(Playlist.currPost.id, true);
-                //Player.getNextSong(song.id);
             }
 
         });
 
         Playlist.currPost = song;
-        if (playSongNow) Player.playedSongs.unshift(Playlist.currPost);
+        if (playSongNow && !previousSong ) Player.playedSongs.unshift(Playlist.currPost);
         Player.setPlayerInfo(unescape(song.title), song.cover);
 
         if (playSongNow) Player.playSong();
@@ -279,7 +293,9 @@ Player.prototype = {
     pullUpPlayer: function()
     {
         $('#player').css('bottom', '0');
-        $('body').css('padding-bottom', '80px')
+        $('body').css('padding-bottom', '80px');
+        $('.shading').css('margin-bottom', '97px');
+        $('.shading').css('height', '15%');
     }
 }
 
@@ -306,6 +322,10 @@ function addListeners()
     $('#next').click(function()
     {
         Player.getNextSong(Playlist.currPost.id, true);
+    });
+
+    $('#previous').click(function(){
+       Player.playPreviousSong();
     });
 
     Player.events.addListener('playerEvent', playerEventHandler);

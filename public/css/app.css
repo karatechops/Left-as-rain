@@ -1,23 +1,23 @@
 @font-face {
   font-family: 'Futura-Light';
-  src: url('../../fonts/FuturaStd-light.woff') format('woff');
+  src: url("../../fonts/FuturaStd-light.woff") format("woff");
   font-weight: normal;
   font-style: normal; }
-
-html {
-  -webkit-font-smoothing: antialiased; }
 
 body {
   padding: 65px 0 0 0;
   color: #eee;
   background-color: #000;
-  font-family: Futura-Light, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-family: Futura-Light, "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 14px;
   letter-spacing: 0.2143rem; }
 
 h1 {
-  font-size: 1.071rem;
-  margin-bottom: 0.3571rem; }
+  color: white;
+  font-size: 1.2rem;
+  margin-bottom: 0.3571rem;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale; }
 
 a, a:focus {
   color: #fff;
@@ -51,6 +51,12 @@ nav {
       margin-top: 7px; }
     nav .logo:hover {
       opacity: 1; }
+  nav .search-button {
+    opacity: .5;
+    position: fixed;
+    top: 14px;
+    right: 15px;
+    font-size: 18px; }
   nav .nav-button {
     float: left;
     cursor: pointer;
@@ -62,13 +68,13 @@ nav {
   nav .overlay-menu {
     position: fixed;
     top: 56px;
-    left: -250px;
+    left: -281px;
     height: 100%;
     width: 250px;
     background-color: rgba(0, 0, 0, 0.9);
     z-index: 49;
     color: #eee;
-    transition: left 0.5s ease-in-out; }
+    transition: left 0.45s ease-in-out; }
     nav .overlay-menu ul.nav-list {
       list-style: none;
       padding-left: 0;
@@ -92,6 +98,14 @@ nav {
         color: #eee !important; }
       nav .overlay-menu ul.nav-list li.last-child {
         margin-right: 0; }
+
+.search .search-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.8); }
 
 .clearfix {
   clear: both;
@@ -118,10 +132,9 @@ nav {
       position: relative;
       padding-left: 30px;
       border-left: #1b1b1b 1px solid;
-      cursor: pointer;
       transition: border-left 0.5s ease-in-out; }
       .content-row .content article h1 i {
-        font-size: 12px;
+        font-size: 14px;
         color: #666; }
         .content-row .content article h1 i:hover {
           color: #00ffff; }
@@ -129,17 +142,25 @@ nav {
         color: #6e6e6e;
         margin: 0;
         font-family: helvetica neue, helvetica, arial, sans-serif;
-        font-size: 75%;
+        font-size: 77%;
         letter-spacing: 1.25px; }
+        .content-row .content article .article-inner .small-info .name {
+          text-transform: capitalize; }
       .content-row .content article .article-inner .copy {
-        line-height: 1.571rem;
-        margin-bottom: 0; }
+        line-height: 1.5rem;
+        margin-bottom: 0;
+        color: rgba(221, 221, 221, 0.8);
+        font-size: 14px;
+        letter-spacing: .08rem; }
         .content-row .content article .article-inner .copy img {
           width: 100%;
           height: auto;
           max-width: 500px; }
-      .content-row .content article:hover {
-        border-left: #00ffff 1px solid; }
+    .content-row .content article.post:hover {
+      border-left: #00ffff 1px solid;
+      cursor: pointer; }
+    .content-row .content article.page {
+      border-left: #00ffff 1px solid; }
 
 .currently-playing {
   border-left: #ff0 1px solid !important; }
@@ -154,11 +175,19 @@ nav {
 
 .side-bar {
   position: absolute;
+  top: 65px;
   right: 0;
   width: 320px;
-  border-left: #1b1b1b 1px solid; }
+  border-left: #1b1b1b 1px solid;
+  margin-right: 5px; }
   .side-bar .side-bar-content {
     margin: 10px; }
+    .side-bar .side-bar-content p {
+      letter-spacing: .05em;
+      text-align: right; }
+      .side-bar .side-bar-content p a {
+        text-decoration: none;
+        font-size: 13px; }
 
 #player {
   display: block;
@@ -232,14 +261,12 @@ nav {
 @-webkit-keyframes uil-default-anim {
   0% {
     opacity: 1; }
-
   100% {
     opacity: 0; } }
 
 @keyframes uil-default-anim {
   0% {
     opacity: 1; }
-
   100% {
     opacity: 0; } }
 
@@ -298,9 +325,10 @@ nav {
   left: 0;
   height: 30%;
   width: 100%;
+  transition: all 0.25s ease-in-out;
   background: transparent;
-  background: -webkit-gradient(left top, left bottom, color-stop(0%, transparent), color-stop(100%, #000000));
-  background: linear-gradient(to bottom, transparent 0%, #000000 100%);
+  background: -webkit-gradient(left top, left bottom, color-stop(0%, transparent), color-stop(100%, black));
+  background: linear-gradient(to bottom, transparent 0%, black 100%);
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#000000', endColorstr='#000000', GradientType=0 ); }
 
 @media (min-width: 1780px) {
@@ -318,6 +346,5 @@ nav {
     margin-right: 0; }
     .content-row .content {
       margin-right: 0; } }
-
 
 /*# sourceMappingURL=app.css.map */

@@ -21,7 +21,6 @@
     <div class="shading"></div>
 	<!-- Scripts -->
 	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-	<!--<script src="{{ asset('js/jquery.history.js') }}"></script>-->
 	<script src="{{ asset('js/jquery.waypoints.min.js') }}"></script>
     <script src="{{ asset('js/EventEmitter.js') }}"></script>
     <script src="{{ asset('/js/soundmanager2.js') }}"></script>

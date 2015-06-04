@@ -111,4 +111,3 @@ $('.title').click(function()
     var article = $('#' + articleId);
     (article.length) ? Playlist.scrollToPost(articleId) : simulateAnchorClick('/posts/'+Playlist.currPost.slug);
 });
-
