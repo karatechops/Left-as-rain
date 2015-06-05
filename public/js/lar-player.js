@@ -276,8 +276,7 @@ Player.prototype = {
         if (playSongNow && !previousSong ) Player.playedSongs.unshift(Playlist.currPost);
         Player.setPlayerInfo(unescape(song.title), song.cover);
 
-        this.currSound.play();
-        //Player.playSong();
+        Player.playSong();
     },
 
     pullUpPlayer: function()
@@ -364,7 +363,38 @@ function articleListeners(){
         $('article').click(function () {
             if (Playlist.currPost.id != $(this).attr('id') || Player.currSound.playState === 0) {
                 var songId = $(this).attr('id');
-                Player.getSong(songId);
+                //Player.getSong(songId);
+                var getString = '/posts/get/' + songId;
+                $.get( getString, function( post ) {
+                    Player.sendSongToPlayer(post, true, true);
+                    Player.currSound = soundManager.createSound({
+                        id: 'track'+post.id,
+                        url: 'http://leftasrain.com/musica/'+post.song_path+'.mp3',
+                        onplay: function()
+                        {
+                            Player.events.emitEvent('playerEvent', ['play']);
+                        },
+                        onresume: function()
+                        {
+                            Player.events.emitEvent('playerEvent', ['resume']);
+                        },
+                        onpause: function()
+                        {
+                            Player.events.emitEvent('playerEvent', ['pause']);
+                        },
+                        onfinish: function()
+                        {
+                            Player.events.emitEvent('playerEvent', ['next']);
+                            Player.getNextSong(Playlist.currPost.id, true);
+                        }
+
+                    });
+
+                    Playlist.currPost = post;
+                    Player.setPlayerInfo(unescape(song.title), song.cover);
+
+                    Player.playSong();
+                });
             }
         });
 

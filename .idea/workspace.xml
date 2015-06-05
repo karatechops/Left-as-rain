@@ -66,8 +66,8 @@
       <file leaf-file-name="lar-player.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/public/js/lar-player.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.36774194" vertical-offset="7328" max-vertical-offset="11172">
-              <caret line="278" column="30" selection-start-line="278" selection-start-column="30" selection-end-line="278" selection-end-column="30" />
+            <state vertical-scroll-proportion="0.2548387" vertical-offset="10016" max-vertical-offset="12012">
+              <caret line="369" column="65" selection-start-line="369" selection-start-column="65" selection-end-line="369" selection-end-column="65" />
               <folding />
             </state>
           </provider>
@@ -571,7 +571,7 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/public/js/lar-player.js</url>
-          <line>363</line>
+          <line>362</line>
           <option name="timeStamp" value="3" />
         </line-breakpoint>
       </breakpoints>
@@ -965,8 +965,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/public/js/lar-player.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.36774194" vertical-offset="7328" max-vertical-offset="11172">
-          <caret line="278" column="30" selection-start-line="278" selection-start-column="30" selection-end-line="278" selection-end-column="30" />
+        <state vertical-scroll-proportion="0.2548387" vertical-offset="10016" max-vertical-offset="12012">
+          <caret line="369" column="65" selection-start-line="369" selection-start-column="65" selection-end-line="369" selection-end-column="65" />
           <folding />
         </state>
       </provider>
