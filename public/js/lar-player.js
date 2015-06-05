@@ -361,9 +361,17 @@ function articleListeners(){
     if (Playlist.active()) {
         Waypoint.destroyAll();
         $('article').click(function () {
-            /*if (Playlist.currPost.id != $(this).attr('id') || Player.currSound.playState === 0) {
+
+            if (Playlist.currPost.id != $(this).attr('id') || Player.currSound.playState === 0) {
+                var mySound1 = soundManager.createSound({
+                    id: 'init',
+                    url: '/mp3/blank.mp3'
+                });
+                mySound1.play();
+                mySound1.stop();
                 var songId = $(this).attr('id');
                 Player.getSong(songId);
+            }
                 /*var getString = '/posts/get/' + songId;
                 $.get( getString, function( post ) {
                     Player.sendSongToPlayer(post, true, true);
@@ -399,12 +407,8 @@ function articleListeners(){
                     //if (!this.visible) Playlist.highlight(Playlist.currPost.id);
                 });
             }*/
-                var mySound1 = soundManager.createSound({
-                    id: 'init',
-                    url: 'http://leftasrain.com/musica/back to the start.mp3'
-                });
-                mySound1.play();
-            var getString = '/posts/get/' + '1';
+
+            /*var getString = '/posts/get/' + '1';
             $.get( getString, function( post ) {
                 soundManager.unload('init');
                 var mySound = soundManager.createSound({
@@ -429,7 +433,7 @@ function articleListeners(){
                     }
                 });
                 mySound.play();
-            });
+            });*/
 
         });
 
