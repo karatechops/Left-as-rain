@@ -276,7 +276,8 @@ Player.prototype = {
         if (playSongNow && !previousSong ) Player.playedSongs.unshift(Playlist.currPost);
         Player.setPlayerInfo(unescape(song.title), song.cover);
 
-        Player.playSong();
+        this.currSound.play();
+        //Player.playSong();
     },
 
     pullUpPlayer: function()
