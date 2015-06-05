@@ -152,7 +152,7 @@ function setActiveLocation(){
         }
     }
 
-    if (path == '/') {
+    if (path == '/' || path == '') {
         $('#home a').addClass('active');
     }
 
