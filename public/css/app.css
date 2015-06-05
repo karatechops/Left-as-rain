@@ -51,12 +51,6 @@ nav {
       margin-top: 7px; }
     nav .logo:hover {
       opacity: 1; }
-  nav .search-button {
-    opacity: .5;
-    position: fixed;
-    top: 14px;
-    right: 15px;
-    font-size: 18px; }
   nav .nav-button {
     float: left;
     cursor: pointer;
@@ -99,13 +93,39 @@ nav {
       nav .overlay-menu ul.nav-list li.last-child {
         margin-right: 0; }
 
+.search .search-button {
+  opacity: .5;
+  position: fixed;
+  top: 14px;
+  right: 15px;
+  font-size: 18px;
+  transition: all 0.5s ease-in-out; }
+  .search .search-button:hover {
+    opacity: 1; }
+
 .search .search-overlay {
   position: fixed;
-  top: 0;
+  display: block;
+  top: 53px;
   left: 0;
   height: 100%;
   width: 100%;
-  background-color: rgba(0, 0, 0, 0.8); }
+  background-color: black; }
+
+.search form {
+  margin: 10px 15px 0 15px;
+  text-align: left;
+  border-left: #00ffff 1px solid; }
+  .search form input {
+    box-sizing: border-box;
+    border: none;
+    background-color: rgba(255, 255, 255, 0.2);
+    height: 50px;
+    width: 100%;
+    font-size: 20px;
+    padding-left: 15px; }
+    .search form input:focus {
+      outline: none; }
 
 .clearfix {
   clear: both;

@@ -35,13 +35,6 @@ nav {
       opacity:1;
     }
   }
-  .search-button{
-    opacity:.5;
-    position:fixed;
-    top:14px;
-    right:15px;
-    font-size:18px;
-  }
   .nav-button{
     float:left;
     cursor:pointer;
@@ -100,13 +93,43 @@ nav {
 }
 
 .search {
+  .search-button{
+    opacity:.5;
+    position:fixed;
+    top:14px;
+    right:15px;
+    font-size:18px;
+    @include transition(all, 0.5s, ease-in-out);
+    &:hover{
+      opacity:1;
+    }
+  }
   .search-overlay {
     position:fixed;
-    top:0;
+    display:block;
+    top:53px;
     left:0;
     height:100%;
     width:100%;
-    background-color:rgba(0,0,0,.8);
+    background-color:rgba(0,0,0,1);
+  }
+  form {
+    margin: 10px 15px 0 15px;
+    text-align:left;
+    border-left:$blue 1px solid;
+    input {
+      box-sizing:border-box;
+      border:none;
+      background-color: rgba(255,255,255,.2);
+      height:50px;
+      width:100%;
+      font-size:20px;
+      padding-left:15px;
+      &:focus{
+        outline:none;
+
+      }
+    }
   }
 }
 
