@@ -393,7 +393,9 @@ function articleListeners(){
                     Playlist.currPost = post;
                     Player.setPlayerInfo(unescape(song.title), song.cover);
 
-                    Player.playSong();
+                    Player.pullUpPlayer();
+                    Player.currSound.play();
+                    //if (!this.visible) Playlist.highlight(Playlist.currPost.id);
                 });
             }
         });
