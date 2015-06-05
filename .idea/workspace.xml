@@ -66,8 +66,8 @@
       <file leaf-file-name="lar-player.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/public/js/lar-player.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.27071825" vertical-offset="10017" max-vertical-offset="13104">
-              <caret line="370" column="32" selection-start-line="370" selection-start-column="32" selection-end-line="370" selection-end-column="32" />
+            <state vertical-scroll-proportion="0.40331492" vertical-offset="9821" max-vertical-offset="11620">
+              <caret line="369" column="22" selection-start-line="369" selection-start-column="22" selection-end-line="369" selection-end-column="22" />
               <folding />
             </state>
           </provider>
@@ -940,14 +940,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/assets/sass/app.scss">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-14.685185" vertical-offset="11051" max-vertical-offset="12376">
-          <caret line="423" column="22" selection-start-line="423" selection-start-column="22" selection-end-line="423" selection-end-column="22" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/public/js/lar-nav.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="3325" max-vertical-offset="4648">
@@ -956,10 +948,18 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/resources/assets/sass/app.scss">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-14.685185" vertical-offset="11051" max-vertical-offset="12376">
+          <caret line="423" column="22" selection-start-line="423" selection-start-column="22" selection-end-line="423" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/public/js/lar-player.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.27071825" vertical-offset="10017" max-vertical-offset="13104">
-          <caret line="370" column="32" selection-start-line="370" selection-start-column="32" selection-end-line="370" selection-end-column="32" />
+        <state vertical-scroll-proportion="0.40331492" vertical-offset="9821" max-vertical-offset="11620">
+          <caret line="369" column="22" selection-start-line="369" selection-start-column="22" selection-end-line="369" selection-end-column="22" />
           <folding />
         </state>
       </provider>

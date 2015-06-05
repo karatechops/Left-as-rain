@@ -363,77 +363,24 @@ function articleListeners(){
         $('article').click(function () {
 
             if (Playlist.currPost.id != $(this).attr('id') || Player.currSound.playState === 0) {
-                var mySound1 = soundManager.createSound({
-                    id: 'init',
-                    url: '/mp3/blank.mp3'
-                });
-                mySound1.play();
-                mySound1.stop();
+                // Initialize audio on click to bypass iOS restrictions.
+                if(typeof Player.currSound.playState === 'undefined'){
+                    console.log(
+                        'init audio fix'
+                    );
+                    var mySound1 = soundManager.createSound({
+                        id: 'init',
+                        url: '/mp3/blank.mp3'
+                    });
+                    mySound1.play();
+                    mySound1.stop();
+                    soundManager.unload('init');
+                };
+
+
                 var songId = $(this).attr('id');
                 Player.getSong(songId);
             }
-                /*var getString = '/posts/get/' + songId;
-                $.get( getString, function( post ) {
-                    Player.sendSongToPlayer(post, true, true);
-                    Player.currSound = soundManager.createSound({
-                        id: 'track'+post.id,
-                        url: 'http://leftasrain.com/musica/'+post.song_path+'.mp3',
-                        onplay: function()
-                        {
-                            Player.events.emitEvent('playerEvent', ['play']);
-                        },
-                        onresume: function()
-                        {
-                            Player.events.emitEvent('playerEvent', ['resume']);
-                        },
-                        onpause: function()
-                        {
-                            Player.events.emitEvent('playerEvent', ['pause']);
-                        },
-                        onfinish: function()
-                        {
-                            Player.events.emitEvent('playerEvent', ['next']);
-                            Player.getNextSong(Playlist.currPost.id, true);
-                        }
-
-                    });
-
-                    Playlist.currPost = post;
-                    Player.setPlayerInfo(unescape(post.title), post.cover);
-
-                    Player.pullUpPlayer();
-                    Player.currSound.play();
-                    soundManager.play();
-                    //if (!this.visible) Playlist.highlight(Playlist.currPost.id);
-                });
-            }*/
-
-            /*var getString = '/posts/get/' + '1';
-            $.get( getString, function( post ) {
-                soundManager.unload('init');
-                var mySound = soundManager.createSound({
-                    //id: 'track'+post.id,
-                    url: 'http://leftasrain.com/musica/margot skeleton key.mp3',
-                    onplay: function()
-                    {
-                        Player.events.emitEvent('playerEvent', ['play']);
-                    },
-                    onresume: function()
-                    {
-                        Player.events.emitEvent('playerEvent', ['resume']);
-                    },
-                    onpause: function()
-                    {
-                        Player.events.emitEvent('playerEvent', ['pause']);
-                    },
-                    onfinish: function()
-                    {
-                        Player.events.emitEvent('playerEvent', ['next']);
-                        Player.getNextSong(Playlist.currPost.id, true);
-                    }
-                });
-                mySound.play();
-            });*/
 
         });
 
