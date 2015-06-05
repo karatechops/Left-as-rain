@@ -361,7 +361,6 @@ function articleListeners(){
     if (Playlist.active()) {
         Waypoint.destroyAll();
         $('article').click(function () {
-            alert('hi');
             if (Playlist.currPost.id != $(this).attr('id') || Player.currSound.playState === 0) {
                 var songId = $(this).attr('id');
                 //Player.getSong(songId);
@@ -392,7 +391,7 @@ function articleListeners(){
                     });
 
                     Playlist.currPost = post;
-                    Player.setPlayerInfo(unescape(song.title), song.cover);
+                    Player.setPlayerInfo(unescape(post.title), post.cover);
 
                     Player.pullUpPlayer();
                     Player.currSound.play();
