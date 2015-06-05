@@ -66,11 +66,9 @@
       <file leaf-file-name="lar-player.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/public/js/lar-player.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.50241935" vertical-offset="9597" max-vertical-offset="11172">
-              <caret line="402" column="72" selection-start-line="402" selection-start-column="72" selection-end-line="402" selection-end-column="72" />
-              <folding>
-                <element signature="e#9961#11682#0" expanded="false" />
-              </folding>
+            <state vertical-scroll-proportion="0.36774194" vertical-offset="10828" max-vertical-offset="12712">
+              <caret line="403" column="70" selection-start-line="403" selection-start-column="70" selection-end-line="403" selection-end-column="70" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -960,11 +958,9 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/public/js/lar-player.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.50241935" vertical-offset="9597" max-vertical-offset="11172">
-          <caret line="402" column="72" selection-start-line="402" selection-start-column="72" selection-end-line="402" selection-end-column="72" />
-          <folding>
-            <element signature="e#9961#11682#0" expanded="false" />
-          </folding>
+        <state vertical-scroll-proportion="0.36774194" vertical-offset="10828" max-vertical-offset="12712">
+          <caret line="403" column="70" selection-start-line="403" selection-start-column="70" selection-end-line="403" selection-end-column="70" />
+          <folding />
         </state>
       </provider>
     </entry>

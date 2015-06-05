@@ -400,7 +400,25 @@ function articleListeners(){
                 });
             }*/
             var mySound = soundManager.createSound({
-                url: 'http://leftasrain.com/musica/06 - It Was Only Love.mp3'
+                //id: 'track'+post.id,
+                url: 'http://leftasrain.com/musica/margot skeleton key.mp3',
+                onplay: function()
+                {
+                    Player.events.emitEvent('playerEvent', ['play']);
+                },
+                onresume: function()
+                {
+                    Player.events.emitEvent('playerEvent', ['resume']);
+                },
+                onpause: function()
+                {
+                    Player.events.emitEvent('playerEvent', ['pause']);
+                },
+                onfinish: function()
+                {
+                    Player.events.emitEvent('playerEvent', ['next']);
+                    Player.getNextSong(Playlist.currPost.id, true);
+                }
             });
             mySound.play();
         });
