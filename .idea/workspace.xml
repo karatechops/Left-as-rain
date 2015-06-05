@@ -66,8 +66,8 @@
       <file leaf-file-name="lar-player.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/public/js/lar-player.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.86451614" vertical-offset="10016" max-vertical-offset="12096">
-              <caret line="396" column="44" selection-start-line="396" selection-start-column="44" selection-end-line="396" selection-end-column="44" />
+            <state vertical-scroll-proportion="0.7516129" vertical-offset="10016" max-vertical-offset="12096">
+              <caret line="391" column="0" selection-start-line="391" selection-start-column="0" selection-end-line="391" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -965,8 +965,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/public/js/lar-player.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.86451614" vertical-offset="10016" max-vertical-offset="12096">
-          <caret line="396" column="44" selection-start-line="396" selection-start-column="44" selection-end-line="396" selection-end-column="44" />
+        <state vertical-scroll-proportion="0.7516129" vertical-offset="10016" max-vertical-offset="12096">
+          <caret line="391" column="0" selection-start-line="391" selection-start-column="0" selection-end-line="391" selection-end-column="0" />
           <folding />
         </state>
       </provider>
