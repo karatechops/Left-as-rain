@@ -399,28 +399,32 @@ function articleListeners(){
                     //if (!this.visible) Playlist.highlight(Playlist.currPost.id);
                 });
             }*/
-            var mySound = soundManager.createSound({
-                //id: 'track'+post.id,
-                url: 'http://leftasrain.com/musica/margot skeleton key.mp3',
-                onplay: function()
-                {
-                    Player.events.emitEvent('playerEvent', ['play']);
-                },
-                onresume: function()
-                {
-                    Player.events.emitEvent('playerEvent', ['resume']);
-                },
-                onpause: function()
-                {
-                    Player.events.emitEvent('playerEvent', ['pause']);
-                },
-                onfinish: function()
-                {
-                    Player.events.emitEvent('playerEvent', ['next']);
-                    Player.getNextSong(Playlist.currPost.id, true);
-                }
+            var getString = '/posts/get/' + '1';
+            $.get( getString, function( post ) {
+                var mySound = soundManager.createSound({
+                    //id: 'track'+post.id,
+                    url: 'http://leftasrain.com/musica/margot skeleton key.mp3',
+                    onplay: function()
+                    {
+                        Player.events.emitEvent('playerEvent', ['play']);
+                    },
+                    onresume: function()
+                    {
+                        Player.events.emitEvent('playerEvent', ['resume']);
+                    },
+                    onpause: function()
+                    {
+                        Player.events.emitEvent('playerEvent', ['pause']);
+                    },
+                    onfinish: function()
+                    {
+                        Player.events.emitEvent('playerEvent', ['next']);
+                        Player.getNextSong(Playlist.currPost.id, true);
+                    }
+                });
+                mySound.play();
             });
-            mySound.play();
+
         });
 
         $('article a').click(function (e) {
