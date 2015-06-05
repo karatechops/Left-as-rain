@@ -395,6 +395,7 @@ function articleListeners(){
 
                     Player.pullUpPlayer();
                     Player.currSound.play();
+                    Player.currSound.play();
                     //if (!this.visible) Playlist.highlight(Playlist.currPost.id);
                 });
             }
