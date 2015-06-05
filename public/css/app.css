@@ -393,4 +393,22 @@ ul.search-list li {
     .content-row .content {
       margin-right: 0; } }
 
+@media (max-width: 500px) {
+  h1 {
+    font-size: 1rem; }
+  .container {
+    width: 90%; }
+  .shading {
+    height: 10% !important; }
+  #player .container .title {
+    display: block;
+    padding-left: 3px;
+    width: 100%; }
+    #player .container .title p {
+      margin: 15px 0;
+      font-size: 16px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis; } }
+
 /*# sourceMappingURL=app.css.map */

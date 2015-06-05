@@ -276,14 +276,14 @@ Player.prototype = {
         if (playSongNow && !previousSong ) Player.playedSongs.unshift(Playlist.currPost);
         Player.setPlayerInfo(unescape(song.title), song.cover);
 
-        if (playSongNow) Player.playSong();
+        Player.playSong();
     },
 
     pullUpPlayer: function()
     {
         $('#player').css('bottom', '0');
         $('body').css('padding-bottom', '80px');
-        $('.shading').css('margin-bottom', '97px');
+        $('.shading').css('margin-bottom', '88px');
         $('.shading').css('height', '15%');
     }
 }
@@ -356,12 +356,6 @@ function playlistEventHandler(e)
             break;
     }
 }
-
-/*
-$('#playlist').bind('DOMSubtreeModified', function() {
-    Waypoint.refreshAll();
-    articleListeners();
-});*/
 
 function articleListeners(){
     if (Playlist.active()) {
