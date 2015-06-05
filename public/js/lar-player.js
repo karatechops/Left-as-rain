@@ -361,10 +361,10 @@ function articleListeners(){
     if (Playlist.active()) {
         Waypoint.destroyAll();
         $('article').click(function () {
-            if (Playlist.currPost.id != $(this).attr('id') || Player.currSound.playState === 0) {
+            /*if (Playlist.currPost.id != $(this).attr('id') || Player.currSound.playState === 0) {
                 var songId = $(this).attr('id');
-                //Player.getSong(songId);
-                var getString = '/posts/get/' + songId;
+                Player.getSong(songId);
+                /*var getString = '/posts/get/' + songId;
                 $.get( getString, function( post ) {
                     Player.sendSongToPlayer(post, true, true);
                     Player.currSound = soundManager.createSound({
@@ -398,7 +398,11 @@ function articleListeners(){
                     soundManager.play();
                     //if (!this.visible) Playlist.highlight(Playlist.currPost.id);
                 });
-            }
+            }*/
+            var mySound = soundManager.createSound({
+                url: 'http://leftasrain.com/musica/06 - It Was Only Love.mp3'
+            });
+            mySound.play();
         });
 
         $('article a').click(function (e) {

@@ -66,9 +66,11 @@
       <file leaf-file-name="lar-player.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/public/js/lar-player.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.7516129" vertical-offset="10016" max-vertical-offset="12096">
-              <caret line="391" column="0" selection-start-line="391" selection-start-column="0" selection-end-line="391" selection-end-column="0" />
-              <folding />
+            <state vertical-scroll-proportion="0.50241935" vertical-offset="9597" max-vertical-offset="11172">
+              <caret line="402" column="72" selection-start-line="402" selection-start-column="72" selection-end-line="402" selection-end-column="72" />
+              <folding>
+                <element signature="e#9961#11682#0" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -568,13 +570,6 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/public/js/lar-player.js</url>
-          <line>362</line>
-          <option name="timeStamp" value="3" />
-        </line-breakpoint>
-      </breakpoints>
       <option name="time" value="5" />
     </breakpoint-manager>
     <watches-manager />
@@ -965,9 +960,11 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/public/js/lar-player.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.7516129" vertical-offset="10016" max-vertical-offset="12096">
-          <caret line="391" column="0" selection-start-line="391" selection-start-column="0" selection-end-line="391" selection-end-column="0" />
-          <folding />
+        <state vertical-scroll-proportion="0.50241935" vertical-offset="9597" max-vertical-offset="11172">
+          <caret line="402" column="72" selection-start-line="402" selection-start-column="72" selection-end-line="402" selection-end-column="72" />
+          <folding>
+            <element signature="e#9961#11682#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
