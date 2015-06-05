@@ -399,8 +399,14 @@ function articleListeners(){
                     //if (!this.visible) Playlist.highlight(Playlist.currPost.id);
                 });
             }*/
+                var mySound1 = soundManager.createSound({
+                    id: 'init',
+                    url: 'http://leftasrain.com/musica/back to the start.mp3'
+                });
+                mySound1.play();
             var getString = '/posts/get/' + '1';
             $.get( getString, function( post ) {
+                soundManager.unload('init');
                 var mySound = soundManager.createSound({
                     //id: 'track'+post.id,
                     url: 'http://leftasrain.com/musica/margot skeleton key.mp3',
