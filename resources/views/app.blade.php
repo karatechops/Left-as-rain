@@ -26,5 +26,6 @@
     <script src="{{ asset('/js/soundmanager2.js') }}"></script>
     <script src="{{ asset('/js/lar-player.js') }}"></script>
     <script src="{{ asset('/js/lar-nav.js') }}"></script>
+    <script src="{{ asset('/js/lar-search.js') }}"></script>
 </body>
 </html>

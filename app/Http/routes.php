@@ -18,7 +18,7 @@ Route::resource('/pages', 'PagesController');
 
 Route::get('/playlists/shuffle/{amount?}', 'PostsController@shuffle');
 
-Route::get('/search/{terms}', 'SearchController@search');
+Route::get('/search/{query}', 'SearchController@search');
 
 Route::get('/posts/{slug}', 'PostsController@getPostsFrom');
 Route::get('/posts/get/latest/{amount?}', 'PostsController@getLatest');

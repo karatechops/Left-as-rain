@@ -9,13 +9,13 @@ use Illuminate\Http\Request;
 class SearchController extends Controller {
 
     /**
-     * @param $term
+     * @param $query
      * @return mixed
      */
-	public function search($term)
+	public function search($query)
 	{
-        $searchResults = Post::where('title', 'LIKE', "%$term%")->get();
-		return view('partials.search', compact('searchResults'));
+        $searchResults = Post::where('title', 'LIKE', "%$query%")->get();
+		return view('partials.search-results', compact('searchResults'));
 	}
 
 }
