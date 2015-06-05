@@ -32,7 +32,7 @@ class PagesController extends Controller {
 
     public function show($url)
     {
-        $page = Page::where('title', '=', $url)->firstOrFail();
+        $page = Page::where('slug', '=', $url)->firstOrFail();
         return view('pages.page', compact('page'));
     }
 
@@ -43,7 +43,7 @@ class PagesController extends Controller {
 
     public function get($url)
     {
-        $page = Page::where('title', '=', $url)->firstOrFail();
+        $page = Page::where('slug', '=', $url)->firstOrFail();
         return view('partials.page', compact('page'));
     }
 

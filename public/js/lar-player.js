@@ -107,17 +107,6 @@ Playlist.prototype = {
         $("html, body").animate({ scrollTop: 0 });
     },
 
-    home: function()
-    {
-        this.getLatestPosts(function(posts) {
-            console.log('Playlist home function');
-            Playlist.clear();
-            Playlist.addPostsToPlaylist(posts);
-            Playlist.highlight(Playlist.currPost.id);
-        }, 10);
-        this.scrollToTop;
-    },
-
     active: function()
     {
         if ($(".post").length ) return true;

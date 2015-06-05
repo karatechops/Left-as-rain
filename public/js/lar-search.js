@@ -25,6 +25,7 @@ function searchBoxToggle() {
         $('.search-overlay').css({display: "block"});
         $('.search-overlay').animate({ opacity: "1" }, 350);
         $("body").css({ overflow: 'hidden' });
+        $('#search-query').focus();
     } else {
         $("body").css({ overflow: 'inherit' });
         $('.search-overlay').animate({ opacity: "0" }, 350, function() {

@@ -6,7 +6,7 @@
             <article class="page">
                 <h1>{{ $page->title }}</h1>
                 <p class="copy">
-                    {{ $page->body }}
+                    {!! $page->body !!}
                 </p>
             </article>
             <div id="loader"></div>

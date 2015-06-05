@@ -2,9 +2,9 @@
     <div class="side-bar-content">
         <img src="/img/banner-test.jpg">
         <p>
-            <a href="/terms-conditions">terms and conditions</a>
+            <a href="/pages/terms-and-conditions">terms and conditions</a>
             <br>
-            <a href="/privacy-policy">privacy policy</a>
+            <a href="/pages/privacy-policy">privacy policy</a>
         </p>
     </div>
 </div>
