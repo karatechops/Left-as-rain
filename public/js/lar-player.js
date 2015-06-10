@@ -283,7 +283,7 @@ Player.prototype = {
     {
         $('#player').css('bottom', '0');
         $('body').css('padding-bottom', '80px');
-        $('.shading').css('margin-bottom', '82px');
+        $('.shading').css('margin-bottom', '80px');
         $('.shading').css('height', '15%');
     }
 }

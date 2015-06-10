@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2f3b8c15-1ae7-4760-9057-031eeff60f1a" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/assets/sass/app.scss" afterPath="$PROJECT_DIR$/resources/assets/sass/app.scss" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/js/lar-player.js" afterPath="$PROJECT_DIR$/public/js/lar-player.js" />
     </list>
     <ignored path="Left-as-rain.iws" />
