@@ -401,7 +401,7 @@ ul.search-list li {
     .content-row .content {
       margin-right: 0; } }
 
-@media (max-width: 500px) {
+@media (max-width: 550px) {
   h1 {
     font-size: 1rem; }
   .container {
@@ -413,7 +413,7 @@ ul.search-list li {
     padding-left: 3px;
     width: 100%; }
     #player .container .title p {
-      margin: 15px 0;
+      margin: 10px 0;
       font-size: 16px;
       white-space: nowrap;
       overflow: hidden;
