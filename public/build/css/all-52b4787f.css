@@ -2347,15 +2347,20 @@ ul.search-list li {
   transition: all 0.25s ease-in-out;
   margin-right: -320px;
   z-index: 51; }
-  #player .container .title {
-    display: block;
-    padding-left: 30px; }
-    #player .container .title p {
-      margin: 15px 0;
-      font-size: 22px; }
-  #player .container .title:hover p {
-    color: #ff0;
-    cursor: pointer; }
+  #player .container {
+    /*.title:active p{
+      color:#fff;
+    }*/ }
+    #player .container .title {
+      display: block;
+      padding-left: 30px; }
+      #player .container .title p {
+        margin: 15px 0;
+        font-size: 22px;
+        transition: color 0.25s ease-in-out; }
+    #player .container .title:hover p {
+      color: #ff0;
+      cursor: pointer; }
 
 .controls {
   position: relative;
@@ -2379,7 +2384,7 @@ ul.search-list li {
     .controls .player-btn i {
       color: #333;
       margin-top: 15px; }
-    .controls .player-btn:hover {
+    .no-touch .controls .player-btn:hover {
       background-color: #00ffff; }
 
 #loader {

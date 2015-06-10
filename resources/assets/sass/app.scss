@@ -294,12 +294,17 @@ ul.search-list{
       p {
         margin: 15px 0;
         font-size: 22px;
+        @include transition(color, 0.25s, ease-in-out);
       }
     }
     .title:hover p{
       color:$yellow;
       cursor:pointer;
     }
+
+    /*.title:active p{
+      color:#fff;
+    }*/
   }
 }
 
@@ -326,7 +331,7 @@ ul.search-list{
       color: #333;
       margin-top:15px;
     }
-    &:hover {
+    .no-touch &:hover {
       background-color:$blue;
     }
   }

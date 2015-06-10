@@ -7,7 +7,9 @@
     <meta name="csrf-token" content="{{ csrf_token() }}" />
 	<title>Left as rain | Impossibly Chill</title>
 
-    <link rel="stylesheet" href="{{ elixir('css/all.css') }}"
+    <link rel="stylesheet" href="{{ elixir('css/all.css') }}">
+
+    <script src="{{ asset('js/modernizr.js') }}"></script>
 </head>
 <body>
     @include('partials.nav')
