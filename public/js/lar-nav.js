@@ -158,4 +158,4 @@ function setActiveLocation(){
 
 }
 
-setActiveLocation();
+//setActiveLocation();

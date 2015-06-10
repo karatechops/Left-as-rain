@@ -331,7 +331,8 @@ function playerEventHandler(e)
             if (playIcon.hasClass( "fa-play" )) {
                 playIcon.removeClass('fa-play');
                 playIcon.addClass('fa-pause');
-            }
+            };
+            //removeLoader();
             break;
         case 'pause':
             playIcon.removeClass('fa-pause');
