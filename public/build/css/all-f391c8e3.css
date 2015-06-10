@@ -2386,6 +2386,9 @@ ul.search-list li {
       margin-top: 15px; }
     .no-touch .controls .player-btn:hover {
       background-color: #00ffff; }
+    .controls .player-btn:active {
+      background-color: #00ffff;
+      background-color: #242424; }
 
 #loader {
   margin-left: 30px; }
