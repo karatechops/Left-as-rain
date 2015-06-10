@@ -2507,8 +2507,7 @@ ul.search-list li {
   .container {
     width: 90%; }
   .shading {
-    height: 10% !important;
-    margin-bottom: 82px !important; }
+    height: 10% !important; }
   #player .container .title {
     display: block;
     padding-left: 3px;
