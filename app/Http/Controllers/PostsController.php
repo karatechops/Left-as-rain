@@ -113,6 +113,17 @@ class PostsController extends Controller {
         return ($posts);
     }
 
+    public function listAll()
+    {
+        $posts = Post::orderBy('id', 'desc')->get();
+        return view('backend.edit-all', compact('posts'));
+    }
+
+    public function create()
+    {
+        return view('backend.create-posts');
+    }
+
 
 
 }
