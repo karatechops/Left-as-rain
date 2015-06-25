@@ -17,7 +17,7 @@ class PostsTableSeeder extends Seeder {
                 'title' => $dataSingle->TITLE,
                 'description' => $dataSingle->DESCRIPTION,
                 'album' => $dataSingle->ALBUM,
-                'song_path' => $dataSingle->SONG_PATH,
+                'song_path' => $dataSingle->SONG_PATH+'.mp3',
                 'author' => $dataSingle->AUTHOR,
                 'cover' => $dataSingle->COVER,
                 'slug' => $dataSingle->URL,

@@ -131,28 +131,31 @@ class PostsController extends Controller {
 
     public function store(PostRequest $request)
     {
-        //$this->createPost($request);
-        Post::storeMP3($request->file('song_path'));
-        //return($request->file('song_path')->getSize());
-        //$request->file('song_path')->move(storage_path());
+        $this->createPost($request);
+
+        redirect (listAll());
     }
 
     private function createPost(PostRequest $request)
     {
         $post = new Post;
+
         $post->title = $request->title;
         $post->album = $request->album;
         $post->description = $request->description;
-        $post->song_path = $request->file('song_path');
+        $post->song_path = $post->nameMP3($request->file('song_path')->getClientOriginalName());
         $post->soundcloud_url = $request->soundcloud_url;
         $post->author = $request->author;
-        $post->slug = $request->slug;
+        $post->slug = str_slug($request->title, '-');
 
         $post->save();
 
+        $post->storeMP3(
+            $request->file('song_path'),
+            $post->nameMP3($request->file('song_path')->getClientOriginalName()
+            ));
+
         return $post;
     }
-
-
 
 }

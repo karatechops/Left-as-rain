@@ -26,6 +26,9 @@
             {!! Form::label('song_path', 'MP3') !!}
             {!! Form::file('song_path'), null !!}
 
+            {!! Form::label('author', 'Author') !!}
+            {!! Form::text('author') !!}
+
             <hr>
 
             {!! Form::submit('Post', ['class' => 'btn btn-primary form-control']) !!}
