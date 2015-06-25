@@ -21,7 +21,8 @@ Route::get('/playlists/shuffle/{amount?}', 'PostsController@shuffle');
 Route::get('/search/{query}', 'SearchController@search');
 
 Route::get('/posts/edit/all', 'PostsController@listAll');
-Route::get('posts/create', 'PostsController@create');
+Route::get('/posts/create', 'PostsController@create');
+Route::post('/posts/create', 'PostsController@store');
 
 Route::get('/posts/{slug}', 'PostsController@getPostsFrom');
 Route::get('/posts/get/latest/{amount?}', 'PostsController@getLatest');

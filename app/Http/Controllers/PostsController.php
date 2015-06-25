@@ -1,6 +1,7 @@
 <?php namespace App\Http\Controllers;
 
 use App\Http\Requests;
+use App\Http\Requests\PostRequest;
 use App\Http\Controllers\Controller;
 use App\Post;
 
@@ -113,6 +114,10 @@ class PostsController extends Controller {
         return ($posts);
     }
 
+
+    /**
+     * @return \Illuminate\View\View
+     */
     public function listAll()
     {
         $posts = Post::orderBy('id', 'desc')->get();
@@ -122,6 +127,30 @@ class PostsController extends Controller {
     public function create()
     {
         return view('backend.create-posts');
+    }
+
+    public function store(PostRequest $request)
+    {
+        //$this->createPost($request);
+        Post::storeMP3($request->file('song_path'));
+        //return($request->file('song_path')->getSize());
+        //$request->file('song_path')->move(storage_path());
+    }
+
+    private function createPost(PostRequest $request)
+    {
+        $post = new Post;
+        $post->title = $request->title;
+        $post->album = $request->album;
+        $post->description = $request->description;
+        $post->song_path = $request->file('song_path');
+        $post->soundcloud_url = $request->soundcloud_url;
+        $post->author = $request->author;
+        $post->slug = $request->slug;
+
+        $post->save();
+
+        return $post;
     }
 
 
