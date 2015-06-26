@@ -251,7 +251,7 @@ Player.prototype = {
 
         Player.currSound = soundManager.createSound({
             id: 'track'+song.id,
-            url: 'http://leftasrain.com/musica/'+song.song_path+'.mp3',
+            url: 'http://leftasrain.com/musica/'+song.song_path,
             onplay: function()
             {
                 Player.events.emitEvent('playerEvent', ['play']);
