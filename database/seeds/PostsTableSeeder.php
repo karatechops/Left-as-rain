@@ -12,12 +12,15 @@ class PostsTableSeeder extends Seeder {
         $data = DB::table('playlist')->get();
         Eloquent::unguard();
         foreach($data as $dataSingle) {
+            $pathUpdate = $dataSingle->SONG_PATH;
+            //settype($pathUpdate, "string");
+            $pathUpdate .= '.mp3';
             Post::create([
                 'id' => $dataSingle->ENTRY_AUTO,
                 'title' => $dataSingle->TITLE,
                 'description' => $dataSingle->DESCRIPTION,
                 'album' => $dataSingle->ALBUM,
-                'song_path' => $dataSingle->SONG_PATH+'.mp3',
+                'song_path' => $pathUpdate,
                 'author' => $dataSingle->AUTHOR,
                 'cover' => $dataSingle->COVER,
                 'slug' => $dataSingle->URL,
