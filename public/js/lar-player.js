@@ -230,6 +230,8 @@ Player.prototype = {
     streamSong: function(song, playSongNow, previousSong)
     {
         $.get('/streamsong/'+song.id+'/', function(data, status){
+
+            console.log('stream: '+song.song_path);
             var stream = '/streamsong/'+song.id+'/'+data;
             Player.sendSongToPlayer(song, playSongNow, previousSong, stream);
         });
@@ -240,11 +242,6 @@ Player.prototype = {
         if (Player.playedSongs.length >= 1) {
             soundManager.unload('track'+Playlist.currPost.id);
         }
-/*
-        var stream = Player.streamSong(function (url) {
-            console.log('hi: '+url);
-        }, song.id);
-*/
 
         Player.currSound = soundManager.createSound({
             id: 'track'+song.id,
