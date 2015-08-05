@@ -28,6 +28,7 @@ class StreamController extends Controller {
 
         if ($token == $stream->getToken())
         {
+            return('hi');
             $post = Post::find($id);
             $pathToFile = base_path().'/storage/app/mp3/'.$post->song_path;
 
@@ -35,6 +36,7 @@ class StreamController extends Controller {
             $headers = array(
                 'Content-Type: audio/mpeg',
             );
+
             return response()->download($pathToFile, $name, $headers);
         }
     }
