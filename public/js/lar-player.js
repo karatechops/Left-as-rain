@@ -233,7 +233,7 @@ Player.prototype = {
             url: '/streamsong/'+song.id+'/',
             cache: false,
             success: function(data) {
-                var stream = '/streamsong/'+song.id+'/'+data;
+                var stream = '/streamsong/'+song.id+'/'+data'?11';
                 console.log('Data: '+data+' Status: '+status);
                 Player.sendSongToPlayer(song, playSongNow, previousSong, stream);
             },
