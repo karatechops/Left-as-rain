@@ -34,7 +34,9 @@ class StreamController extends Controller {
 
             $name = $post->song_path;
             $headers = array(
-                'Content-Type: audio/mpeg'
+                'Content-Type: audio/mpeg',
+                'Expires: 0',
+                'Content-Disposition: attachment',
             );
 
             return Response::download($pathToFile, $name, $headers);
