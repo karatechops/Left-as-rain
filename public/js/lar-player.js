@@ -233,8 +233,8 @@ Player.prototype = {
             url: '/streamsong/'+song.id+'/',
             cache: false,
             success: function(data) {
-                var rando = Math.random() * (999 - 100) + 100;
-                var stream = '/streamsong/'+song.id+'/'+data+'?'+rando;
+                var randomNum = Math.floor(Math.random() * (999 - 100) + 100);
+                var stream = '/streamsong/'+song.id+'/'+data+'?'+randomNum;
                 console.log('Data: '+data+' Status: '+status);
                 Player.sendSongToPlayer(song, playSongNow, previousSong, stream);
             },
