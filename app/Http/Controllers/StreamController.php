@@ -36,6 +36,7 @@ class StreamController extends Controller {
                 'Content-Type: audio/mpeg',
             );
 
+            return('hi');
             return response()->download($pathToFile, $name, $headers);
         }
     }
