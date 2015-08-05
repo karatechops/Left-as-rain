@@ -1,8 +1,7 @@
 $.ajaxSetup({
     headers: {
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-    },
-    cache: false
+    }
 });
 
 function Playlist (playlistDiv)
@@ -230,11 +229,24 @@ Player.prototype = {
 
     streamSong: function(song, playSongNow, previousSong)
     {
+        $.ajax({
+            url: '/streamsong/'+song.id+'/',
+            cache: false,
+            success: function(data) {
+                var stream = '/streamsong/'+song.id+'/'+data;
+                console.log('Data: '+data+' Status: '+status);
+                Player.sendSongToPlayer(song, playSongNow, previousSong, stream);
+            },
+            error: function(xhr, textStatus, thrownError) {
+                alert('Something went to wrong.Please Try again later...');
+            }
+        })
+        /*
         $.get('/streamsong/'+song.id+'/', function(data, status){
             var stream = '/streamsong/'+song.id+'/'+data;
             console.log('Data: '+data+' Status: '+status);
             Player.sendSongToPlayer(song, playSongNow, previousSong, stream);
-        });
+        });*/
     },
 
     sendSongToPlayer: function(song, playSongNow, previousSong, stream)
