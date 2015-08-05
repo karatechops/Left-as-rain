@@ -245,8 +245,6 @@ Player.prototype = {
             console.log('hi: '+url);
         }, song.id);
 */
-        console.log(stream);
-        console.log(song);
 
         Player.currSound = soundManager.createSound({
             id: 'track'+song.id,
