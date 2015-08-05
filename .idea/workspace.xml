@@ -2,8 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2f3b8c15-1ae7-4760-9057-031eeff60f1a" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Http/Controllers/StreamController.php" afterPath="$PROJECT_DIR$/app/Http/Controllers/StreamController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/js/lar-player.js" afterPath="$PROJECT_DIR$/public/js/lar-player.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Stream.php" afterPath="$PROJECT_DIR$/app/Stream.php" />
     </list>
     <ignored path="Left-as-rain.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -41,11 +40,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Stream.php" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Stream.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/Stream.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-22.814816">
-              <caret line="22" column="5" selection-start-line="22" selection-start-column="5" selection-end-line="22" selection-end-column="5" />
+            <state vertical-scroll-proportion="0.4364233">
+              <caret line="19" column="37" selection-start-line="19" selection-start-column="37" selection-end-line="19" selection-end-column="37" />
               <folding>
                 <element signature="e#22#61#0#PHP" expanded="true" />
               </folding>
@@ -53,11 +52,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="StreamController.php" pinned="false" current-in-tab="true">
+      <file leaf-file-name="StreamController.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/Http/Controllers/StreamController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.7473339">
-              <caret line="36" column="70" selection-start-line="36" selection-start-column="70" selection-end-line="36" selection-end-column="70" />
+            <state vertical-scroll-proportion="-25.444445">
+              <caret line="28" column="9" selection-start-line="28" selection-start-column="9" selection-end-line="28" selection-end-column="9" />
               <folding>
                 <element signature="e#39#52#0#PHP" expanded="true" />
               </folding>
@@ -121,9 +120,9 @@
         <option value="$PROJECT_DIR$/app/Http/Controllers/Auth/AuthController.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/PostsController.php" />
         <option value="$PROJECT_DIR$/app/Http/Requests/PostRequest.php" />
-        <option value="$PROJECT_DIR$/app/Stream.php" />
         <option value="$PROJECT_DIR$/public/js/lar-player.js" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/StreamController.php" />
+        <option value="$PROJECT_DIR$/app/Stream.php" />
       </list>
     </option>
   </component>
@@ -988,16 +987,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Stream.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-22.814816">
-          <caret line="22" column="5" selection-start-line="22" selection-start-column="5" selection-end-line="22" selection-end-column="5" />
-          <folding>
-            <element signature="e#22#61#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/public/js/lar-player.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1008,10 +997,20 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/Http/Controllers/StreamController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.7473339">
-          <caret line="36" column="70" selection-start-line="36" selection-start-column="70" selection-end-line="36" selection-end-column="70" />
+        <state vertical-scroll-proportion="-25.444445">
+          <caret line="28" column="9" selection-start-line="28" selection-start-column="9" selection-end-line="28" selection-end-column="9" />
           <folding>
             <element signature="e#39#52#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Stream.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.4364233">
+          <caret line="19" column="37" selection-start-line="19" selection-start-column="37" selection-end-line="19" selection-end-column="37" />
+          <folding>
+            <element signature="e#22#61#0#PHP" expanded="true" />
           </folding>
         </state>
       </provider>
