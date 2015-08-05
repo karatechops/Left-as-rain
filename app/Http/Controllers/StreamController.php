@@ -8,6 +8,7 @@ use App\Post;
 
 use App\Stream;
 use Request;
+use Response;
 
 class StreamController extends Controller {
 
@@ -36,8 +37,7 @@ class StreamController extends Controller {
                 'Content-Type: audio/mpeg',
             );
 
-            return('hi');
-            return response()->download($pathToFile, $name, $headers);
+            return Response::download($pathToFile, $name, $headers);
         }
     }
 
