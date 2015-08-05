@@ -36,7 +36,6 @@ class StreamController extends Controller {
             $headers = array(
                 'Content-Type: audio/mpeg',
                 'Expires: 0',
-                'Content-Disposition: attachment',
             );
 
             return Response::download($pathToFile, $name, $headers);

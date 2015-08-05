@@ -1,9 +1,10 @@
-/*$.ajaxSetup({
+$.ajaxSetup({
     headers: {
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-    }
+    },
+    cache: false
 });
-*/
+
 function Playlist (playlistDiv)
 {
     this.playlistDiv = playlistDiv;
