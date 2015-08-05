@@ -28,6 +28,7 @@ class StreamController extends Controller {
 
         if ($token != null) $streamToken = $stream->getToken();
 
+        if ($token && $streamToken) return('Stream Token: '.$streamToken.' User Token: '.$token);
         if ($id && $token == $streamToken)
         {
             $post = Post::find($id);
