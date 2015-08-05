@@ -36,6 +36,7 @@ class StreamController extends Controller {
             $headers = array(
                 'Content-Type: audio/mpeg',
                 'Expires: 0',
+                'Cache-Control: no-cache, no-store',
             );
 
             return Response::download($pathToFile, $name, $headers);
