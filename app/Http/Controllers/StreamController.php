@@ -15,7 +15,7 @@ class StreamController extends Controller {
     {
         $stream = new Stream();
 
-        if ($id && !$token)
+        if ($id && $token == null)
         {
             if (Request::ajax())
             {
@@ -28,8 +28,7 @@ class StreamController extends Controller {
 
         if ($token != null) $streamToken = $stream->getToken();
 
-        if ($token && $streamToken) return('Stream Token: '.$streamToken.' User Token: '.$token);
-        if ($id && $token == $streamToken)
+        if ($token == $streamToken)
         {
             $post = Post::find($id);
             $pathToFile = base_path().'/storage/app/mp3/'.$post->song_path;
