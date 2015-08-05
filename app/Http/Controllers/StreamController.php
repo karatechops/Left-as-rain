@@ -28,8 +28,9 @@ class StreamController extends Controller {
         //if ($id && $token != null && $token == $stream->getToken())
         //{
             $post = Post::find($id);
-            return($post);
-        /*    $pathToFile = base_path().'/storage/app/mp3/'+$post.songPath;
+            $pathToFile = base_path().'/storage/app/mp3/'+$post.songPath;
+
+        return($pathToFile);/*
             $name = $post.songPath;
             $headers = array(
                 'Content-Type: audio/mpeg',
