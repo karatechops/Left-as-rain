@@ -30,9 +30,6 @@ class StreamController extends Controller {
 
         if ($id && $token == $streamToken)
         {
-            Session::flush();
-            Session::regenerate();
-
             $post = Post::find($id);
             $pathToFile = base_path().'/storage/app/mp3/'.$post->song_path;
 
