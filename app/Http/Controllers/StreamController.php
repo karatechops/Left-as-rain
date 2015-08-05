@@ -17,13 +17,13 @@ class StreamController extends Controller {
 
         if ($id && !$token)
         {
-            if (Request::ajax())
-            {
+            //if (Request::ajax())
+           // {
                 $token = $stream->setToken(str_random(40));
                 return ($token);
-            } else {
-                return('no way jose');
-            }
+            //} else {
+                //return('no way jose');
+            //}
         }
         if ($id && $token != null && $token == $stream->getToken())
         {

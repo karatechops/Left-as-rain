@@ -363,9 +363,6 @@ function articleListeners(){
             if (Playlist.currPost.id != $(this).attr('id') || Player.currSound.playState === 0) {
                 // Initialize audio on click to bypass iOS restrictions.
                 if(typeof Player.currSound.playState === 'undefined'){
-                    console.log(
-                        'init audio fix'
-                    );
                     var mySound1 = soundManager.createSound({
                         id: 'init',
                         url: '/mp3/blank.mp3'
