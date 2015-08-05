@@ -119,6 +119,24 @@ class PostsController extends Controller {
         return ($posts);
     }
 
+    /**
+     * @return \Illuminate\View\View
+     */
+    public function create()
+    {
+        return view('backend.create-posts');
+    }
+
+    /**
+     * @param PostRequest $request
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
+    public function store(PostRequest $request)
+    {
+        $this->createPost($request);
+
+        return redirect()->action('PostsController@listAll');
+    }
 
     /**
      * @return \Illuminate\View\View
@@ -129,18 +147,10 @@ class PostsController extends Controller {
         return view('backend.edit-all', compact('posts'));
     }
 
-    public function create()
-    {
-        return view('backend.create-posts');
-    }
-
-    public function store(PostRequest $request)
-    {
-        $this->createPost($request);
-
-        redirect (listAll());
-    }
-
+    /**
+     * @param PostRequest $request
+     * @return Post
+     */
     private function createPost(PostRequest $request)
     {
         $post = new Post;
