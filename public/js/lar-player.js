@@ -238,8 +238,10 @@ Player.prototype = {
                 $.ajax({
                     type: 'GET',
                     url: stream,
-                    success: function (data) {
-                        console.log('second');
+                    success: function (data, xhr, textStatus, thrownError) {
+                        console.log('xhr: '+xhr);
+                        console.log('textStatus: '+textStatus);
+                        console.log('thrownError: '+thrownError);
                     },
                     error: function (xhr, textStatus, thrownError) {
                         console.log('xhr:' + xhr.error);
