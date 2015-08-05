@@ -232,6 +232,7 @@ Player.prototype = {
         $.ajax({
             url: '/streamsong/'+song.id+'/',
             cache: false,
+            type: "POST",
             success: function(data) {
                 var randomNum = Math.floor(Math.random() * (999 - 100) + 100);
                 var stream = '/streamsong/'+song.id+'/'+data+'?'+randomNum;
