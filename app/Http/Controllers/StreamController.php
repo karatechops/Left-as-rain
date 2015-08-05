@@ -15,26 +15,27 @@ class StreamController extends Controller {
     {
         $stream = new Stream();
 
-        if ($id && !$token)
+        /*if ($id && !$token)
         {
-            //if (Request::ajax())
-           // {
+            if (Request::ajax())
+            {
                 $token = $stream->setToken(str_random(40));
                 return ($token);
-            //} else {
-                //return('no way jose');
-            //}
-        }
-        if ($id && $token != null && $token == $stream->getToken())
-        {
+            } else {
+                return('no way jose');
+            }
+        }*/
+        //if ($id && $token != null && $token == $stream->getToken())
+        //{
             $post = Post::find($id);
+            return($post);
             $pathToFile = base_path().'/storage/app/mp3/'+$post.songPath;
             $name = $post.songPath;
             $headers = array(
                 'Content-Type: audio/mpeg',
             );
             return response()->download($pathToFile, $name, $headers);
-        }
+        //}
     }
 
 }
