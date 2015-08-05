@@ -38,6 +38,7 @@ class StreamController extends Controller {
                 'Pragma: no-cache',
                 'Cache-Control: no-cache, no-store, must-revalidate, post-check=0, pre-check=0',
                 'Content-Type: audio/mpeg',
+                'Vary: accept',
                 'Expires: '.$ts,
                 'Last-Modified: '.$ts,
             );
