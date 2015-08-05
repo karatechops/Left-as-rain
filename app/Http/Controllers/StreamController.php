@@ -29,12 +29,12 @@ class StreamController extends Controller {
         //{
             $post = Post::find($id);
             return($post);
-            $pathToFile = base_path().'/storage/app/mp3/'+$post.songPath;
+        /*    $pathToFile = base_path().'/storage/app/mp3/'+$post.songPath;
             $name = $post.songPath;
             $headers = array(
                 'Content-Type: audio/mpeg',
             );
-            return response()->download($pathToFile, $name, $headers);
+            return response()->download($pathToFile, $name, $headers);*/
         //}
     }
 
