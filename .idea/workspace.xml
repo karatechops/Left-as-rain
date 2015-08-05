@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2f3b8c15-1ae7-4760-9057-031eeff60f1a" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Http/Controllers/PostsController.php" afterPath="$PROJECT_DIR$/app/Http/Controllers/PostsController.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Http/Requests/PostRequest.php" afterPath="$PROJECT_DIR$/app/Http/Requests/PostRequest.php" />
     </list>
     <ignored path="Left-as-rain.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -62,14 +62,38 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="PostsController.php" pinned="false" current-in-tab="true">
+      <file leaf-file-name="create-posts.blade.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/resources/views/backend/create-posts.blade.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-26.962963">
+              <caret line="26" column="49" selection-start-line="26" selection-start-column="49" selection-end-line="26" selection-end-column="49" />
+              <folding>
+                <marker date="1435258043000" expanded="true" signature="158:242" placeholder="..." />
+                <marker date="1435258043000" expanded="true" signature="170:240" placeholder="..." />
+                <marker date="1435258043000" expanded="true" signature="189:230" placeholder="..." />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="PostsController.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/Http/Controllers/PostsController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.17785235">
-              <caret line="147" column="5" selection-start-line="147" selection-start-column="5" selection-end-line="147" selection-end-column="5" />
+            <state vertical-scroll-proportion="-12.740741">
+              <caret line="157" column="8" selection-start-line="157" selection-start-column="8" selection-end-line="157" selection-end-column="8" />
               <folding>
                 <element signature="e#39#61#0#PHP" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="PostRequest.php" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/Http/Requests/PostRequest.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.6201805">
+              <caret line="27" column="28" selection-start-line="27" selection-start-column="28" selection-end-line="27" selection-end-column="28" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -156,7 +180,6 @@
         <option value="$PROJECT_DIR$/resources/views/backend-app.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/errors/list.blade.php" />
         <option value="$PROJECT_DIR$/public/css/backend.css" />
-        <option value="$PROJECT_DIR$/app/Http/Requests/PostRequest.php" />
         <option value="$PROJECT_DIR$/resources/views/backend/create-posts.blade.php" />
         <option value="$PROJECT_DIR$/app/Post.php" />
         <option value="$PROJECT_DIR$/public/js/lar-nav.js" />
@@ -175,6 +198,7 @@
         <option value="$PROJECT_DIR$/app/Http/Controllers/StreamController.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/Auth/AuthController.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/PostsController.php" />
+        <option value="$PROJECT_DIR$/app/Http/Requests/PostRequest.php" />
       </list>
     </option>
   </component>
@@ -251,7 +275,11 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="storage" />
+              <option name="myItemId" value="resources" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="views" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -265,11 +293,15 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="storage" />
+              <option name="myItemId" value="resources" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
+              <option name="myItemId" value="views" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="backend" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -283,15 +315,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="storage" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="mp3" />
+              <option name="myItemId" value="resources" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -374,6 +398,28 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="Http" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Left-as-rain" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Left-as-rain" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Http" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Requests" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -811,20 +857,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/backend/create-posts.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.15806451">
-          <caret line="7" column="23" selection-start-line="7" selection-start-column="23" selection-end-line="7" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Requests/PostRequest.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.58709675">
-          <caret line="26" column="34" selection-start-line="26" selection-start-column="34" selection-end-line="26" selection-end-column="34" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/public/js/lar-nav.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.4198895">
@@ -1027,13 +1059,33 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/backend/create-posts.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-26.962963">
+          <caret line="26" column="49" selection-start-line="26" selection-start-column="49" selection-end-line="26" selection-end-column="49" />
+          <folding>
+            <marker date="1435258043000" expanded="true" signature="158:242" placeholder="..." />
+            <marker date="1435258043000" expanded="true" signature="170:240" placeholder="..." />
+            <marker date="1435258043000" expanded="true" signature="189:230" placeholder="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/Http/Controllers/PostsController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.17785235">
-          <caret line="147" column="5" selection-start-line="147" selection-start-column="5" selection-end-line="147" selection-end-column="5" />
+        <state vertical-scroll-proportion="-12.740741">
+          <caret line="157" column="8" selection-start-line="157" selection-start-column="8" selection-end-line="157" selection-end-column="8" />
           <folding>
             <element signature="e#39#61#0#PHP" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Requests/PostRequest.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.6201805">
+          <caret line="27" column="28" selection-start-line="27" selection-start-column="28" selection-end-line="27" selection-end-column="28" />
+          <folding />
         </state>
       </provider>
     </entry>

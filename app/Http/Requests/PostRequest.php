@@ -25,7 +25,7 @@ class PostRequest extends Request {
 			'title' => 'required',
 			'description' => 'required',
 			'album' => 'required',
-			'song_path' => 'required|mimes:mpga',
+			'song_path' => 'mimes:mpga',
 		];
 	}
 
