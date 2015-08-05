@@ -35,12 +35,12 @@ class StreamController extends Controller {
             $name = $post->song_path;
             $ts = gmdate("D, d M Y H:i:s") . " GMT";
             $headers = array(
-                'Pragma: no-cache',
-                'Cache-Control: no-cache, no-store, must-revalidate, post-check=0, pre-check=0',
-                'Content-Type: audio/mpeg',
-                'Vary: accept',
-                'Expires: '.$ts,
-                'Last-Modified: '.$ts,
+                'Pragma'=>'no-cache',
+                'Cache-Control'=>'no-cache, no-store, must-revalidate, post-check=0, pre-check=0',
+                'Content-Type'=>'audio/mpeg',
+                'Vary'=>'accept',
+                'Expires'=>$ts,
+                'Last-Modified'=>$ts,
             );
 
             return Response::download($pathToFile, $name, $headers);
