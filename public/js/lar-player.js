@@ -234,6 +234,19 @@ Player.prototype = {
             url: '/streamsong/'+song.id+'/',
             success: function (data) {
                 console.log('Data: '+data+' Status: '+status);
+                var stream = '/streamsong/'+song.id+'/'+data;
+                $.ajax({
+                    type: 'GET',
+                    url: stream,
+                    success: function (data) {
+                        console.log('second');
+                    },
+                    error: function (xhr, textStatus, thrownError) {
+                        console.log('xhr:' + xhr.error);
+                        console.log('textStatus:' + textStatus);
+                        console.log('thrownError:' + thrownError);
+                    }
+                });
             },
             error: function (xhr, textStatus, thrownError) {
                 console.log('xhr:' + xhr.error);
