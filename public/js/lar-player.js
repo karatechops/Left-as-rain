@@ -232,7 +232,7 @@ Player.prototype = {
         $.get('/streamsong/'+song.id+'/', function(data, status){
             var stream = '/streamsong/'+song.id+'/'+data;
             console.log('Data: '+data+' Status: '+status);
-            Player.sendSongToPlayer(song, playSongNow, previousSong, stream);
+            //Player.sendSongToPlayer(song, playSongNow, previousSong, stream);
             $.get(stream, function(data, status){
                 console.log('Status: '+status);
             });
