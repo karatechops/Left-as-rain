@@ -38,6 +38,8 @@ class StreamController extends Controller {
                 'Content-Type: audio/mpeg',
             );
             return response()->download($pathToFile, $name, $headers);
+            Session::flush();
+            Session::regenerate();
         }
     }
 
