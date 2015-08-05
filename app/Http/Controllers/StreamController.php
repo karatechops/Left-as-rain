@@ -36,6 +36,7 @@ class StreamController extends Controller {
             $headers = array(
                 'Content-Type: audio/mpeg',
                 'Expires: 0',
+                'Pragma: no-cache',
                 'Cache-Control: no-cache, no-store',
             );
 
