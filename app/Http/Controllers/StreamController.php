@@ -2,10 +2,10 @@
 
 use Requests;
 use App\Http\Controllers\Controller;
+use Session;
 
 use App\Post;
 
-use Session;
 use App\Stream;
 use Request;
 
@@ -25,7 +25,7 @@ class StreamController extends Controller {
                 return('no way jose');
             }
         }
-        if ($id && $token != null )
+        if ($id && $token != null && $token == $stream->getToken())
         {
             $post = Post::find($id);
             $pathToFile = base_path().'/storage/app/mp3/'.$post->song_path;
@@ -35,6 +35,7 @@ class StreamController extends Controller {
                 'Content-Type: audio/mpeg',
             );
             return response()->download($pathToFile, $name, $headers);
+            Session::flush();
         }
     }
 
