@@ -26,9 +26,7 @@ class StreamController extends Controller {
             }
         }
 
-        if ($token != null) $streamToken = $stream->getToken();
-
-        if ($token && $id)
+        if ($token == $stream->getToken())
         {
             $post = Post::find($id);
             $pathToFile = base_path().'/storage/app/mp3/'.$post->song_path;
