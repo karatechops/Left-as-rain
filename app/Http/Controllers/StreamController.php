@@ -33,11 +33,13 @@ class StreamController extends Controller {
             $pathToFile = base_path().'/storage/app/mp3/'.$post->song_path;
 
             $name = $post->song_path;
+            $ts = gmdate("D, d M Y H:i:s") . " GMT";
             $headers = array(
-                'Content-Type: audio/mpeg',
-                'Expires: 0',
                 'Pragma: no-cache',
                 'Cache-Control: no-cache, no-store',
+                'Content-Type: audio/mpeg',
+                'Expires: '.$ts,
+                'Last-Modified: '.$ts,
             );
 
             return Response::download($pathToFile, $name, $headers);
