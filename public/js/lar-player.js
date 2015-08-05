@@ -230,7 +230,6 @@ Player.prototype = {
     streamSong: function(song, playSongNow, previousSong)
     {
         $.get('/streamsong/'+song.id+'/', function(data, status){
-            console.log('token: '+data);
             var stream = '/streamsong/'+song.id+'/'+data;
             Player.sendSongToPlayer(song, playSongNow, previousSong, stream);
         });
