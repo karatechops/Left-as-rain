@@ -30,7 +30,6 @@ class StreamController extends Controller {
         {
             $post = Post::find($id);
             $pathToFile = base_path().'/storage/app/mp3/'.$post->song_path;
-            return($pathToFile);
 
             $name = $post->song_path;
             $headers = array(
