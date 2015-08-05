@@ -15,7 +15,7 @@ class StreamController extends Controller {
     {
         $stream = new Stream();
 
-        /*if ($id && !$token)
+        if ($id && !$token)
         {
             if (Request::ajax())
             {
@@ -24,19 +24,18 @@ class StreamController extends Controller {
             } else {
                 return('no way jose');
             }
-        }*/
-        //if ($id && $token != null && $token == $stream->getToken())
-        //{
+        }
+        if ($id && $token != null && $token == $stream->getToken())
+        {
             $post = Post::find($id);
-            $pathToFile = base_path().'/storage/app/mp3/'+$post->songPath;
+            $pathToFile = base_path().'/storage/app/mp3/'.$post->song_path;
 
-        return($pathToFile);/*
             $name = $post.songPath;
             $headers = array(
                 'Content-Type: audio/mpeg',
             );
-            return response()->download($pathToFile, $name, $headers);*/
-        //}
+            return response()->download($pathToFile, $name, $headers);
+        }
     }
 
 }
