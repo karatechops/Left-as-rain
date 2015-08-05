@@ -7,6 +7,7 @@ use App\Post;
 
 use Session;
 use App\Stream;
+use Request;
 
 class StreamController extends Controller {
 
@@ -26,8 +27,9 @@ class StreamController extends Controller {
         }
         if ($id && $token != null && $token == $stream->getToken())
         {
-            $pathToFile = base_path().'/storage/app/mp3/xx.mp3';
-            $name = 'xx.mp3';
+            $post = Post::find($id);
+            $pathToFile = base_path().'/storage/app/mp3/'+$post.songPath;
+            $name = $post.songPath;
             $headers = array(
                 'Content-Type: audio/mpeg',
             );

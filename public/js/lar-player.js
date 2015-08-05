@@ -129,31 +129,15 @@ function Player()
     this.currSound = soundManager.createSound;
     this.visible = false;
     this.events = new EventEmitter();
+    this.streamUrl = '';
 }
-/*
-function streamSong(id){
-    $.ajax({
-        type: 'get',
-        url: '/streamsong/1',
-        success: function(data) {
-            var streamUrl = '/streamsong/1/'+data;
-            var mySoundObject = soundManager.createSound({
-                url: streamUrl,
-                //autoPlay: true
-            });
-        },
-        error: function(xhr, textStatus, thrownError) {
-            console.log('Something went to wrong.Please Try again later...');
-        }
-    });
-}
-*/
+
 Player.prototype = {
 
     playSong: function()
     {
         this.pullUpPlayer();
-        this.currSound.play();
+        Player.currSound.play();
         if (!this.visible) Playlist.highlight(Playlist.currPost.id);
     },
 
@@ -197,7 +181,7 @@ Player.prototype = {
                 type: 'GET',
                 url: '/posts/get/' + id,
                 success: function (data) {
-                    Player.sendSongToPlayer(data, true);
+                    Player.streamSong(data, true);
                 },
                 error: function (xhr, textStatus, thrownError) {
                     console.log('xhr:' + xhr.error);
@@ -243,15 +227,30 @@ Player.prototype = {
         }
     },
 
-    sendSongToPlayer: function(song, playSongNow, previousSong)
+    streamSong: function(song, playSongNow, previousSong)
+    {
+        $.get('/streamsong/'+song.id+'/', function(data, status){
+            var stream = '/streamsong/'+song.id+'/'+data;
+            Player.sendSongToPlayer(song, playSongNow, previousSong, stream);
+        });
+    },
+
+    sendSongToPlayer: function(song, playSongNow, previousSong, stream)
     {
         if (Player.playedSongs.length >= 1) {
             soundManager.unload('track'+Playlist.currPost.id);
         }
+/*
+        var stream = Player.streamSong(function (url) {
+            console.log('hi: '+url);
+        }, song.id);
+*/
+        console.log(stream);
+        console.log(song);
 
         Player.currSound = soundManager.createSound({
             id: 'track'+song.id,
-            url: 'http://leftasrain.com/musica/'+song.song_path,
+            url: stream,
             onplay: function()
             {
                 Player.events.emitEvent('playerEvent', ['play']);
