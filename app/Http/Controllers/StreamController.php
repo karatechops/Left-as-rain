@@ -28,8 +28,11 @@ class StreamController extends Controller {
 
         if ($token != null) $streamToken = $stream->getToken();
 
-        if ($id && $token != null && $token == $streamToken)
+        if ($id && $token == $streamToken)
         {
+            Session::flush();
+            Session::regenerate();
+
             $post = Post::find($id);
             $pathToFile = base_path().'/storage/app/mp3/'.$post->song_path;
 
@@ -38,8 +41,6 @@ class StreamController extends Controller {
                 'Content-Type: audio/mpeg',
             );
             return response()->download($pathToFile, $name, $headers);
-            Session::flush();
-            Session::regenerate();
         }
     }
 
