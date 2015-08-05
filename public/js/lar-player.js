@@ -229,14 +229,28 @@ Player.prototype = {
 
     streamSong: function(song, playSongNow, previousSong)
     {
-        $.get('/streamsong/'+song.id+'/', function(data, status){
+        $.ajax({
+            type: 'GET',
+            url: '/streamsong/'+song.id+'/',
+            success: function (data) {
+                console.log('Data: '+data+' Status: '+status);
+            },
+            error: function (xhr, textStatus, thrownError) {
+                console.log('xhr:' + xhr.error);
+                console.log('textStatus:' + textStatus);
+                console.log('thrownError:' + thrownError);
+            }
+        }).done(function () {
+            //finished
+        });
+        /*$.get('/streamsong/'+song.id+'/', function(data, status){
             var stream = '/streamsong/'+song.id+'/'+data;
             console.log('Data: '+data+' Status: '+status);
             //Player.sendSongToPlayer(song, playSongNow, previousSong, stream);
             $.get(stream, function(data, status){
                 console.log('Status: '+status);
             });
-        });
+        });*/
     },
 
     sendSongToPlayer: function(song, playSongNow, previousSong, stream)
