@@ -189,9 +189,7 @@ Player.prototype = {
                     console.log('textStatus:' + textStatus);
                     console.log('thrownError:' + thrownError);
                 }
-            }).done(function () {
-                //finished
-            });
+            })
     },
 
     getNextSong: function(id)
@@ -241,8 +239,6 @@ Player.prototype = {
             },
             success: function(data) {
                 var stream = '/streamsong/'+song.id+'/'+data;
-                console.log('Data: '+data+' Status: '+status);
-                console.log('Stream: '+stream);
                 Player.sendSongToPlayer(song, playSongNow, previousSong, stream);
             },
             error: function(xhr, textStatus, thrownError) {
@@ -363,7 +359,7 @@ function playlistEventHandler(e)
 {
     switch (e) {
         case 'addedPosts':
-            console.log('addedPosts Event Handler: Adding Listeners and highlighting');
+            //console.log('addedPosts Event Handler: Adding Listeners and highlighting');
             articleListeners();
             Playlist.highlight(Playlist.currPost.id);
             break;
@@ -397,7 +393,7 @@ function articleListeners(){
         $('article a').click(function (e) {
             e.stopPropagation();
             if ($(this).attr('class') == 'post-link') {
-                console.log('Post link clicked');
+                //console.log('Post link clicked');
                 e.preventDefault();
                 simulateAnchorClick($(this).attr('href'));
             }

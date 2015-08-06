@@ -20,18 +20,18 @@ function closeNav(){
 function getContent(section)
 {
     loaderFade('in');
-    console.log('Navigating to section: '+section);
+    //console.log('Navigating to section: '+section);
     if (section != '/')
     {
         if(~section.indexOf('/pages/')){
             var page = (section.substr(section.lastIndexOf('/') + 1));
             section = '/pages/get/'+page;
-            console.log('Section for API: '+section);
+            //console.log('Section for API: '+section);
         }
 
         if(~section.indexOf('/playlists/')){
             section = '/partials/get/shuffle/10';
-            console.log('Section for API: '+section);
+            //console.log('Section for API: '+section);
         }
 
         $.ajax({
@@ -42,7 +42,7 @@ function getContent(section)
                 swapContent(data);
             },
             error: function (xhr, textStatus, thrownError) {
-                console.log('Something went to wrong in getContent.');
+                //console.log('Something went to wrong in getContent.');
             }
         });
     }
@@ -56,7 +56,7 @@ function getContent(section)
 
 function swapContent(content)
 {
-    console.log('Swapping content');
+    //console.log('Swapping content');
     Waypoint.destroyAll();
     $('.content').html(content);
     Playlist.events.emitEvent('playlistEvent', ['addedPosts']);
@@ -69,7 +69,7 @@ function swapContent(content)
 function home()
 {
     Playlist.getLatestPosts(function(posts) {
-        console.log('Playlist home function');
+        //console.log('Playlist home function');
         Playlist.clear();
         Playlist.addPostsToPlaylist(posts);
         Playlist.highlight(Playlist.currPost.id);
@@ -101,7 +101,7 @@ $(document).on("click", "a", function(e) {
         var url = $(this).attr("href");
         getContent(url);
         history.pushState(null, null, url);
-        console.log("Pushing State: "+url);
+        //console.log("Pushing State: "+url);
         //History.pushState(null, null, "?state=4");
         //getContent(url);
     }
@@ -126,7 +126,7 @@ $('.title').click(function()
 
 function setActiveLocation(){
     var path = location.pathname;
-    console.log('Set active location: '+path);
+    //console.log('Set active location: '+path);
     var listItems = $(".nav-list li a");
 
     listItems.each(function(idx, link) {
