@@ -236,7 +236,8 @@ Player.prototype = {
             data: {songId:song.id},
             headers: {
                 Accept : "text/plain; charset=utf-8",
-                "Content-Type": "text/plain; charset=utf-8"
+                "Content-Type": "text/plain; charset=utf-8",
+                'Cache-Control': 'no-cache, no-store, must-revalidate, post-check=0, pre-check=0'
             },
             success: function(data) {
                 var stream = '/streamsong/'+song.id+'/'+data;
@@ -256,9 +257,11 @@ Player.prototype = {
             soundManager.unload('track'+Playlist.currPost.id);
         }
 
+        var rando = (Math.floor(Math.random() * (999 - 100 + 1)) + 100);
+
         Player.currSound = soundManager.createSound({
             id: 'track'+song.id,
-            url: stream,
+            url: stream+'?'+rando,
             onplay: function()
             {
                 Player.events.emitEvent('playerEvent', ['play']);
