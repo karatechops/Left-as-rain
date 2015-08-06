@@ -17,9 +17,7 @@ class Stream extends Model {
      */
     public function setToken($token)
     {
-        Session::flush();
-        Session::forget('songToken');
-        Session::set('songToken', $token);
+        Session::flash('songToken', $token);
         return($token);
     }
 

@@ -32,7 +32,9 @@ Route::get('/posts/get/more/{lastLoadedPostId}/{amount?}', 'PostsController@getM
 Route::get('posts/get/shuffle/{amount?}', 'PostsController@getRandomPosts');
 Route::get('partials/get/shuffle/{amount?}', 'PostsController@getRandomPostsPartial');
 
-Route::get('/streamsong/{id}/{token?}', 'StreamController@setupStream');
+//Route::post('/streamsong/{id}/{token?}', 'StreamController@setupStream');
+Route::post('/streamsong/', 'StreamController@setupStream');
+Route::get('/streamsong/{id}/{token?}', 'StreamController@sendStream');
 
 Route::controllers([
 	'auth' => 'Auth\AuthController',

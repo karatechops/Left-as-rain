@@ -230,13 +230,14 @@ Player.prototype = {
     streamSong: function(song, playSongNow, previousSong)
     {
         $.ajax({
-            url: '/streamsong/'+song.id+'/',
+            url: '/streamsong/',
+            type: 'post',
+            data: {songId:song.id},
             cache: false,
-            type: "GET",
             success: function(data) {
-                var randomNum = Math.floor(Math.random() * (999 - 100) + 100);
-                var stream = '/streamsong/'+song.id+'/'+data+'?'+randomNum;
+                var stream = '/streamsong/'+song.id+'/'+data;
                 console.log('Data: '+data+' Status: '+status);
+                console.log('Stream: '+stream);
                 Player.sendSongToPlayer(song, playSongNow, previousSong, stream);
             },
             error: function(xhr, textStatus, thrownError) {
