@@ -262,8 +262,8 @@ Player.prototype = {
         if(Player.currSound.id) soundManager.unload(Player.currSound.id);
 
         Player.currSound = soundManager.createSound({
-            id: 'track'+song.id+'_'+rando,
-            url: stream+'?'+rando,
+            id: 'track'+song.id+'_'+randomString,
+            url: stream+'?'+randomString,
             onplay: function()
             {
                 Player.events.emitEvent('playerEvent', ['play']);
