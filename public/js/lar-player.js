@@ -257,7 +257,9 @@ Player.prototype = {
             soundManager.unload('track'+Playlist.currPost.id);
         }
 
-        var rando = (Math.floor(Math.random() * (999 - 100 + 1)) + 100);
+        var randomString = (Math.floor(Math.random() * (999 - 100 + 1)) + 100);
+
+        if(Player.currSound.id) soundManager.unload(Player.currSound.id);
 
         Player.currSound = soundManager.createSound({
             id: 'track'+song.id+'_'+rando,
