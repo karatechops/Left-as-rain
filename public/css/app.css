@@ -29,6 +29,18 @@ a:hover {
 a:hover {
   color: #00ffff; }
 
+::-moz-selection {
+  background: #00ffff;
+  color: white; }
+
+::selection {
+  background: #00ffff;
+  color: white; }
+
+::-moz-selection {
+  background: #00ffff;
+  color: white; }
+
 nav {
   position: fixed;
   z-index: 50;

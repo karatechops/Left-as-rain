@@ -7,6 +7,8 @@ h1 { color:white; font-size: 1.2rem; margin-bottom:0.3571rem; -webkit-font-smoot
 a, a:focus { color: #fff; @include transition(all, 0.25s, ease-in-out); }
 a:hover { color: $blue; }
 a:hover { color: $blue; }
+::selection { background: $blue; color:white; }
+::-moz-selection { background: $blue; color:white; }
 
 nav {
   position: fixed;

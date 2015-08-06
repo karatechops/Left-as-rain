@@ -9,7 +9,6 @@
 
     <link rel="stylesheet" href="{{ elixir('css/all.css') }}">
 
-    <script src="{{ asset('js/modernizr.js') }}"></script>
 </head>
 <body>
     @include('partials.nav')
@@ -21,13 +20,7 @@
     @include('partials.player')
     <div class="clearfix"></div>
     <div class="shading"></div>
-	<!-- Scripts -->
-	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-	<script src="{{ asset('js/jquery.waypoints.min.js') }}"></script>
-    <script src="{{ asset('js/EventEmitter.js') }}"></script>
-    <script src="{{ asset('/js/soundmanager2.js') }}"></script>
-    <script src="{{ asset('/js/lar-player.js') }}"></script>
-    <script src="{{ asset('/js/lar-nav.js') }}"></script>
-    <script src="{{ asset('/js/lar-search.js') }}"></script>
+
+	<script src="{{ asset('js/app.js') }}"></script>
 </body>
 </html>
