@@ -260,7 +260,7 @@ Player.prototype = {
         var rando = (Math.floor(Math.random() * (999 - 100 + 1)) + 100);
 
         Player.currSound = soundManager.createSound({
-            id: 'track'+song.id,
+            id: 'track'+song.id+'_'+rando,
             url: stream+'?'+rando,
             onplay: function()
             {
