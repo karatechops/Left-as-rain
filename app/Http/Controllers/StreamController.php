@@ -2,7 +2,7 @@
 
 use Requests;
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use Request;
 use Session;
 
 use App\Post;
@@ -12,18 +12,14 @@ use Illuminate\Http\Response;
 
 class StreamController extends Controller {
 
-    public function setupStream(Request $request)
+    public function setupStream($id)
     {
-        if ($request->ajax()) {
+        if (Request::ajax()) {
             $stream = new Stream();
             $token = $stream->setToken(str_random(40));
-            $ts = gmdate("D, d M Y H:i:s") . " GMT";
-            return response($token)
-                ->header('Pragma', 'no-cache')
-                ->header('Cache-Control', 'no-cache, no-store, must-revalidate, post-check=0, pre-check=0')
-                ->header('Vary', 'accept')
-                ->header('Expires', $ts)
-                ->header('Last-Modified', $ts);
+            return response($token);
+        } else{
+            return 'no way jose';
         }
     }
 
@@ -31,24 +27,27 @@ class StreamController extends Controller {
     {
         $stream = new Stream();
 
-        if ($token == $stream->getToken())
-        {
+        //if ($token == $stream->getToken())
+        //{
             $post = Post::find($id);
-            $pathToFile = base_path().'/storage/app/mp3/'.$post->song_path;
-
+            //$pathToFile = base_path().'/storage/app/mp3/'.$post->song_path;
+            //$pathToFile = base_path().'/storage/app/mp3/holy-soul.mp3';
+            $pathToFile = base_path().'/public/mp3/holy-soul.mp3';
+            $fileSize = filesize($pathToFile);
             $name = $post->song_path;
-            $ts = gmdate("D, d M Y H:i:s") . " GMT";
             $headers = array(
-                'Pragma'=>'no-cache',
-                'Cache-Control'=>'no-cache, no-store, must-revalidate, post-check=0, pre-check=0',
                 'Content-Type'=>'audio/mpeg',
-                'Vary'=>'accept',
-                'Expires'=>$ts,
-                'Last-Modified'=>$ts,
+                'Content-Disposition'=>'attachment',
+                'Pragma'=>'no-cache',
+                'Filename'=>$name,
+                'Content-Length'=>$fileSize,
+                'Content-Range'=>'bytes 0-'.$fileSize.'/'.$fileSize,
+                'Connection'=> 'keep-alive',
+
             );
 
             return response()->download($pathToFile, $name, $headers);
-        }
+        //}
     }
 
 }

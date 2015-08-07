@@ -120,11 +120,12 @@ function Player()
     soundManager.setup({
         url: '../swf/',
         flashVersion: 9,
+        preferFlash: true,
         onready: function()
         {
             addListeners();
         },
-        debugMode: false
+        debugMode: true
     });
     this.playedSongs = [];
     this.currSound = soundManager.createSound;
@@ -229,14 +230,8 @@ Player.prototype = {
     streamSong: function(song, playSongNow, previousSong)
     {
         $.ajax({
-            url: '/streamsong/',
-            type: 'post',
-            data: {songId:song.id},
-            headers: {
-                Accept : "text/plain; charset=utf-8",
-                "Content-Type": "text/plain; charset=utf-8",
-                'Cache-Control': 'no-cache, no-store, must-revalidate, post-check=0, pre-check=0'
-            },
+            url: '/streamsong/'+song.id,
+            type: 'get',
             success: function(data) {
                 var stream = '/streamsong/'+song.id+'/'+data;
                 Player.sendSongToPlayer(song, playSongNow, previousSong, stream);
@@ -259,7 +254,8 @@ Player.prototype = {
 
         Player.currSound = soundManager.createSound({
             id: 'track'+song.id+'_'+randomString,
-            url: stream+'?'+randomString,
+            url: '/streamsong/1/a'+'?'+randomString,
+            type: 'audio/mp3',
             onplay: function()
             {
                 Player.events.emitEvent('playerEvent', ['play']);
@@ -382,7 +378,6 @@ function articleListeners(){
                     mySound1.stop();
                     soundManager.unload('init');
                 };
-
 
                 var songId = $(this).attr('id');
                 Player.getSong(songId);
