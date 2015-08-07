@@ -30,9 +30,9 @@ class StreamController extends Controller {
         //if ($token == $stream->getToken())
         //{
             $post = Post::find($id);
-            //$pathToFile = base_path().'/storage/app/mp3/'.$post->song_path;
+            $pathToFile = base_path().'/storage/app/mp3/'.$post->song_path;
             //$pathToFile = base_path().'/storage/app/mp3/holy-soul.mp3';
-            $pathToFile = base_path().'/public/mp3/holy-soul.mp3';
+            //$pathToFile = base_path().'/public/mp3/holy-soul.mp3';
             $fileSize = filesize($pathToFile);
             $name = $post->song_path;
             $headers = array(
