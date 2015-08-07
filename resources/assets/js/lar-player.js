@@ -254,7 +254,7 @@ Player.prototype = {
         Player.currSound = soundManager.createSound({
             id: 'track'+song.id+'_'+randomString,
             //url: '/streamsong/1/a'+'?'+randomString,
-            url: 'http://leftasrain.com/musica/holy-soul.mp3',
+            url: 'http://leftasrain.com/musica/Business_Park.mp3',
             type: 'audio/mp3',
             onplay: function()
             {
