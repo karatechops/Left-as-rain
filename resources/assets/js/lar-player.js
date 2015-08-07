@@ -120,7 +120,6 @@ function Player()
     soundManager.setup({
         url: '../swf/',
         flashVersion: 9,
-        preferFlash: true,
         onready: function()
         {
             addListeners();
@@ -251,10 +250,11 @@ Player.prototype = {
         var randomString = (Math.floor(Math.random() * (999 - 100 + 1)) + 100);
 
         if(Player.currSound.id) soundManager.unload(Player.currSound.id);
-
+        console.log(song.song_path);
         Player.currSound = soundManager.createSound({
             id: 'track'+song.id+'_'+randomString,
-            url: '/streamsong/1/a'+'?'+randomString,
+            //url: '/streamsong/1/a'+'?'+randomString,
+            url: 'http://left-as-rain.dev/mp3/holy-soul.mp3',
             type: 'audio/mp3',
             onplay: function()
             {
@@ -372,10 +372,14 @@ function articleListeners(){
                 if(typeof Player.currSound.playState === 'undefined'){
                     var mySound1 = soundManager.createSound({
                         id: 'init',
-                        url: '/mp3/blank.mp3'
+                        url: '/mp3/blank.mp3',
+                        autoplay: true,
+                        onfinish: function()
+                        {
+                            Player.events.emitEvent('playerEvent', ['next']);
+                            Player.getNextSong(Playlist.currPost.id, true);
+                        }
                     });
-                    mySound1.play();
-                    mySound1.stop();
                     soundManager.unload('init');
                 };
 
