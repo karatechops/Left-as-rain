@@ -124,7 +124,7 @@ function Player()
         {
             addListeners();
         },
-        debugMode: true
+        debugMode: false
     });
     this.playedSongs = [];
     this.currSound = soundManager.createSound;
@@ -254,7 +254,7 @@ Player.prototype = {
         Player.currSound = soundManager.createSound({
             id: 'track'+song.id+'_'+randomString,
             url: stream,
-            type: 'audio/mp3',
+            type: 'audio/mpeg',
             onplay: function()
             {
                 Player.events.emitEvent('playerEvent', ['play']);
@@ -373,17 +373,23 @@ function articleListeners(){
                         id: 'init',
                         url: '/mp3/blank.mp3',
                         autoplay: true,
+                        onplay: function()
+                        {
+                            console.log('playing')
+                        },
                         onfinish: function()
                         {
-                            Player.events.emitEvent('playerEvent', ['next']);
-                            Player.getNextSong(Playlist.currPost.id, true);
+                            //Player.events.emitEvent('playerEvent', ['next']);
+                            //Player.getNextSong(Playlist.currPost.id, true);
                         }
                     });
+                    mySound1.play();
                     soundManager.unload('init');
                 };
 
                 var songId = $(this).attr('id');
                 Player.getSong(songId);
+
             }
 
         });
