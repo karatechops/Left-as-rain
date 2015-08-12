@@ -7,6 +7,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}" />
 	<title>Left as rain | Impossibly Chill</title>
 
+    <script src="{{ asset('js/modernizr.min.js') }}"></script>
     <link rel="stylesheet" href="{{ elixir('css/all.css') }}">
 
 </head>
