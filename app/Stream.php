@@ -19,7 +19,7 @@ class Stream extends Model {
      */
     public function setToken($token)
     {
-        Session::flash('songToken', $token);
+        Session::set('songToken', $token);
         return($token);
     }
 
@@ -29,13 +29,14 @@ class Stream extends Model {
     public function getToken()
     {
         return(Session::get('songToken'));
+        Session::forget('songToken');
     }
 
     public function sendStream($id)
     {
         $post = Post::find($id);
-        $pathToFile = base_path().'/storage/app/mp3/'.$post->song_path;
-        //$pathToFile = base_path().'/storage/app/mp3/holy-soul.mp3';
+        //$pathToFile = base_path().'/storage/app/mp3/'.$post->song_path;
+        $pathToFile = base_path().'/storage/app/mp3/holy-soul.mp3';
         $fileSize = filesize($pathToFile);
         $name = $post->song_path;
         $headers = array(
@@ -45,7 +46,6 @@ class Stream extends Model {
             'Expires'=> 0,
             'Cache-Control'=> 'must-revalidate, post-check=0, pre-check=0',
             'Filename'=>$name,
-            'Content-Length'=>$fileSize,
             'Connection'=> 'keep-alive'
         );
 
