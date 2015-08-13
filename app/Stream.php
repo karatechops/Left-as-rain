@@ -35,8 +35,8 @@ class Stream extends Model {
     public function sendStream($id)
     {
         $post = Post::find($id);
-        //$pathToFile = base_path().'/storage/app/mp3/'.$post->song_path;
-        $pathToFile = base_path().'/storage/app/mp3/holy-soul.mp3';
+        $pathToFile = base_path().'/storage/app/mp3/'.$post->song_path;
+        //$pathToFile = base_path().'/storage/app/mp3/holy-soul.mp3';
         $fileSize = filesize($pathToFile);
         $name = $post->song_path;
         $headers = array(
