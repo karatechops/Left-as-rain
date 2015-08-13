@@ -29,7 +29,7 @@ class Stream extends Model {
     public function getToken()
     {
         return(Session::get('songToken'));
-        Session::forget('songToken');
+        Session::set('songToken', 'xxx');
     }
 
     public function sendStream($id)
