@@ -46,6 +46,7 @@ class Stream extends Model {
             'Expires'=> 0,
             'Cache-Control'=> 'must-revalidate, post-check=0, pre-check=0',
             'Filename'=>$name,
+            'Content-Length'=>$fileSize,
             'Connection'=> 'keep-alive'
         );
 
