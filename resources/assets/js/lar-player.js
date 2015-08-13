@@ -163,11 +163,10 @@ Player.prototype = {
         if (Player.playedSongs.length > 1){
             var getString = '/posts/get/'+Player.playedSongs[1].id;
             $.get( getString, function( post ) {
-                Player.sendSongToPlayer(post, true, true);
+                Player.streamSong(post, true, true);
             });
             Player.playedSongs.splice(1,1);
         }
-        console.table(Player.playedSongs);
     },
 
     setPlayerInfo: function(title, cover){
@@ -250,7 +249,6 @@ Player.prototype = {
         var randomString = (Math.floor(Math.random() * (999 - 100 + 1)) + 100);
 
         if(Player.currSound.id) soundManager.unload(Player.currSound.id);
-        console.log(song.song_path);
         Player.currSound = soundManager.createSound({
             id: 'track'+song.id+'_'+randomString,
             url: stream,
@@ -375,7 +373,6 @@ function articleListeners(){
                         autoplay: true,
                         onplay: function()
                         {
-                            console.log('playing')
                         },
                         onfinish: function()
                         {
