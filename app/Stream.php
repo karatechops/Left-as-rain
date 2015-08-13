@@ -19,7 +19,7 @@ class Stream extends Model {
      */
     public function setToken($token)
     {
-        Session::put('songToken', $token);
+        Session::flash('songToken', $token);
         return($token);
     }
 
@@ -29,7 +29,6 @@ class Stream extends Model {
     public function getToken()
     {
         return(Session::get('songToken'));
-        Session::flush();
     }
 
     public function sendStream($id)
