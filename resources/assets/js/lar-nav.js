@@ -126,7 +126,6 @@ $('.title').click(function()
 
 function setActiveLocation(){
     var path = location.pathname;
-    //console.log('Set active location: '+path);
     var listItems = $(".nav-list li a");
 
     listItems.each(function(idx, link) {

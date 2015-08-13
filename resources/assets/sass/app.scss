@@ -176,6 +176,19 @@ ul.search-list{
     position:relative;
     margin-right:320px;
 
+    .featured {
+      .article-inner {
+        h1 {
+          font-size: 1.5rem !important;
+        }
+        .copy {
+          line-height: 1.9rem !important;
+          font-size:17px !important;
+          color: rgba(221, 221, 221, .9);
+        }
+      }
+    }
+
       article {
         margin-bottom:45px;
         position:relative;

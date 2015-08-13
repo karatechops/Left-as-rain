@@ -86,7 +86,7 @@ class PostsController extends Controller {
     {
         $post = Post::where('slug', $slug)->get();
         $posts = Post::where('id', '<=', $post[0]->id)->orderBy('id', 'desc')->get()->take($amount);
-        return (Request::ajax()) ? view('partials.posts', compact('posts')) : view('pages.home', compact('posts'));
+        return (Request::ajax()) ? view('partials.posts-featured', compact('posts')) : view('pages.home-featured', compact('posts'));
     }
 
     /**
