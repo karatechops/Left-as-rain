@@ -25,7 +25,7 @@ class StreamController extends Controller {
             }
         }
 
-        if ($token ==  Session::get('songToken') ) {
+        if ($token ==  $stream->getToken() ) {
             return($stream->sendStream($id));
         }
     }
