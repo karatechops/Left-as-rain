@@ -6,6 +6,7 @@ use App\Post;
 use App\Page;
 
 use Request;
+use Session;
 
 class PagesController extends Controller {
 

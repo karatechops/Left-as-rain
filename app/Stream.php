@@ -28,15 +28,21 @@ class Stream extends Model {
      */
     public function getToken()
     {
-        return(Session::get('songToken'));
-        Session::set('songToken', 'xxx');
+        $token = Session::get('songToken');
+        return($token);
+    }
+
+
+    public function destroyToken()
+    {
+        Session::forget('songToken');
     }
 
     public function sendStream($id)
     {
         $post = Post::find($id);
-        $pathToFile = base_path().'/storage/app/mp3/'.$post->song_path;
-        //$pathToFile = base_path().'/storage/app/mp3/holy-soul.mp3';
+        //$pathToFile = base_path().'/storage/app/mp3/'.$post->song_path;
+        $pathToFile = base_path().'/storage/app/mp3/holy-soul.mp3';
         $fileSize = filesize($pathToFile);
         $name = $post->song_path;
         $headers = array(
@@ -50,6 +56,7 @@ class Stream extends Model {
         );
 
         return response()->download($pathToFile, $name, $headers);
+
     }
 
 

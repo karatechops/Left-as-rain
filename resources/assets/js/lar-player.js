@@ -1,8 +1,7 @@
 $.ajaxSetup({
     headers: {
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-    },
-    cache: false
+    }
 });
 
 function Playlist (playlistDiv)
@@ -230,6 +229,7 @@ Player.prototype = {
         $.ajax({
             url: '/streamsong/'+song.id,
             type: 'get',
+            cache: 'true',
             success: function(data) {
                 var stream = '/streamsong/'+song.id+'/'+data;
                 Player.sendSongToPlayer(song, playSongNow, previousSong, stream);
