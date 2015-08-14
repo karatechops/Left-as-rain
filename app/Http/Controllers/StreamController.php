@@ -46,10 +46,10 @@ class StreamController extends Controller {
                 'Cache-Control'=> 'must-revalidate, post-check=0, pre-check=0',
                 'Filename'=>$name,
                 'Content-Length'=>$length,
-                'Content-Range'=>'bytes '.$start.'-'.$end.'/'.$size,
                 'Connection'=> 'keep-alive'
             );
 
+            //'Content-Range'=>'bytes '.$start.'-'.$end.'/'.$size,
             return response()->download($pathToFile, $name, $headers);
         }
     }
