@@ -53,15 +53,20 @@ class Stream extends Model {
             'Content-Type'=>'audio/mpeg',
             'Pragma'=>'public',
             'Content-Transfer-Encoding' => 'binary',
-            'Accept-Ranges' => 'bytes',
-            'Accept-Encoding' => 'gzip,deflate,sdch',
             'Expires'=> 0,
             'Cache-Control'=> 'must-revalidate, post-check=0, pre-check=0',
             'Filename'=>$name,
             'Content-Length'=>$length,
-            'Content-Range'=>'bytes '.$start.'-'.$end.'/'.$size,
             'Connection'=> 'keep-alive'
         );
+
+        /*
+         *
+            'Accept-Encoding' => 'gzip,deflate,sdch',
+        'Content-Range'=>'bytes '.$start.'-'.$end.'/'.$size,
+
+            'Accept-Ranges' => 'bytes',
+         */
 
         return response()->download($pathToFile, $name, $headers);
 
