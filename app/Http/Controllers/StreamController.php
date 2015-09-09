@@ -29,7 +29,5 @@ class StreamController extends Controller {
             return($stream->sendStream($id));
         }
     }
-
-
 }
 
