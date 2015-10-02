@@ -1,4 +1,6 @@
 <?php $i = 0 ?>
+<?php $title = ' | '.$posts[0]->title; ?>
+@section('title', $title)
 
 @foreach($posts as $post)
 

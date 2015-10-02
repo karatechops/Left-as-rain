@@ -8,7 +8,7 @@
     <meta property="fb:admins" content="39601694"/>
     <meta property="fb:app_id" content="382016265209375"/>
     <meta property="og:image" content="http://leftasrain.com/img/lar_200.jpg"/>
-    <meta property="og:title" content="left as rain | Impossibly Chill"/>
+    <meta property="og:title" content="left as rain | Impossibly Chill @yield('title')"/>
     <meta property="og:type" content="blog"/>
     <meta property="og:description" content="A place for Chris Thomas and Alex Mejias to share their feelings."/>
     <meta property="og:url" content="http://www.leftasrain.com/"/>
