@@ -280,6 +280,12 @@ ul.search-list{
   margin-right:5px;
   .side-bar-content {
     margin:10px;
+
+    .feature {
+      width: 300px;
+      height: 250px;
+      background: url('../img/banner-test.jpg');
+    }
     p {
       letter-spacing: .05em;
       text-align: right;
