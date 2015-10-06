@@ -253,7 +253,7 @@ ul.search-list li {
     .side-bar .side-bar-content .feature {
       width: 300px;
       height: 250px;
-      background: url("../img/banner-test.jpg"); }
+      background: url("../../assets/img/banner-test.jpg"); }
     .side-bar .side-bar-content p {
       letter-spacing: .05em;
       text-align: right; }
