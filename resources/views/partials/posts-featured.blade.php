@@ -1,7 +1,7 @@
 <?php $i = 0 ?>
 <?php $title = ' | '.$posts[0]->title; ?>
 @section('title', $title)
-
+@section('description', $posts[0]->description)
 @foreach($posts as $post)
 
     <article id="{{ $post->id }}" class="post @if($i == 0) featured @endif">

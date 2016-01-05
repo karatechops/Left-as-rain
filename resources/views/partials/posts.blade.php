@@ -1,3 +1,4 @@
+
 @foreach($posts as $post)
     <article id="{{ $post->id }}" class="post">
         <div class="article-inner">
