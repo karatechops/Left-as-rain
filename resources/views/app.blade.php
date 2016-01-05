@@ -8,16 +8,14 @@
     <meta property="fb:admins" content="39601694"/>
     <meta property="fb:app_id" content="382016265209375"/>
     <meta property="og:image" content="http://leftasrain.com/img/lar_200.jpg"/>
-    <meta property="og:title" content="left as rain | Impossibly Chill @yield('title')"/>
+    <meta property="og:title" content="left as rain <?php echo empty(e($__env->yieldContent('title'))) ? '| Impossibly Chill' : trim(e($__env->yieldContent('title'))); ?>"/>
     <meta property="og:type" content="blog"/>
     <meta property="og:description" content="A place for Chris Thomas and Alex Mejias to share their feelings."/>
     <meta property="og:url" content="http://www.leftasrain.com/"/>
     <meta name="description" content="A place where Chris Thomas and Alex Mejias share their feelings while playing marginally okay music."/>
     <meta name="google-site-verification" content="PsQQ2QhNwci1R9hrcSLLwAywc4dwGCmT9jp9cpe3XAs" />
-    <title>Left as rain | Impossibly Chill</title>
-
+    <title>Left as rain <?php echo empty(e($__env->yieldContent('title'))) ? '| Impossibly Chill' : trim(e($__env->yieldContent('title'))); ?></title>
     <link rel="stylesheet" href="{{ elixir('css/all.css') }}">
-
 </head>
 <body>
     @include('partials.nav')
