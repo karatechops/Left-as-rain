@@ -10,7 +10,7 @@
     <meta property="og:image" content="http://leftasrain.com/img/lar_200.jpg"/>
     <meta property="og:title" content="left as rain <?php echo empty(e($__env->yieldContent('title'))) ? '| Impossibly Chill' : trim(e($__env->yieldContent('title'))); ?>"/>
     <meta property="og:type" content="blog"/>
-    <meta property="og:description" content="@yield('description', 'A place for Chris Thomas and Alex Mejias to share their feelings.')"/>
+    <meta property="og:description" content="@yield('description_meta', 'A place for Chris Thomas and Alex Mejias to share their feelings.')"/>
     <meta property="og:url" content="{{ isset($url) ? $url : Request::url() }}"/>
     <meta name="description" content="A place where Chris Thomas and Alex Mejias share their feelings while playing marginally okay music."/>
     <meta name="google-site-verification" content="PsQQ2QhNwci1R9hrcSLLwAywc4dwGCmT9jp9cpe3XAs" />
