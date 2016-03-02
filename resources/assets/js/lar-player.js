@@ -273,6 +273,8 @@ Player.prototype = {
 
         });
 
+        //Player.currSound.addEventListener('ended', function(){console.log('song ended');}, false);
+
         Playlist.currPost = song;
         if (playSongNow && !previousSong ) Player.playedSongs.unshift(Playlist.currPost);
         Player.setPlayerInfo(unescape(song.title), song.cover);

@@ -5,6 +5,9 @@ use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Contracts\Auth\Registrar;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 
+use Validator;
+use App\User;
+
 class AuthController extends Controller {
 
 	/*
